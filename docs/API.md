@@ -1,6 +1,6 @@
 # Last Sentence API
 
-The default build is a keyless fixture replay. It performs no model or search calls. The Worker serves the generated `dist/` assets (web plus documents) and same-origin `/api/*` routes. Its code is prepared for deployment; no account, deployment or actual model execution is implied by these files.
+The deployed build is a keyless recorded/fixture replay. It performs no model or search calls. The [canonical Worker](https://last-sentence.felix-market-radar.workers.dev) serves the generated `dist/` assets (web plus documents) and same-origin `/api/*` routes. [Cloudflare Pages](https://last-sentence.pages.dev) is a static keyless mirror; [the public repository](https://github.com/testofschool/last-sentence) has an MIT license. Public UI/assets and API status were verified on October 30, 2026 KST. Actual Nemotron/Tavily runtime execution remains **UNRUN**: `~/.nebius_key` is absent and inference remains disabled. Real Nemotron inference is directly authorized up to $3 total; refresh catalog prices and inspect remaining shared reservations before execution.
 
 ## Run and configure
 
@@ -11,7 +11,7 @@ npm run dev --prefix worker
 
 The `predev` and `precheck` hooks run `scripts/build.mjs` to refresh `dist/`, including document links, before preview or dry-run packaging. `npm run build` at the project root performs the same static assembly.
 
-`worker/wrangler.jsonc` keeps `ENABLE_LIVE=false`. Copy `worker/.dev.vars.example` to ignored `.dev.vars` for local Worker development. Configure server secrets `NEBIUS_API_KEY`, `SEOUL_RT_KEY` (`SAMPLE` opts into the public five-train sample), `TAVILY_API_KEY`, and a strong `LIVE_ACCESS_TOKEN` when authorized. Set `ENABLE_LIVE=true` explicitly. For a later production deployment, use Wrangler secret storage. A key file being present does not automatically enable inference.
+`worker/wrangler.jsonc` keeps `ENABLE_LIVE=false`. Copy `worker/.dev.vars.example` to ignored `.dev.vars` for local Worker development. Configure server secrets `NEBIUS_API_KEY`, `SEOUL_RT_KEY` (`SAMPLE` opts into the public five-train sample), `TAVILY_API_KEY`, and a strong `LIVE_ACCESS_TOKEN` when authorized. Set `ENABLE_LIVE=true` explicitly. For the deployed Worker, use Wrangler secret storage. A key file being present does not automatically enable inference.
 
 Every live request requires `Authorization: Bearer <LIVE_ACCESS_TOKEN>`. This is an application session credential, never a provider key. Keep it in browser session memory and out of URLs and static assets. Same-origin requests work by default; an optional `ALLOWED_ORIGIN` must exactly match a separately hosted frontend. Cross-origin requests otherwise receive 403. The Node local preview can route `core.js` with an empty environment to retain the same disabled status semantics.
 

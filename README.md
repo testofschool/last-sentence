@@ -2,7 +2,9 @@
 
 A story that is intended to finish at your subway stop. Select a destination, follow the sentence stream, and inspect how the available time changes the story.
 
-**Current build: working local recorded/fixture replay and prepared connected-model API; real Nemotron/Tavily inference, live timed narration and public deployment are unverified.** Stories are hand-authored until connected generation is explicitly selected. Recorded replay uses known provider timestamps; synthetic fixtures are separate. It needs no account or keys. It is not evidence of ±30-second performance on a train.
+**Current build: public keyless recorded/fixture replay and deployed same-origin API; real Nemotron/Tavily inference and live timed narration remain UNRUN.** Stories are hand-authored until connected generation is explicitly selected. Recorded replay uses known provider timestamps; synthetic fixtures are separate. It needs no account or keys. It is not evidence of ±30-second performance on a train.
+
+[Open the demo](https://last-sentence.felix-market-radar.workers.dev) · [Public MIT source](https://github.com/testofschool/last-sentence) · [UI specification](docs/UI_SPEC.md). The Worker URL is the canonical same-origin UI/API deployment. [Cloudflare Pages](https://last-sentence.pages.dev) is a static keyless mirror. Public UI, asset and UI-spec responses were checked against the local source on October 30, 2026 KST; deployment does not establish runtime model use.
 
 ```sh
 cd ~/dev/last-sentence
@@ -52,14 +54,14 @@ The local server binds to `127.0.0.1` and never loads credentials. It serves `/a
 
 The full **30-journey × 3-policy + 2-language** plan has a conservative bound of **$2.60596288 / 1,370 completions** at the checked prices. It fits the $3 guard with an explicitly configured 2,048-completion Worker ceiling and enforced 16,384-token input envelope. The default 300-completion setting still refuses the full plan. Reduced plans are optional diagnostics; the original balanced 10-journeys-per-line comparison remains the target. A bound is not actual spend or a reservation, and no inference experiment has run.
 
-[Results](docs/RESULTS.md) separate deterministic scheduling tests from observed train records and real inference. A guarded model-backed timing-simulation runner is prepared for an explicitly approved, authenticated run; it retains actual model receipts while labeling character-rate speech timing as simulation. Actual browser-speech results require separately recorded events. [Limitations](docs/LIMITATIONS.md) explain the gaps. [Prior art](docs/PRIOR_ART.md) includes systems that already adapt stories to journeys; no novelty or superiority claim follows from this prototype.
+[Results](docs/RESULTS.md) separate deterministic scheduling tests from observed train records and real inference. Real Nemotron inference is directly authorized up to **$3 total**, but `~/.nebius_key` is absent and inference remains disabled. Refresh pricing and inspect remaining reservations before execution. A guarded model-backed timing-simulation runner is prepared for that authenticated run; it retains actual model receipts while labeling character-rate speech timing as simulation. Actual browser-speech results require separately recorded events. [Limitations](docs/LIMITATIONS.md) explain the gaps. [Prior art](docs/PRIOR_ART.md) includes systems that already adapt stories to journeys; no novelty or superiority claim follows from this prototype.
 
 `REPORT.md` records acceptance A1–A7, P1–P12 and remaining gates. [Feedback](docs/FEEDBACK.md) contains only observations that were actually made. [Runbook](docs/RUNBOOK.md) lists the next steps needed for a model-backed, reviewable release; [video script](docs/VIDEO_SCRIPT.md) is a draft using the current evidence boundary.
 
 ## 한국어
 
-목적지에 도착할 때 끝나는 이야기를 실험하는 로컬 프로토타입입니다. 직접 쓴 예시 문장에 실제 열차의 기록된 시각이나 별도의 합성 시간표를 연결해 재생합니다. 화면의 종료 오차를 실제 문 열림 시각이나 앞으로의 도착 예측 성능으로 해석하면 안 됩니다.
+목적지에 도착할 때 끝나는 이야기를 실험하는 공개 프로토타입입니다. 직접 쓴 예시 문장에 실제 열차의 기록된 시각이나 별도의 합성 시간표를 연결해 재생합니다. 화면의 종료 오차를 실제 문 열림 시각이나 앞으로의 도착 예측 성능으로 해석하면 안 됩니다.
 
-현재 Nemotron·Tavily 실제 호출, 실시간 운행에 맞춘 이야기 생성, 공개 배포와 제출은 완료되지 않았습니다. 기록이 부족한 역 구간은 검증된 ETA로 표시하지 않습니다. API 키는 브라우저나 Git에 넣지 않습니다.
+GitHub 공개 저장소와 Cloudflare 배포는 확인했습니다. Worker가 화면과 API를 함께 제공하며, Pages는 키 없는 정적 미러입니다. 실제 Nemotron 호출은 총 $3 한도로 직접 승인되었지만 키가 없어 추론이 꺼져 있습니다. Nemotron·Tavily 실제 호출, 실시간 운행에 맞춘 이야기 생성, 영상과 제출은 아직 완료되지 않았습니다. 기록이 부족한 역 구간은 검증된 ETA로 표시하지 않습니다. API 키는 브라우저나 Git에 넣지 않습니다.
 
 MIT · felix · 2026

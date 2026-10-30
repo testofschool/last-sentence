@@ -1,0 +1,25 @@
+{
+  "timestamp_kst": "2026-10-30T16:06:17.907222+09:00",
+  "repository_url": "https://github.com/testofschool/last-sentence",
+  "repository_public": true,
+  "license": "MIT",
+  "worker_url": "https://last-sentence.felix-market-radar.workers.dev",
+  "worker_verified": true,
+  "pages_url": "https://last-sentence.pages.dev",
+  "pages_verified": true,
+  "canonical_demo": "Worker same-origin UI+API",
+  "pages_mode": "static keyless mirror; API routes live on Worker",
+  "actual_inference_calls": 0,
+  "actual_spend_usd": 0,
+  "public_api_mode": "replay-only",
+  "tested_public_commit": "a8bea171fb9a1d1f2025bc6778c231ab8345aec8",
+  "public_clone_tests": {
+    "python_pass": 159,
+    "node_pass": 104,
+    "fail": 0,
+    "skip": 0
+  },
+  "web_source_snapshot": "9965c12dee396fbf763a21504428a8b859b6fbc0",
+  "proposal_pdf_kept_private": true,
+  "evidence_scope": "Public HTTP/body and fresh-clone tests; not runtime model or door-opening results."
+}

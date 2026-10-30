@@ -194,3 +194,30 @@ The overall handoff remains incomplete pending external authorization, credentia
 ## §9-v2 Direct authorization and public release continuation
 
 The user directly approved public GitHub + Cloudflare publication and real Nebius inference with a total cap of $3 in this chat. This supersedes the pending-authorization status in the timestamped §0-v2/§8-v2 local-preparation snapshot. Nebius/Tavily key files are still absent at release start; no runtime inference is claimed. Public release is now being executed and verified.
+
+
+## §10-v2 Observed public release and final proposal · 2026-10-30T16:08:31.383637+09:00
+
+Publication is complete for the current keyless build. This supersedes earlier pending-publication entries, which remain historical snapshots. Actual inference is still blocked only by the missing Nebius credential; the user's direct $3 total inference authorization remains valid.
+
+| Acceptance | Observed evidence |
+| --- | --- |
+| Public source | https://github.com/testofschool/last-sentence ; public, MIT, default branch main. First tested public commit `a8bea171fb9a1d1f2025bc6778c231ab8345aec8`. |
+| Canonical service | https://last-sentence.felix-market-radar.workers.dev ; signed-out curl HTTP 200, title Last Sentence. UI and `/api/*` share the Worker origin. |
+| Pages mirror | https://last-sentence.pages.dev ; signed-out HTTP 200, static keyless mirror. API calls use the canonical Worker when explicitly connected. |
+| Public status | `/api/status`: HTTP 200, mode `replay-only`, inference_enabled false, receipt-v2; `/api/position?line=2호선`: HTTP 200, mode `replay-forced`. This is the disabled-path JSON contract, not a successful live-position/model claim. |
+| Served content | Root HTML, style.css, app.js and docs/UI_SPEC.md matched local source byte-for-byte on Worker and Pages: 8/8 comparisons. Later documentation-only publication is checked separately. |
+| Public clone | New unauthenticated HTTPS clone with credential helper/auth-token environment disabled. Local HEAD, public HEAD/main and clone HEAD all matched `a8bea171`; npm ci/build exit 0; Python159 + Node104 passed, 0 failed/skipped, clone clean. No application/test source changed afterward. |
+| Public capture set | Actual Worker URLs, 2호선 신도림→합정, recorded replay ×16, authored text, sound off. Desktop1440×900 and mobile390×844 at DPR2; 4 PNGs with 4 sidecars including exact file hashes. Browser errors0 and horizontal overflow false. Empty Receipts panel remains0 calls; ≥3 real-call condition is unmet. |
+| UI contract | Source-derived spec unchanged, spec gate0 FAIL/1 WARN. Existing-page hook failures H1/H2/H4 remain open design findings; no UI redesign was performed. |
+| Private proposal | 2 A4 pages, 3 public screenshot images, 3 actual links, 75 embedded font resources, gate9/9; all three PDF link destinations HTTP200; complete render/DOM review found0 overflow/footer overlaps. Model calls0, spend$0 and `예시값 · 실측 아님` captions retained. |
+
+The Pages CLI initially delegated `pages project create` to a Worker deployment. The subsequent Pages upload reported `The Pages project "last-sentence" does not exist.` Installed Wrangler source confirmed a direct-project-create opt-out; `pages project create ... --force` created the specified Pages project without replacing any existing site, then ordinary `pages deploy ../dist --project-name last-sentence --branch main` succeeded. Worker configuration was ignored for the static Pages upload, as expected. Both resulting public services were independently probed. Logs are retained privately; no account identifiers or credentials were copied into public evidence.
+
+The default Python HTTPS client failed its local certificate-chain lookup during the first unauthenticated probe. Normal `curl` certificate validation and Playwright HTTPS navigation succeeded; no TLS-verification bypass was used for publication acceptance or captures. The failed Python probe is retained separately and not reported as a server TLS failure.
+
+Final private PDF SHA-256: `50d110c3d2089e989c672298163aa00006c317f77c1e47fe9a0aa61b5c9e3489`. PDF, contact line, fill/provenance, source ZIP, screenshots, page renders and designer review ZIP stay under `/Users/felix/dev/last-sentence-proposal/`; none was added to the public repository. Original supplied out.pdf remains unchanged.
+
+Additional document changes in this publication: README.md, docs/API.md, docs/LIMITATIONS.md and docs/RUNBOOK.md now link the actual services and preserve runtime UNRUN; evidence/public_release.json records compact public evidence. REPORT.md is append-only; SHA256SUMS.txt covers the new source/document snapshot. No web/, Worker behavior or test implementation changed.
+
+Remaining requirements: authenticated Lightning smoke; reduced matrix; conditional full matrix within residual time/cost/call allowance; controlled Korean feedback; receipt-derived results/feedback; actual-call Receipts capture and measured proposal update. Each still requires the Nebius key. Optional Tavily key is absent (`tavily_ok=false`). No model credentials, promo balance or runtime success are inferred from publication. The full handoff goal remains incomplete. PDF sending, video and Devpost submission remain human actions and were not performed.
