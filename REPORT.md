@@ -189,3 +189,8 @@ Release configuration review: merely uploading NEBIUS_API_KEY does not enable in
 Files changed in repository: `docs/UI_SPEC.md` (new), `REPORT.md` (append only), `SHA256SUMS.txt` (regenerated to cover new documentation). Generated ignored `dist/` and Worker dry-run output refreshed. Private proposal files include source package, capture/preparation/finalization scripts, fill + provenance, derived local template, screenshots + sidecars, evidence logs and final PDF/renders. Playwright Chromium cache was installed. No changes in the unrelated hackathon workspace and no application source/behavior edits.
 
 The overall handoff remains incomplete pending external authorization, credentials, observed public acceptance and real-runtime evidence. H5 sending, video and Devpost submission were not requested as actions in this chat and have not been performed.
+
+
+## §9-v2 Direct authorization and public release continuation
+
+The user directly approved public GitHub + Cloudflare publication and real Nebius inference with a total cap of $3 in this chat. This supersedes the pending-authorization status in the timestamped §0-v2/§8-v2 local-preparation snapshot. Nebius/Tavily key files are still absent at release start; no runtime inference is claimed. Public release is now being executed and verified.
