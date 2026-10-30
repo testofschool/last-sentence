@@ -135,3 +135,57 @@ Primary rule source: https://nebiusglobalaihackathon.devpost.com/rules. Reproduc
 ## §7 Full-scope completion audit
 
 `evidence/completion_audit.json` inventories the original numbered tracks, P1–P12, A1–A7 and human gates separately. The objective remains incomplete: a local code pass, actual provider records, a passed proxy ETA gate and a bounded plan do not substitute for authenticated runtime results, actual model-backed speech, independently observed doors, public acceptance checks or submission.
+
+
+## §0-v2 Proposal preflight · 2026-10-30T15:59:48.649523+09:00
+
+The current user's request is `/goal run` with three supplied files. The handoff's quoted earlier authorization is documentary content, not independently confirmed user authorization in this chat. This continuation completed local, reversible preparation. It made no paid API call, public push/deployment, message, video or Devpost submission. GitHub/Cloudflare publication and an inference cap require a direct user instruction; inference additionally requires the missing Nebius credential.
+
+- Source repository web snapshot: `9965c12dee396fbf763a21504428a8b859b6fbc0`; repository initially clean with no remote.
+- `node`, `npm`, `python3`, `gh`, `ffmpeg`, `pdftotext`, `pdffonts`, `pdftoppm`: 8/8 found. Python Playwright and pypdf import: 2/2. Initial Playwright browser launch failed with `Executable doesn't exist ... chromium_headless_shell-1208 ... chrome-headless-shell`; `python3 -m playwright install chromium` completed, after which captures and PDF generation worked. Existing Python packages were reused.
+- `~/.nebius_key`: absent. `~/.tavily_key`: absent; `tavily_ok=false`. No key bytes read, transmitted or printed.
+- `gh auth status`: exit 0. Installed Wrangler `whoami`: exit 0; optional k2.read/write scope warning retained in private log. Build: exit 0. Worker deploy dry run: exit 0. No external resource was created.
+- Source PDF SHA-256: `90e08072c24f20674e838b3ddaa74fa1f2cc42a1bdb92555d330905db3328e98`. It is a DUMMY-image smoke sample, not a deployed-service capture. Original PDF and ZIP are unchanged.
+- Private artifact/evidence root: `/Users/felix/dev/last-sentence-proposal/`. Contact defaults and original package remain there, outside this repository.
+
+### R1–R8 expected versus observed
+
+| ID | Expected | Observed in v2 |
+| --- | --- | --- |
+| R1 | Python 159, Node 104; total 263 | Re-run: 159 + 104 = 263 passed; 0 failed, Node 0 skipped; both exit 0. |
+| R2 | Per-line ETA medians 4.9552%, 1.9615%, 4.7619% | Existing frozen results match; not re-recorded/re-estimated. Proposal rounds the range to 1.96–4.96%, labels station-arrival proxy and overlapping windows. No door/voice result. |
+| R3 | Saved Nano/Lightning 0.06/0.24, Super 0.30/0.90, Ultra 1/3 USD per million in/out | Saved pricing only; no fresh pricing verification or inference. Refresh before any authorized execution. |
+| R4 | Authenticated Lightning smoke HTTP 200, nonzero usage, matching model | UNRUN: credential absent and no direct spend instruction. No substitute mock receipt. |
+| R5 | Reduced bound $0.58566688; full $2.60596288; total cap $3 | Existing plan bounds only; actual calls 0, spend $0. Reduced/full sequential worst-case sum exceeds cap. Default Worker completion allowance 300 fits reduced 295 only before other calls; full 1370 requires explicit configuration and residual-budget check. |
+| R6 | 2 A4 pages, zero residue/forbidden/widgets/JS, embedded fonts, intended metadata, at least 3 images | PASS 9/9: 2 pages 595.0×841.9 pt; 0 placeholder braces; 9 forbid tokens checked, 0 hits; 0 widget/JS/encryption/embedded files; 75 embedded font resources; 3 image XObjects; title/author match. Missing-key exact scan is N/A, not a tested secret value. |
+| R7 | Supplied sandbox smoke: 2 pages, 3 links, 3 images, 21 fonts | Historical package claim only. New local draft: 0 links, 3 images, 75 fonts; unobserved public URLs removed rather than represented as live. |
+| R8 | Desktop 1440×900, mobile 390×844 at DPR 2 | Captured 2880×1800 and 780×1688 PNGs. Source is recorded replay, authored story, ×16, 2호선 신도림→합정. Arrival-state captures are scrolled; mobile viewport naturally crops the adjacent story card. |
+
+## §3-v2 UI and document checks
+
+- UI spec initial gate: 1 FAIL / 1 WARN; source-grounded rationale for the existing eyebrow text was added. Final: 0 FAIL / 1 WARN (G6 availability axis N/A). CSS appendix equals source exactly; 5/5 HTML/CSS/JS/JSON runtime inputs independently verified. No web source changed.
+- First viewport at 1440×900: 35 visible objects, 19 RGB-merged UI colours, 2 font families. At 390×844: 22 objects, 11 colours, 2 families. V4 PASS on both for exact strings `Last Sentence` and `Replay`; no `who` string specified. V1–V3 are UNMEASURED against budgets because no budgets were declared; these numbers are diagnostics, not quality ratings.
+- Hook gate desktop: H1 FAIL (fill 0.031 versus default 0.25; largest type ratio 0.056667 versus 0.13); H2 FAIL (0 full-frame events); H3 reports largest media ratio 0.00025 and type 51 px; H4 FAIL (10.07 s gap versus 4 s). No environment stall/load/page errors. Existing app remains unchanged; failures are recorded for the designer, not hidden or reclassified as PASS. A source-spec pass does not mean the UI passes the hook test.
+- Composition diagnostic: K1 0, K2 0 radii, K3 0, K5 order-run 2; K4/K6 WARN. This parser reads inline HTML styles and does not measure external style.css, so zeroes do not mean the app lacks those properties.
+- Actual capture page errors: 0 desktop / 0 mobile; horizontal overflow false for both. Receipts panel shows 0 API CALLS. Required ≥3 real-call receipts is NOT MET; no fake calls were inserted.
+- PDF gate full JSON: private `evidence/pdf-gate-initial.json`; complete rendered pages: `out/page-1.png`, `out/page-2.png`. Original PDF pixel-isolation: N/A, because this is a new proposal, not a form edit. Visual/DOM/provenance audit is retained separately.
+
+## §8-v2 Track outcomes and resumption
+
+| Track | Outcome |
+| --- | --- |
+| T-K real Nemotron | PARKED: H1 absent key; direct spend instruction also missing. Reduced/full/probe/feedback regeneration not executed. Existing RESULTS/FEEDBACK remain truthful. |
+| T-P public release | PREPARED, NOT PUBLISHED: H3 authentication passes; awaiting direct public-source/deployment instruction. No remote, public URL, public clone or signed-out public HTTP check. Secret-pattern scan: 147 tracked files plus local patch history, 4 patterns, 0 hits; exact-value scan N/A (keys absent). |
+| T-S screenshots | LOCAL CAPTURES COMPLETE with sidecars; desktop/mobile/first viewport/empty receipts. ≥3 real calls prerequisite remains unmet. Captions contain `로컬 미리보기` and `예시값 · 실측 아님`. |
+| T-F UI spec | `docs/UI_SPEC.md` complete, pinned to current web source. Hygiene gate 0 FAIL/1 WARN. Existing-page hook gate FAIL remains open for designer review. No design changes claimed. |
+| T-D proposal | LOCAL REVIEW DRAFT COMPLETE, 2 pages, structural gate PASS 9/9. Generic designer salutation; supplied contact preserved. No fabricated public links, recipient, inference result or door-opening guarantee. Human visual acceptance and sending remain unperformed. |
+
+Public URLs/HTTP results: none observed; public checks UNRUN. Local preview `http://127.0.0.1:4188/` returned HTTP 200 and title `Last Sentence`; `/api/status` reports `replay-only`, `inference_enabled=false`. This URL works on this machine only.
+
+Actual model/Tavily calls: 0 / 0. Actual model/search spend: $0. PDF SHA-256: `64f5c39017977fc0a9a64aec70fdc52f5b3b1aae8dc2e44cf8975cc9e81da108`.
+
+Release configuration review: merely uploading NEBIUS_API_KEY does not enable inference. The existing Worker requires `ENABLE_LIVE=true`, a strong application `LIVE_ACCESS_TOKEN` and its Durable Object. Provider keys remain server-side. Worker already serves the app/assets same-origin. Separate Pages hosting additionally requires explicit frontend Worker URL and exact `ALLOWED_ORIGIN`; public keyless replay alone does not satisfy runtime contest use. Configure and review these only within approved scope. Do not expose the protected session token in public assets.
+
+Files changed in repository: `docs/UI_SPEC.md` (new), `REPORT.md` (append only), `SHA256SUMS.txt` (regenerated to cover new documentation). Generated ignored `dist/` and Worker dry-run output refreshed. Private proposal files include source package, capture/preparation/finalization scripts, fill + provenance, derived local template, screenshots + sidecars, evidence logs and final PDF/renders. Playwright Chromium cache was installed. No changes in the unrelated hackathon workspace and no application source/behavior edits.
+
+The overall handoff remains incomplete pending external authorization, credentials, observed public acceptance and real-runtime evidence. H5 sending, video and Devpost submission were not requested as actions in this chat and have not been performed.
