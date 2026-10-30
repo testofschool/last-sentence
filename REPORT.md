@@ -1,6 +1,6 @@
 # Last Sentence · execution report
 
-Updated 2026-10-30T10:45:39+09:00.
+Updated 2026-10-30T10:47:02+09:00.
 
 **Disposition: HOLD.** Local code, replay and deployment packaging are implemented; actual Nebius/Tavily runtime use, prospective live narration, observed model-backed speech timing and public release remain unverified. This report is not a submission receipt or a claim of contest eligibility.
 
@@ -59,7 +59,7 @@ P7 checks the supported-language section, not incidental mentions of Korean in t
 | Gate | Result |
 | --- | --- |
 | A1 local tests | PASS; exact commands/counts below. This code-test result does not override the separate ETA quality gate. |
-| A2 public remote clone | PARKED — no public remote/push. Supplementary local fresh-clone check: NOT_RUN; evidence path `.local/clone-check.json`. It cannot satisfy the public-remote gate. |
+| A2 public remote clone | PARKED — no public remote/push. Supplementary local fresh-clone check: PASS_LOCAL_ONLY; evidence path `.local/clone-check.json`. It cannot satisfy the public-remote gate. |
 | A3 deployed replay | PARKED — no deployed URL. Loopback title/asset/API/doc checks passed, including real local workerd. Local preview: `http://127.0.0.1:4188/`. |
 | A4 actual matrix | PARKED — 0 measured model-backed runs; keys unavailable. `docs/RESULTS.md` states the 9-row synthetic boundary. |
 | A5 secret check | NOT_APPLICABLE_NO_KEYS; no actual key bytes existed for an exact-value credential scan. Provider keys were never loaded or embedded. |
