@@ -1,8 +1,8 @@
 {
   "schema": "last-sentence/model-prices-v1",
   "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
-  "retrieved_at": "2026-10-30T07:18:28.698741+00:00",
-  "source_sha256": "1bb263542944594c9df3d2b4fa3d1933432397ad847a6d5aa2a2e2941f94724c",
+  "retrieved_at": "2026-10-30T14:58:48.265727+00:00",
+  "source_sha256": "2c3c117bed8688b4ec20112b39a3cfdef2b6b7e4d8dbbd5e23de72c6597f5b20",
   "prices": {
     "nvidia/Nemotron-3_5-Lightning": {
       "input_price_per_million_tokens": 0.06,

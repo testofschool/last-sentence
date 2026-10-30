@@ -1,0 +1,20 @@
+{
+  "source_commit": "ebe570fdada95775676c7e64ccf61e785df4913b",
+  "writer_source_sha256": "69c6dfbc705a5cc9da80dc30f255fa9062bd4670c8c98c0fd2064c5d2ac555a7",
+  "prompt_version": "normal-writer-budget-line-count-v3-20261031",
+  "prior_rejected_runs": [
+    "evidence/model-reduced-20261031-02.json",
+    "evidence/model-reduced-20261031-03.json"
+  ],
+  "server_limits_before": {
+    "completion_cap": 2048,
+    "completion_calls_used": 4,
+    "completion_calls_remaining": 2044,
+    "reserved_usd": 0.012448,
+    "reservation_budget_usd": 2.997039,
+    "seoul_calls_used_today": 0,
+    "seoul_daily_cap": 950,
+    "search_calls_used": 0,
+    "search_lifetime_cap": 100
+  }
+}

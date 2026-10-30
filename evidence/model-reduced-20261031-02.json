@@ -1,0 +1,184 @@
+{
+  "schema": "last-sentence/matrix-v1",
+  "mode": "model-backed-timing-simulation",
+  "evidence_kind": "model-backed-timing-simulation",
+  "status": "aborted",
+  "cost_plan": {
+    "journeys": 5,
+    "policy_runs": 15,
+    "language_pair_runs": 2,
+    "max_input_tokens_per_completion": 16384,
+    "max_conductor_output_tokens": 400,
+    "max_writer_output_tokens": 1200,
+    "max_conductor_calls": 252,
+    "max_writer_calls": 43,
+    "worst_case_usd": 0.58566688,
+    "cap_usd": 2.997039,
+    "max_total_completions": 295,
+    "configured_completion_cap": 2048,
+    "required_worker_live_max_completions": 295,
+    "allowed_cost": true,
+    "allowed_completions": true,
+    "allowed": true,
+    "pricing_source": "saved-live-catalog",
+    "runner_enforcement_required": "Reject requests above the input envelope; reserve worst-case cost before each call. Includes all fallback attempts. No calls made by this script."
+  },
+  "rows": [],
+  "language_pair": [],
+  "attempts": [
+    {
+      "path": "/api/write",
+      "input": {
+        "lang": "en",
+        "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+        "budget_chars": 2130,
+        "is_last_scene": true,
+        "scene": "Continue a complete quiet Seoul train mystery. Use close to the 2130-character allowance, one sentence per line. Finish with the exit alert. Offline timing simulation; no source fact is supplied.",
+        "expected_pricing": {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "input_price_per_million_tokens": 0.3,
+          "output_price_per_million_tokens": 0.9
+        }
+      },
+      "state": "failed",
+      "reserved_usd": 0.0059952,
+      "maximum_completions": 1,
+      "offline_pacing_wait_s": 0.0,
+      "pacing_excluded_from_simulated_speech_clock": true,
+      "http_status": 502,
+      "response": {
+        "mode": "replay-only",
+        "error": "writer_constraint_failure",
+        "message": "The Writer violated the sentence, scene-budget or station-ending constraints; output was rejected",
+        "receipt_schema": "last-sentence/receipt-v2",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+        "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+        "identity_match": true,
+        "usage": {
+          "prompt_tokens": 170,
+          "completion_tokens": 363,
+          "total_tokens": 533
+        },
+        "cost_usd": 0.00037769999999999997,
+        "requested_rate_cost_estimate_usd": 0.00037769999999999997,
+        "latency_ms": 7929,
+        "calls": [
+          {
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+            "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+            "identity_match": true,
+            "usage": {
+              "prompt_tokens": 170,
+              "completion_tokens": 363,
+              "total_tokens": 533
+            },
+            "cost_usd": 0.00037769999999999997,
+            "requested_rate_cost_estimate_usd": 0.00037769999999999997,
+            "latency_ms": 6585,
+            "input_token_bound": 4931,
+            "reserved_microusd": 2560,
+            "pricing": {
+              "input_price_per_million_tokens": 0.3,
+              "output_price_per_million_tokens": 0.9,
+              "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+              "observed_at": "2026-10-30T15:03:56.433Z",
+              "catalog_cache_ttl_s": 3600,
+              "fresh_for_dispatch": true,
+              "acknowledged": true
+            },
+            "rate_limit_headers": {
+              "x-ratelimit-limit-requests": "1000",
+              "x-ratelimit-remaining-requests": "999",
+              "x-ratelimit-limit-tokens": "1000000",
+              "x-ratelimit-remaining-tokens": "999332"
+            },
+            "writer_validation": {
+              "status": "rejected",
+              "purpose": "story",
+              "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+              "language": "en",
+              "text_response": true,
+              "sentence_count": 10,
+              "sentences_within_cap": 2,
+              "sentences_over_cap": 8,
+              "max_sentence_chars": 202,
+              "total_chars": 1433,
+              "sentence_cap": 90,
+              "max_sentence_count": 100,
+              "required_sentence_count": null,
+              "budget_chars": 2130,
+              "scene_budget_ok": true,
+              "sentence_count_ok": true,
+              "sentence_lengths_ok": false,
+              "ending_required": true,
+              "ending_station_ok": true,
+              "passed": false,
+              "failures": [
+                "sentence_cap"
+              ]
+            }
+          }
+        ]
+      },
+      "http_elapsed_ms": 8141.582874581218,
+      "status_elapsed_ms": 1154.2164999991655,
+      "failure": "SimulationError: Worker request failed; attempt and receipts retained"
+    }
+  ],
+  "failures": [
+    {
+      "type": "SimulationError",
+      "reason": "SimulationError: Worker request failed; attempt and receipts retained"
+    }
+  ],
+  "measured_tts_runs": 0,
+  "max_execution_seconds": 5400.0,
+  "pacing": {
+    "rpm": 45,
+    "tpm": 300000,
+    "reservation": "worst-case completion groups and input+output token envelope",
+    "wait_s": 0.0,
+    "excluded_from_simulated_speech_clock": true,
+    "assumption": "No competing account traffic; provider limits may differ. Dispatched failures are never retried automatically."
+  },
+  "price_revalidations": [],
+  "execution_transport": "protected-worker-http",
+  "notice": "Model-generated text on recorded receipt-time arrival traces. Speech duration is simulated from fixed Unicode characters/second plus measured HTTP latency. Offline 45RPM/300000TPM pacing and public-price audit waits count in real runtime but are excluded from the simulated speech clock; this assumes no competing account traffic. No browser TTS, door-open, or real-world narration accuracy is measured.",
+  "trace_sha256": "5c5bd96c331ca0ae0bd1f5b7d48d6d83dfc95840925a220e7ec31bc5746ca9d0",
+  "line_coverage": [
+    "2\ud638\uc120",
+    "5\ud638\uc120",
+    "7\ud638\uc120"
+  ],
+  "distinct_train_identities": 5,
+  "windows_per_line": {
+    "2\ud638\uc120": 2,
+    "5\ud638\uc120": 2,
+    "7\ud638\uc120": 1
+  },
+  "selection_notice": "Only eligible recorded lines are included. No line-5/7 results exist unless those traces are supplied. Windows may overlap; repeated windows are not independent journeys.",
+  "eta_training": "Other train identities from this offline trace; whole target train identity excluded. This is not forward-in-time online validation.",
+  "actual_api_cost_usd": 0.00037769999999999997,
+  "known_usage_cost_usd": 0.00037769999999999997,
+  "reserved_upper_bound_usd": 0.0059952,
+  "reserved_completion_bound": 1,
+  "coverage": {
+    "journeys": 0,
+    "complete_paired_journeys": 0,
+    "unpaired_journeys": 0,
+    "rows_by_policy": {
+      "fixed_clip": 0,
+      "single_fit": 0,
+      "sentence_replan": 0
+    },
+    "comparison_basis": "unpaired-only",
+    "pairing_definition": "All three policies for the same frozen journey id; measured import also verifies train, line, exit/arrival and replay origin/direction when present."
+  },
+  "completed_simulation_runs": 0,
+  "inference_dispatch_attempts": 1,
+  "model_completion_attempts": 1,
+  "completion_attempt_count_known": true
+}

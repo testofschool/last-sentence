@@ -50,19 +50,56 @@ def test_cli_real_report_reproduces_its_retained_input_without_inference(tmp_pat
     assert "injected-test-transport" in reproduction
     assert "fresh output filename" in reproduction
     assert "no inference requests" in reproduction
+    assert "Usage/catalog cost estimate represented (all retained attempts): **UNKNOWN" in text
+    assert "invoice/account billing is unverified" in text
+    assert "Actual API cost represented" not in text
+    assert "## Scheduled evaluation coverage" not in text
 
 
 def test_synthetic_report_preserves_fixture_reproduction_commands(tmp_path):
     output = tmp_path / "RESULTS.md"
     render(matrix("synthetic-timing-simulation"), output)
-    reproduction = output.read_text().split("## Reproduce", 1)[1]
+    text = output.read_text()
+    reproduction = text.split("## Reproduce", 1)[1]
+    assert "Actual API cost represented" in text
     assert "python3 scripts/run_matrix.py --mode simulation --out evidence/simulation-matrix.json" in reproduction
     assert "python3 scripts/make_results.py evidence/simulation-matrix.json" in reproduction
 
 
 def test_in_memory_real_report_does_not_invent_a_retained_matrix_path(tmp_path):
     output = tmp_path / "RESULTS.md"
-    render(matrix("model-backed-timing-simulation"), output)
-    reproduction = output.read_text().split("## Reproduce", 1)[1]
+    data=matrix("model-backed-timing-simulation")
+    data.pop('actual_api_cost_usd')
+    render(data, output)
+    text=output.read_text()
+    reproduction = text.split("## Reproduce", 1)[1]
     assert "source path was not supplied" in reproduction
     assert "evidence/simulation-matrix.json" not in reproduction
+    assert "Usage/catalog cost estimate represented (all retained attempts): **UNKNOWN" in text
+
+
+def test_report_exposes_all_scheduled_slots_and_scored_only_zero_percent_rate(tmp_path):
+    data = matrix('model-backed-timing-simulation')
+    def counts(planned, scored, rejected):
+        return {'scheduled':planned,'attempted':planned,'scored':scored,'failed':rejected,
+                'rejected_model_output':rejected,'aborted':0,'unstarted':0}
+    data['evaluation_coverage']={
+        'total':counts(17,12,5),
+        'policies':{policy:counts(5,4,1) for policy in ('fixed_clip','single_fit','sentence_replan')},
+        'language_pair':{**counts(2,0,2),'languages':{'en':counts(1,0,1),'ko':counts(1,0,1)}}}
+    data['rows']=[{'id':f'journey-{i}','policy':policy,'landing_error_s':45+i*10,
+                   'cost_usd':.001,'p50_latency_ms':10,'p95_latency_ms':20}
+                  for policy in ('fixed_clip','single_fit','sentence_replan') for i in range(4)]
+    data['actual_api_cost_usd']=.014  # Includes .002 of failed-attempt cost beyond .012 scored costs.
+    output=tmp_path/'RESULTS.md'
+    render(data,output)
+    text=output.read_text()
+    assert text.index('## Scheduled evaluation coverage') < text.index('| Policy | n |')
+    assert '| Total | 17 | 17 | 12 | 5 | 5 | 0 | 0 |' in text
+    assert '| sentence_replan | 5 | 5 | 4 | 1 | 1 | 0 | 0 |' in text
+    assert '| EN/KO pair | 2 | 2 | 0 | 2 | 2 | 0 | 0 |' in text
+    assert '| KO pair | 1 | 1 | 0 | 1 | 1 | 0 | 0 |' in text
+    assert '| sentence_replan | 4 | 0.0% | 0.0% |' in text
+    assert 'completed, scored rows only' in text and 'no fabricated landing error' in text
+    assert 'Usage/catalog cost estimate represented (all retained attempts): **$0.014000**' in text
+    assert 'Policy cost/story below uses scored rows only.' in text

@@ -1,10 +1,10 @@
 # Last Sentence · execution report
 
-Updated 2026-10-30T12:01:57+09:00.
+Updated 2026-10-31T00:44:58.071469+09:00. Latest runtime/proposal disposition is in §12-v2.
 
-**Disposition: HOLD.** Local code, replay and deployment packaging are implemented; actual Nebius/Tavily runtime use, prospective live narration, observed model-backed speech timing and public release remain unverified. This report is not a submission receipt or a claim of contest eligibility.
+**Disposition: public prototype with verified model responses; timing target not met.** The reduced experiment visited17/17 slots,16 scored and1 output rejected. Sentence-replan was0/5 within±30seconds in character-rate simulation. This is separate from browser speech, rider operation, door opening, contest eligibility and submission.
 
-The user's `/goal run` initiated the local build. The three supplied documents were read as technical references and evidence, not independent permission to spend, publish or submit. The user later confirmed the API keys are not yet available. Existing hackathon files were left in place; this is a separate local repository at `~/dev/last-sentence`.
+The user directly approved public GitHub/Cloudflare publication and real inference within$3 in this chat. Supplied documents remain references rather than independent authorization. Sections§0–§7 preserve the original October30 12:01 local baseline; their missing-key/unpublished statements are historical. Later dated sections preserve the failed authentication and release stages; §12 supersedes their current-status claims.
 
 ## §0 Preflight
 
@@ -238,3 +238,52 @@ The approved total inference limit remains$3. Each bounded direct smoke retains 
 The private designer proposal was updated to0 successful model responses and2 HTTP401 attempts, with usage/cost unreported and runtime comparison UNRUN. Gate9/9:2A4 pages,3images,3public links, no secret hits/widgets/JS/unembedded fonts; full render/DOM review found0overflow/footer overlaps. Private final PDF SHA-256:`422780bae856630fcd8faf2f50cd59626d382a58c825d63a424f3f894aaac905`. Previous public-link PDF and original supplied PDF were preserved. Contact/PDF/secret files remain outside the public repository. Hook H1/H2/H4 failures remain open design findings.
 
 Remaining external input: a Token Factory credential accepted for the intended project. Direct publication and total$3 execution approvals remain valid; no repeat approval is required. The handoff goal remains incomplete. No video, message, designer sending or Devpost submission was performed.
+
+
+## §12-v2 Final real runtime and designer review · October31 KST
+
+The replacement credential passed a read-only models GET and the third direct Lightning completion smoke. The two earlier HTTP401 POST failures remain recorded; interrupted05 retains an unknown provider outcome. No missing usage is converted to zero. The canonical model ledger is leaf calls, not duplicated parent aggregates or completed-row copies.
+
+### Preregistered values versus final observations
+
+| Gate | Expected | Final observation |
+|---|---|---|
+| R1 | Python159+Node104=263 | Python187+Node104=291 passed locally. Added4 HTTP-client identity cases,5 result-rendering cases,11 independent-slot cases and8 strict usage-total cases. The final public-clone checks are kept outside this commit to bind their actual checked release HEAD without a self-referential commit. |
+| R2 | Line2/5/7 ETA medians4.9552%/1.9615%/4.7619% | Unchanged frozen whole-train-held-out station-arrival proxy results; overlapping windows are not independent journeys or door/voice measurements. |
+| R3 | Lightning0.06/0.24,Super0.30/0.90,Ultra1/3 USD per1M input/output | Fresh catalog snapshot `evidence/model-prices-live-20261031.json`, exact acknowledged prices per real receipt. |
+| R4 | Lightning HTTP200,usage>0,exact model | Third smoke200,19+16=35tokens,1052.11ms. All16 output tokens were reasoning; no visible-story claim. Earlier401s retained. |
+| R5 | $3 cumulative inference cap | Direct conservative reserve$0.002961 plus Worker ceiling$2.997039=$3. Same Durable Object retained. Final Worker92calls/$0.126296reserved; combined known conservative reserve$0.129257. Usage/catalog subtotal$0.01405146 is not an invoice. |
+| R6 | TwoA4 pages,9/9 PDF gate | PASS9/9;2A4 pages,3images,3links,74embeddedfonts,0secret/residue/forbidden/hygiene failures. Both final page renders inspected;0text/image overflow and0footer overlap. |
+| R7 | Supplied dummy template smoke | Historical dummy only. `/Users/felix/Downloads/out.pdf` retained unchanged, SHA25690e08072c24f20674e838b3ddaa74fa1f2cc42a1bdb92555d330905db3328e98. |
+| R8 | Desktop1440×900,mobile390×844,DPR2 | Actual2880×1800 and780×1688 PNGs; paused recorded replay×16 setting, real Korean generation, no audio playback. |
+
+### Track outcomes
+
+- T-K: reduced07 visited all17 planned slots once:14 scored policy rows+2 scored EN/KO rows,1 retained unscored Writer rejection. Source `0cf2badf6990287422fee94d53767c58c4c193a3`, Worker core SHA256 `4d7b172a2d21fe76756c47f29577fea1f877f3991539a4e058814614bdf5cc70`. Same Writer-v3/compact-Conductor-v4 prompt version across this experiment.35HTTP groups/69provider receipts,42690+5597=48287tokens,$0.00908516 known estimate.4/5 windows fully paired. Fixed0/5, single1/4 scored plus1rejection, replan0/5 within±30seconds. No timing improvement established. See `docs/RESULTS.md`, retained07JSON/metadata and `evidence/runtime-live-audit.json`.
+- Earlier executions remain separate:01 no dispatch;02 line-cap rejection;03 total-budget rejection;04 invalid-plan rejection;05 operator interruption after a premature failing-envelope gate, unknown outcome;06 three scored rows then station-ending rejection. Compact Conductor instructions repaired the envelope regression with maximum serialized input16257≤16384 and104 passing Node tests. Subsequent run gates passed before execution. No rejected output was truncated or replaced with a fabricated result.
+- The runner now stops only the affected slot for fully receipted, fully priced HTTP502 model-output rejections. Auth/quota/transport/identity/pricing/usage-summary errors remain fatal. It never retries that slot, invents a landing score, or hides planned/failed/unstarted denominators. Leaf and aggregate token totals must be coherent before continuing.
+- Korean controlled probe: same unchanged scene, one Super and one Ultra response,6/6 trimmed nonempty lines≤40Unicode codepoints;205/192tokens,$0.0000909/$0.000264. Mechanical single-sample observation only. Tool support for these Writer models was not tested. Run07 Lightning executed ETA+budget in17/17 plan requests, but0/17 completed all three required native tools; JSON fallback and partial tools remain explicit.
+- Full30×3+pair: **UNRUN,time condition**. The valid credential was observed after23:58KST, beyond the required19:30 cutoff. Low known spend does not override that condition. Tavily absent and UNRUN; field narration, browser TTS and doors remain unmeasured.
+- T-S: actual connected browser cycle returned3Lightning completions+1Ultra Writer completion, grouped into2UIserviceevents.2696tokens,$0.00079570;10/10 retained Writer line units≤40 and valid station ending. Full raw Writer text was not retained by the capture helper, so its validation subset is not called an independent raw recount. Desktop/mobile/receipt PNGs and sidecars distinguish actual model output from the known replay clock. Every caption includes“타이밍 예시값 · 실측 아님”. Initial keyless captures remain separately archived.
+- T-F: final UI_SPEC gate0FAIL/1WARN(G6availabilityN/A). Existing first-viewport diagnostics: desktop35objects/19colours/2fonts,mobile22/11/2;LastSentence+Replay found. Hook instrument emitted H1/H2/H4FAIL(fill0.031,no event within10.07s,type0.0567/media0.00025);H3was not emitted and is not a pass. These are recorded design findings. Composition counter did not read external CSS; zeros there are not evidence of absent visuals. The connected saved-connection notice remains visible after generation and contains stale no-inference wording; the actual screenshot preserves this issue and UI_SPEC opens it for designer review. Frontend source/layout was not changed during the runtime repairs.
+- T-D: final private proposal `out/Last-Sentence-proposal.pdf`, SHA256 **61118cc15387a8414ac1c4a6d4d78774983e00ac61e473b5216a1c8b0c513e76**. Final gate/provenance/render/geometry files remain in the private proposal workspace and review kit. One container-only layout probe flagged unused margin rectangles; text-line/image bounds and both page renders show no clipping/footer collision. Descriptions were shortened while font sizes and factual outcomes were retained. The original supplied PDF/package were not edited.
+
+### Accounting and publication boundaries
+
+Final audit covers93 exact-ID provider responses/extracts:92Worker+1direct smoke,54545prompt+8924completion=63469tokens, known usage/catalog subtotal **$0.01405146**. Two earlier401 POST costs and one interrupted05 outcome remain unknown. Overall invoice cost is **UNKNOWN**. Failed outputs, JSON fallbacks, original probes and the actual screenshot generation are included once each. `evidence/runtime-live-audit.json` and `evidence/feedback-probe-live.json` are sanitized allowlisted public evidence; raw local paths, credentials and the private contact are excluded.
+
+Public targets: GitHub https://github.com/testofschool/last-sentence (MIT), canonical UI/API https://last-sentence.felix-market-radar.workers.dev, and static keyless mirror https://last-sentence.pages.dev. Final release HEAD/clean-clone/tests/normal-TLS public asset checks are post-publication observations stored as `final-public-clone-check.json` and `final-public-http-check.json` in the private review kit. They bind the checked release commit rather than being rewritten into that same commit. Anonymous model routes are expected401; status is200 and position refusal still returns JSON withmode. These are availability/auth checks, not extra inference or an independent billing audit.
+
+Final redeploy retains `ENABLE_LIVE:true`, `LIVE_BUDGET_USD:2.997039`, `LIVE_MAX_COMPLETIONS:2048` and the same ledger. Provider/session secrets remain server-side/private; final exact-value source/history/build/PDF/ZIP scans are part of release verification. The proposal contact and designer review kit stay outside the public repository.
+
+### Files changed to repair runtime/reporting beyond the original package
+
+- `scripts/model_simulation.py`: truthful HTTP client identity; independent failed-slot outcomes; strict leaf/aggregate usage totals; original budget, quota and receipt guards retained.
+- `scripts/collect_feedback.py`: truthful HTTP client identity, controlled probe prompt unchanged.
+- `worker/src/core.js`: normal-story short-line/budgeted-line guidance and explicit compact Conductor operation contract. Probe template and output validators remain unchanged.
+- `scripts/make_results.py`: retained real-input reproduction, visible failed-slot denominators and estimate/invoice wording.
+- `scripts/verify.py`: local-only status points to separately verified runtime/publication rather than emitting a stale no-inference/no-publication claim.
+- `tests/test_http_client_identity.py`, `tests/test_model_simulation.py`, `tests/test_results_reproduction.py`: the28 added Python cases above. Documentation,07/earlier retained evidence and final chart/checksums accompany the release.
+- Private proposal helpers, captures, layouts/gates/provenance and ZIP assembly changed only in `/Users/felix/dev/last-sentence-proposal/`. No edits were made to the supplied Downloads artifacts or the original hackathon workspace.
+
+Remaining human steps: review the final PDF and send it to the designer; make/upload the video and complete Devpost submission. No delivery or submission receipt is claimed here.

@@ -1,32 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="406" viewBox="0 0 840 406">
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="576" viewBox="0 0 840 576">
 <rect width="100%" height="100%" fill="#f7f7f4"/>
-<text x="24" y="30" font-family="system-ui" font-size="18">Synthetic timing simulation · landing error (seconds)</text>
-<line x1="530" y1="50" x2="530" y2="386" stroke="#777"/>
-<text x="24" y="70" font-family="system-ui" font-size="12">line2-fixture · fixed_clip</text>
-<rect x="530.0" y="57" width="195.6" height="18" fill="#396b57"/>
-<text x="733.6" y="70" font-family="system-ui" font-size="12">+40.0</text>
-<text x="24" y="104" font-family="system-ui" font-size="12">line2-fixture · single_fit</text>
-<rect x="525.1" y="91" width="4.9" height="18" fill="#396b57"/>
-<text x="483.1" y="104" font-family="system-ui" font-size="12">-1.0</text>
-<text x="24" y="138" font-family="system-ui" font-size="12">line2-fixture · sentence_replan</text>
-<rect x="530.0" y="125" width="4.9" height="18" fill="#396b57"/>
-<text x="542.9" y="138" font-family="system-ui" font-size="12">+1.0</text>
-<text x="24" y="172" font-family="system-ui" font-size="12">line5-fixture · fixed_clip</text>
-<rect x="530.0" y="159" width="48.9" height="18" fill="#396b57"/>
-<text x="586.9" y="172" font-family="system-ui" font-size="12">+10.0</text>
-<text x="24" y="206" font-family="system-ui" font-size="12">line5-fixture · single_fit</text>
-<rect x="530.0" y="193" width="63.6" height="18" fill="#396b57"/>
-<text x="601.6" y="206" font-family="system-ui" font-size="12">+13.0</text>
-<text x="24" y="240" font-family="system-ui" font-size="12">line5-fixture · sentence_replan</text>
-<rect x="530.0" y="227" width="4.9" height="18" fill="#396b57"/>
-<text x="542.9" y="240" font-family="system-ui" font-size="12">+1.0</text>
-<text x="24" y="274" font-family="system-ui" font-size="12">line7-fixture · fixed_clip</text>
-<rect x="530.0" y="261" width="220.0" height="18" fill="#396b57"/>
-<text x="758.0" y="274" font-family="system-ui" font-size="12">+45.0</text>
-<text x="24" y="308" font-family="system-ui" font-size="12">line7-fixture · single_fit</text>
-<rect x="530.0" y="295" width="48.9" height="18" fill="#396b57"/>
-<text x="586.9" y="308" font-family="system-ui" font-size="12">+10.0</text>
-<text x="24" y="342" font-family="system-ui" font-size="12">line7-fixture · sentence_replan</text>
-<rect x="515.3" y="329" width="14.7" height="18" fill="#396b57"/>
-<text x="473.3" y="342" font-family="system-ui" font-size="12">-3.0</text>
+<text x="24" y="30" font-family="system-ui" font-size="18">Model-backed timing simulation · landing error (seconds)</text>
+<line x1="530" y1="50" x2="530" y2="556" stroke="#777"/>
+<text x="24" y="70" font-family="system-ui" font-size="12">2호선|0|2026-10-30|2128|1793322113|1793322497 · fixed_clip</text>
+<rect x="459.9" y="57" width="70.1" height="18" fill="#396b57"/>
+<text x="417.9" y="70" font-family="system-ui" font-size="12">-126.1</text>
+<text x="24" y="104" font-family="system-ui" font-size="12">2호선|0|2026-10-30|2128|1793322113|1793322497 · sentence_replan</text>
+<rect x="408.2" y="91" width="121.8" height="18" fill="#396b57"/>
+<text x="366.2" y="104" font-family="system-ui" font-size="12">-219.2</text>
+<text x="24" y="138" font-family="system-ui" font-size="12">5호선|0|2026-10-30|5090|1793324970|1793325504 · fixed_clip</text>
+<rect x="440.6" y="125" width="89.4" height="18" fill="#396b57"/>
+<text x="398.6" y="138" font-family="system-ui" font-size="12">-160.8</text>
+<text x="24" y="172" font-family="system-ui" font-size="12">5호선|0|2026-10-30|5090|1793324970|1793325504 · single_fit</text>
+<rect x="367.3" y="159" width="162.7" height="18" fill="#396b57"/>
+<text x="325.3" y="172" font-family="system-ui" font-size="12">-292.7</text>
+<text x="24" y="206" font-family="system-ui" font-size="12">5호선|0|2026-10-30|5090|1793324970|1793325504 · sentence_replan</text>
+<rect x="350.9" y="193" width="179.1" height="18" fill="#396b57"/>
+<text x="308.9" y="206" font-family="system-ui" font-size="12">-322.2</text>
+<text x="24" y="240" font-family="system-ui" font-size="12">7호선|0|2026-10-30|7126|1793326682|1793327123 · fixed_clip</text>
+<rect x="462.4" y="227" width="67.6" height="18" fill="#396b57"/>
+<text x="420.4" y="240" font-family="system-ui" font-size="12">-121.7</text>
+<text x="24" y="274" font-family="system-ui" font-size="12">7호선|0|2026-10-30|7126|1793326682|1793327123 · single_fit</text>
+<rect x="350.6" y="261" width="179.4" height="18" fill="#396b57"/>
+<text x="308.6" y="274" font-family="system-ui" font-size="12">-322.8</text>
+<text x="24" y="308" font-family="system-ui" font-size="12">7호선|0|2026-10-30|7126|1793326682|1793327123 · sentence_replan</text>
+<rect x="494.5" y="295" width="35.5" height="18" fill="#396b57"/>
+<text x="452.5" y="308" font-family="system-ui" font-size="12">-63.8</text>
+<text x="24" y="342" font-family="system-ui" font-size="12">2호선|0|2026-10-30|2148|1793323107|1793323673 · fixed_clip</text>
+<rect x="310.0" y="329" width="220.0" height="18" fill="#396b57"/>
+<text x="268.0" y="342" font-family="system-ui" font-size="12">-395.8</text>
+<text x="24" y="376" font-family="system-ui" font-size="12">2호선|0|2026-10-30|2148|1793323107|1793323673 · single_fit</text>
+<rect x="516.3" y="363" width="13.7" height="18" fill="#396b57"/>
+<text x="474.3" y="376" font-family="system-ui" font-size="12">-24.6</text>
+<text x="24" y="410" font-family="system-ui" font-size="12">2호선|0|2026-10-30|2148|1793323107|1793323673 · sentence_replan</text>
+<rect x="317.8" y="397" width="212.2" height="18" fill="#396b57"/>
+<text x="275.8" y="410" font-family="system-ui" font-size="12">-381.8</text>
+<text x="24" y="444" font-family="system-ui" font-size="12">5호선|1|2026-10-30|5071|1793324868|1793325314 · fixed_clip</text>
+<rect x="413.5" y="431" width="116.5" height="18" fill="#396b57"/>
+<text x="371.5" y="444" font-family="system-ui" font-size="12">-209.6</text>
+<text x="24" y="478" font-family="system-ui" font-size="12">5호선|1|2026-10-30|5071|1793324868|1793325314 · single_fit</text>
+<rect x="408.8" y="465" width="121.2" height="18" fill="#396b57"/>
+<text x="366.8" y="478" font-family="system-ui" font-size="12">-218.0</text>
+<text x="24" y="512" font-family="system-ui" font-size="12">5호선|1|2026-10-30|5071|1793324868|1793325314 · sentence_replan</text>
+<rect x="411.6" y="499" width="118.4" height="18" fill="#396b57"/>
+<text x="369.6" y="512" font-family="system-ui" font-size="12">-213.0</text>
 </svg>

@@ -136,6 +136,28 @@ def observed_eta_section(eta, quality, line=None):
     return lines
 
 
+def evaluation_coverage_section(matrix):
+    coverage = matrix.get('evaluation_coverage')
+    if not isinstance(coverage, dict):
+        return []
+    policies = coverage.get('policies') or {}
+    pair = coverage.get('language_pair') or {}
+    languages = pair.get('languages') or {}
+    scopes = [('Total', coverage.get('total') or {})]
+    scopes += [(policy, policies.get(policy) or {}) for policy in ('fixed_clip', 'single_fit', 'sentence_replan')]
+    scopes += [('EN/KO pair', pair), ('EN pair', languages.get('en') or {}), ('KO pair', languages.get('ko') or {})]
+    keys = ('scheduled', 'attempted', 'scored', 'failed', 'rejected_model_output', 'aborted', 'unstarted')
+    lines = ['## Scheduled evaluation coverage', '',
+             'Timing percentages and cost/story in the policy table use completed, scored rows only. '
+             'Failed and unstarted slots remain in the planned denominator below and have no fabricated landing error. '
+             'Visiting every slot does not mean every model output succeeded.', '',
+             '| Scope | Planned | Attempted | Scored | Failed (unscored) | Known model rejections | Fatal aborts | Unstarted |',
+             '|---|---:|---:|---:|---:|---:|---:|---:|']
+    for name, values in scopes:
+        lines.append('| ' + name + ' | ' + ' | '.join(table_text(values.get(key, 'UNRECORDED')) for key in keys) + ' |')
+    return lines + ['']
+
+
 def reproduction_section(matrix, output, matrix_path=None, matrix_sha256=None):
     lines = ["## Reproduce", ""]
     if matrix.get("mode") not in ("model-backed-timing-simulation", "recorded-browser-measurements"):
@@ -165,14 +187,18 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidenc
     model_simulated = matrix.get("mode") == "model-backed-timing-simulation"
     kind = "Recorded browser measurements" if measured else "Model-backed timing simulation" if model_simulated else "Synthetic timing simulation"
     coverage = matrix.get("coverage") or policy_coverage(rows)
-    cost = matrix.get("actual_api_cost_usd", 0)
+    cost = matrix.get("actual_api_cost_usd", None if measured or model_simulated else 0)
     cost_text = f"${cost:.6f}" if isinstance(cost, (int, float)) else "UNKNOWN (incomplete usage receipts)"
+    cost_label = "Usage/catalog cost estimate represented (all retained attempts)" if measured or model_simulated else "Actual API cost represented"
     execution = (f"Completed simulation runs: **{matrix.get('completed_simulation_runs', len(rows))}**. "
                  f"Inference dispatch attempts: **{matrix.get('inference_dispatch_attempts', 0)}**. "
                  f"Measured TTS runs: **{matrix.get('measured_tts_runs', 0)}**. Status: **{matrix.get('status', 'unspecified')}**. "
                  if model_simulated else f"Measured inference runs: **{matrix.get('measured_inference_runs', 0)}**. ")
     lines = ["# Results", "", f"**{kind}.**", "", matrix["notice"], "",
-             execution + f"Rows in this table: **{len(rows)}**. Actual API cost represented: **{cost_text}**.", "",
+             execution + f"Rows in this table: **{len(rows)}**. {cost_label}: **{cost_text}**.", "",
+             *(["Costs multiply retained provider usage by acknowledged public catalog rates; invoice/account billing is unverified. "
+                "The header includes all retained attempts, including failed attempts with known costs; missing usage keeps the total UNKNOWN. "
+                "Policy cost/story below uses scored rows only.", ""] if measured or model_simulated else []),
              f"Paired coverage: **{coverage['complete_paired_journeys']} of {coverage['journeys']} journeys** have all three policies. "
              f"Unpaired journeys: **{coverage['unpaired_journeys']}**. Comparison basis: **{coverage['comparison_basis']}**.", "",
              "The table below is descriptive. Policy groups contain unpaired journeys and must not be treated as a controlled same-journey comparison." if coverage["unpaired_journeys"] else
@@ -180,8 +206,9 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidenc
              ("Coverage below contains completed timing simulations on recorded windows, not measured audio. "
               f"EN/KO pair rows: {len(matrix.get('language_pair', []))}. Failures/attempts remain in the source matrix." if model_simulated else
               "The full 30-journey × 3-policy evaluation and EN/KO model pair are **UNRUN**." if not measured else
-              "Coverage below is the set imported from recorded measurements."), "",
-             "| Policy | n | ≤30 s | ≤10 s | Median absolute error | Cost/story | Median story call p50 | Median story call p95 |",
+              "Coverage below is the set imported from recorded measurements."), ""]
+    lines += evaluation_coverage_section(matrix)
+    lines += ["| Policy | n | ≤30 s | ≤10 s | Median absolute error | Cost/story | Median story call p50 | Median story call p95 |",
              "|---|---:|---:|---:|---:|---:|---:|---:|"]
     for policy in ("fixed_clip", "single_fit", "sentence_replan"):
         group = [r for r in rows if r["policy"] == policy]

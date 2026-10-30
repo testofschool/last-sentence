@@ -1,0 +1,19 @@
+{
+  "source_commit": "0cf2badf6990287422fee94d53767c58c4c193a3",
+  "worker_source_sha256": "4d7b172a2d21fe76756c47f29577fea1f877f3991539a4e058814614bdf5cc70",
+  "prompt_version": "writer-budgeted-lines-v3/conductor-ops-compact-v4",
+  "runner_protocol": "independent-slots-fully-receipted-model-rejections-v2-strict-usage-totals",
+  "server_limits_before": {
+    "completion_cap": 2048,
+    "completion_calls_used": 19,
+    "completion_calls_remaining": 2029,
+    "reserved_usd": 0.033669,
+    "reservation_budget_usd": 2.997039,
+    "seoul_calls_used_today": 0,
+    "seoul_daily_cap": 950,
+    "search_calls_used": 0,
+    "search_lifetime_cap": 100
+  },
+  "previous_terminal_run": "evidence/model-reduced-20261031-06.json",
+  "notice": "One visit per scheduled slot; fully costed model-output failures retained as unscored failed slots, no same-slot retry; all other errors fatal."
+}

@@ -1,0 +1,1175 @@
+{
+  "schema": "last-sentence/matrix-v1",
+  "mode": "model-backed-timing-simulation",
+  "evidence_kind": "model-backed-timing-simulation",
+  "status": "aborted",
+  "cost_plan": {
+    "journeys": 5,
+    "policy_runs": 15,
+    "language_pair_runs": 2,
+    "max_input_tokens_per_completion": 16384,
+    "max_conductor_output_tokens": 400,
+    "max_writer_output_tokens": 1200,
+    "max_conductor_calls": 252,
+    "max_writer_calls": 43,
+    "worst_case_usd": 0.58566688,
+    "cap_usd": 2.997039,
+    "max_total_completions": 295,
+    "configured_completion_cap": 2048,
+    "required_worker_live_max_completions": 295,
+    "allowed_cost": true,
+    "allowed_completions": true,
+    "allowed": true,
+    "pricing_source": "saved-live-catalog",
+    "runner_enforcement_required": "Reject requests above the input envelope; reserve worst-case cost before each call. Includes all fallback attempts. No calls made by this script."
+  },
+  "rows": [
+    {
+      "id": "2\ud638\uc120|0|2026-10-30|2128|1793322113|1793322497",
+      "line": "2\ud638\uc120",
+      "trainNo": "2128",
+      "policy": "fixed_clip",
+      "lang": "en",
+      "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+      "evidence_kind": "model-backed-timing-simulation",
+      "landing_error_s": -89.48040586990192,
+      "story_end_s": 294.5195941300981,
+      "arrival_proxy_s": 384.0,
+      "initial_forecast_s": 492.5,
+      "speech_clock": "fixed-unicode-character-rate-plus-measured-http-latency",
+      "speech_rate_cps": 4.51,
+      "conductor_calls": 0,
+      "conductor_requests": 0,
+      "writer_calls": 1,
+      "tokens": 745,
+      "cost_usd": 0.0004455,
+      "p50_latency_ms": 5141,
+      "p95_latency_ms": 5141,
+      "tool_calls_supported": null,
+      "tavily_ok": null,
+      "fact_mode": "station-only-no-search-requested",
+      "arrival_event": "station-arrival-proxy",
+      "forecast_log": [],
+      "controller_decisions": [],
+      "receipts": [
+        {
+          "mode": "live",
+          "sentences": [
+            "The night air felt still inside the subway car.",
+            "Lights flickered softly above empty seats.",
+            "No announcements played through the speakers.",
+            "Passengers sat silent, eyes fixed ahead.",
+            "A folded newspaper lay untouched on the floor.",
+            "Its headline blurred by smudged ink and time.",
+            "I glanced at my reflection in the dark glass.",
+            "My face looked back, unsure and still.",
+            "Outside, tunnels passed in rhythmic darkness.",
+            "Each station came and went without sound.",
+            "The train moved like a held breath.",
+            "No one spoke, no one stirred.",
+            "Even the hum of rails seemed low.",
+            "I checked my watch\u2014hands frozen at midnight.",
+            "Or had they stopped long before?",
+            "A child\u2019s shoe rested near the door.",
+            "Small, red, laces tied in a bow.",
+            "No one claimed it, no one noticed.",
+            "I reached out, but pulled back my hand.",
+            "The air smelled faintly of rain and metal.",
+            "Somewhere ahead, a signal blinked once.",
+            "Then silence returned, deeper than before.",
+            "I wondered if we were still moving.",
+            "Or if the train had become a dream.",
+            "My stop approached without warning.",
+            "Doors opened to a platform bathed in blue light.",
+            "No crowds, no signs, just quiet tiles.",
+            "I stepped out into the hollow station.",
+            "Echoes swallowed my footsteps whole.",
+            "Far down the tunnel, a single light swayed.",
+            "As if something watched from the dark.",
+            "I turned back\u2014the train was gone.",
+            "Only wind stirred the empty tracks.",
+            "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0"
+          ],
+          "sentence_cap": 90,
+          "fact_grounding": "station-only",
+          "char_count": 1294,
+          "receipt_schema": "last-sentence/receipt-v2",
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+          "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+          "identity_match": true,
+          "usage": {
+            "prompt_tokens": 375,
+            "completion_tokens": 370,
+            "total_tokens": 745
+          },
+          "cost_usd": 0.0004455,
+          "requested_rate_cost_estimate_usd": 0.0004455,
+          "latency_ms": 6547,
+          "calls": [
+            {
+              "receipt_schema": "last-sentence/receipt-v2",
+              "model": "nvidia/nemotron-3-super-120b-a12b",
+              "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+              "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+              "identity_match": true,
+              "usage": {
+                "prompt_tokens": 375,
+                "completion_tokens": 370,
+                "total_tokens": 745
+              },
+              "cost_usd": 0.0004455,
+              "requested_rate_cost_estimate_usd": 0.0004455,
+              "latency_ms": 5141,
+              "input_token_bound": 5886,
+              "reserved_microusd": 2846,
+              "pricing": {
+                "input_price_per_million_tokens": 0.3,
+                "output_price_per_million_tokens": 0.9,
+                "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+                "observed_at": "2026-10-30T15:13:10.416Z",
+                "catalog_cache_ttl_s": 3600,
+                "fresh_for_dispatch": true,
+                "acknowledged": true
+              },
+              "rate_limit_headers": {
+                "x-ratelimit-limit-requests": "1000",
+                "x-ratelimit-remaining-requests": "999",
+                "x-ratelimit-limit-tokens": "1000000",
+                "x-ratelimit-remaining-tokens": "999094"
+              },
+              "writer_validation": {
+                "status": "valid",
+                "purpose": "story",
+                "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+                "language": "en",
+                "text_response": true,
+                "sentence_count": 34,
+                "sentences_within_cap": 34,
+                "sentences_over_cap": 0,
+                "max_sentence_chars": 48,
+                "total_chars": 1294,
+                "sentence_cap": 90,
+                "max_sentence_count": 100,
+                "required_sentence_count": null,
+                "budget_chars": 2130,
+                "scene_budget_ok": true,
+                "sentence_count_ok": true,
+                "sentence_lengths_ok": true,
+                "ending_required": true,
+                "ending_station_ok": true,
+                "passed": true,
+                "failures": []
+              }
+            }
+          ]
+        }
+      ],
+      "simulated_sentences": [
+        {
+          "start": 7.601634041406214,
+          "end": 18.022920072448343,
+          "text": "The night air felt still inside the subway car.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 18.022920072448343,
+          "end": 27.335558653379607,
+          "text": "Lights flickered softly above empty seats.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 27.335558653379607,
+          "end": 37.31338570437739,
+          "text": "No announcements played through the speakers.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 37.31338570437739,
+          "end": 46.182565305264305,
+          "text": "Passengers sat silent, eyes fixed ahead.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 46.182565305264305,
+          "end": 56.382121846284264,
+          "text": "A folded newspaper lay untouched on the floor.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 56.382121846284264,
+          "end": 66.35994889728205,
+          "text": "Its headline blurred by smudged ink and time.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 66.35994889728205,
+          "end": 76.33777594827984,
+          "text": "I glanced at my reflection in the dark glass.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 76.33777594827984,
+          "end": 84.76349656912241,
+          "text": "My face looked back, unsure and still.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 84.76349656912241,
+          "end": 94.7413236201202,
+          "text": "Outside, tunnels passed in rhythmic darkness.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 94.7413236201202,
+          "end": 103.83223271102929,
+          "text": "Each station came and went without sound.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 103.83223271102929,
+          "end": 111.59276486180535,
+          "text": "The train moved like a held breath.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 111.59276486180535,
+          "end": 118.02292007244837,
+          "text": "No one spoke, no one stirred.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 118.02292007244837,
+          "end": 125.33999324318007,
+          "text": "Even the hum of rails seemed low.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 125.33999324318007,
+          "end": 135.0960908041557,
+          "text": "I checked my watch\u2014hands frozen at midnight.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 135.0960908041557,
+          "end": 142.19143448486523,
+          "text": "Or had they stopped long before?",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 142.19143448486523,
+          "end": 150.17369612566344,
+          "text": "A child\u2019s shoe rested near the door.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 150.17369612566344,
+          "end": 157.26903980637297,
+          "text": "Small, red, laces tied in a bow.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 157.26903980637297,
+          "end": 164.80784246712685,
+          "text": "No one claimed it, no one noticed.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 164.80784246712685,
+          "end": 173.4552925779916,
+          "text": "I reached out, but pulled back my hand.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 173.4552925779916,
+          "end": 182.76793115892286,
+          "text": "The air smelled faintly of rain and metal.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 182.76793115892286,
+          "end": 191.41538126978762,
+          "text": "Somewhere ahead, a signal blinked once.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 191.41538126978762,
+          "end": 200.72801985071888,
+          "text": "Then silence returned, deeper than before.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 200.72801985071888,
+          "end": 208.48855200149492,
+          "text": "I wondered if we were still moving.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 208.48855200149492,
+          "end": 216.24908415227097,
+          "text": "Or if the train had become a dream.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 216.24908415227097,
+          "end": 224.009616303047,
+          "text": "My stop approached without warning.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 224.009616303047,
+          "end": 234.65263182411132,
+          "text": "Doors opened to a platform bathed in blue light.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 234.65263182411132,
+          "end": 243.0783524449539,
+          "text": "No crowds, no signs, just quiet tiles.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 243.0783524449539,
+          "end": 251.5040730657965,
+          "text": "I stepped out into the hollow station.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 251.5040730657965,
+          "end": 259.48633470659473,
+          "text": "Echoes swallowed my footsteps whole.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 259.48633470659473,
+          "end": 269.0207027775482,
+          "text": "Far down the tunnel, a single light swayed.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 269.0207027775482,
+          "end": 277.4464233983908,
+          "text": "As if something watched from the dark.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 277.4464233983908,
+          "end": 284.7634965691225,
+          "text": "I turned back\u2014the train was gone.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 284.7634965691225,
+          "end": 292.5240287198985,
+          "text": "Only wind stirred the empty tracks.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 292.5240287198985,
+          "end": 294.5195941300981,
+          "text": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+          "scene_id": "exit",
+          "kind": "exit"
+        }
+      ],
+      "final_scene_state": [
+        {
+          "id": "scene-1",
+          "kind": "body",
+          "sentences": [
+            "The night air felt still inside the subway car.",
+            "Lights flickered softly above empty seats.",
+            "No announcements played through the speakers.",
+            "Passengers sat silent, eyes fixed ahead.",
+            "A folded newspaper lay untouched on the floor.",
+            "Its headline blurred by smudged ink and time.",
+            "I glanced at my reflection in the dark glass.",
+            "My face looked back, unsure and still.",
+            "Outside, tunnels passed in rhythmic darkness.",
+            "Each station came and went without sound.",
+            "The train moved like a held breath.",
+            "No one spoke, no one stirred.",
+            "Even the hum of rails seemed low.",
+            "I checked my watch\u2014hands frozen at midnight.",
+            "Or had they stopped long before?",
+            "A child\u2019s shoe rested near the door.",
+            "Small, red, laces tied in a bow."
+          ]
+        },
+        {
+          "id": "scene-2",
+          "kind": "body",
+          "sentences": [
+            "No one claimed it, no one noticed.",
+            "I reached out, but pulled back my hand.",
+            "The air smelled faintly of rain and metal.",
+            "Somewhere ahead, a signal blinked once.",
+            "Then silence returned, deeper than before.",
+            "I wondered if we were still moving.",
+            "Or if the train had become a dream.",
+            "My stop approached without warning.",
+            "Doors opened to a platform bathed in blue light.",
+            "No crowds, no signs, just quiet tiles.",
+            "I stepped out into the hollow station.",
+            "Echoes swallowed my footsteps whole.",
+            "Far down the tunnel, a single light swayed.",
+            "As if something watched from the dark.",
+            "I turned back\u2014the train was gone.",
+            "Only wind stirred the empty tracks."
+          ]
+        },
+        {
+          "id": "exit",
+          "kind": "exit",
+          "sentences": [
+            "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0"
+          ]
+        }
+      ],
+      "scene_contract": "named scene-1/scene-2/exit; only wholly unstarted scenes editable; drop local, affected-scene insert/compress; four Writer attempts including initial"
+    },
+    {
+      "id": "2\ud638\uc120|0|2026-10-30|2128|1793322113|1793322497",
+      "line": "2\ud638\uc120",
+      "trainNo": "2128",
+      "policy": "single_fit",
+      "lang": "en",
+      "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+      "evidence_kind": "model-backed-timing-simulation",
+      "landing_error_s": -249.1331345223452,
+      "story_end_s": 134.8668654776548,
+      "arrival_proxy_s": 384.0,
+      "initial_forecast_s": 492.5,
+      "speech_clock": "fixed-unicode-character-rate-plus-measured-http-latency",
+      "speech_rate_cps": 4.51,
+      "conductor_calls": 0,
+      "conductor_requests": 0,
+      "writer_calls": 1,
+      "tokens": 536,
+      "cost_usd": 0.00025739999999999997,
+      "p50_latency_ms": 2508,
+      "p95_latency_ms": 2508,
+      "tool_calls_supported": null,
+      "tavily_ok": null,
+      "fact_mode": "station-only-no-search-requested",
+      "arrival_event": "station-arrival-proxy",
+      "forecast_log": [
+        {
+          "station": "\uc744\uc9c0\ub85c\uc785\uad6c",
+          "observed_at_s": 97.0,
+          "controller_clock_s": 97.0,
+          "remaining_s": 382.5,
+          "eta_source": "operator-estimate",
+          "offline_provenance": "whole-train-held-out receipt-time ETA; not a server-verified live anchor"
+        }
+      ],
+      "controller_decisions": [
+        {
+          "station": "\uc744\uc9c0\ub85c3\uac00",
+          "action": "story-already-ended"
+        }
+      ],
+      "receipts": [
+        {
+          "mode": "live",
+          "sentences": [
+            "The midnight train glided silently through Seoul's dark tunnels.",
+            "No announcements echoed inside the empty carriage.",
+            "Flickering lights cast long shadows across worn seats.",
+            "My breath fogged the cold windowpane as I watched.",
+            "Station names blurred past like forgotten dreams.",
+            "A single glove lay abandoned near the door.",
+            "I picked it up\u2014still warm from someone\u2019s hand.",
+            "The air smelled of rain and old paper.",
+            "No other passengers stirred in the dim glow.",
+            "Time seemed suspended between stops.",
+            "Then, a soft chime broke the stillness.",
+            "The doors sighed open at Dongdaemun History & Culture Park.",
+            "Exit now: \ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0"
+          ],
+          "sentence_cap": 90,
+          "fact_grounding": "station-only",
+          "char_count": 591,
+          "receipt_schema": "last-sentence/receipt-v2",
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+          "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+          "identity_match": true,
+          "usage": {
+            "prompt_tokens": 375,
+            "completion_tokens": 161,
+            "total_tokens": 536
+          },
+          "cost_usd": 0.00025739999999999997,
+          "requested_rate_cost_estimate_usd": 0.00025739999999999997,
+          "latency_ms": 2979,
+          "calls": [
+            {
+              "receipt_schema": "last-sentence/receipt-v2",
+              "model": "nvidia/nemotron-3-super-120b-a12b",
+              "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+              "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+              "identity_match": true,
+              "usage": {
+                "prompt_tokens": 375,
+                "completion_tokens": 161,
+                "total_tokens": 536
+              },
+              "cost_usd": 0.00025739999999999997,
+              "requested_rate_cost_estimate_usd": 0.00025739999999999997,
+              "latency_ms": 2508,
+              "input_token_bound": 5886,
+              "reserved_microusd": 2846,
+              "pricing": {
+                "input_price_per_million_tokens": 0.3,
+                "output_price_per_million_tokens": 0.9,
+                "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+                "observed_at": "2026-10-30T15:13:17.203Z",
+                "catalog_cache_ttl_s": 3600,
+                "fresh_for_dispatch": true,
+                "acknowledged": true
+              },
+              "rate_limit_headers": {
+                "x-ratelimit-limit-requests": "1000",
+                "x-ratelimit-remaining-requests": "999",
+                "x-ratelimit-limit-tokens": "1000000",
+                "x-ratelimit-remaining-tokens": "999094"
+              },
+              "writer_validation": {
+                "status": "valid",
+                "purpose": "story",
+                "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+                "language": "en",
+                "text_response": true,
+                "sentence_count": 13,
+                "sentences_within_cap": 13,
+                "sentences_over_cap": 0,
+                "max_sentence_chars": 64,
+                "total_chars": 591,
+                "sentence_cap": 90,
+                "max_sentence_count": 100,
+                "required_sentence_count": null,
+                "budget_chars": 2130,
+                "scene_budget_ok": true,
+                "sentence_count_ok": true,
+                "sentence_lengths_ok": true,
+                "ending_required": true,
+                "ending_station_ok": true,
+                "passed": true,
+                "failures": []
+              }
+            }
+          ]
+        }
+      ],
+      "simulated_sentences": [
+        {
+          "start": 3.824736874550581,
+          "end": 18.01542423596965,
+          "text": "The midnight train glided silently through Seoul's dark tunnels.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 18.01542423596965,
+          "end": 29.1018987370783,
+          "text": "No announcements echoed inside the empty carriage.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 29.1018987370783,
+          "end": 41.07529119827564,
+          "text": "Flickering lights cast long shadows across worn seats.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 41.07529119827564,
+          "end": 52.16176569938429,
+          "text": "My breath fogged the cold windowpane as I watched.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 52.16176569938429,
+          "end": 63.02651071047077,
+          "text": "Station names blurred past like forgotten dreams.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 63.02651071047077,
+          "end": 72.56087878142421,
+          "text": "A single glove lay abandoned near the door.",
+          "scene_id": "scene-1",
+          "kind": "body"
+        },
+        {
+          "start": 72.56087878142421,
+          "end": 82.76043532244417,
+          "text": "I picked it up\u2014still warm from someone\u2019s hand.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 82.76043532244417,
+          "end": 91.18615594328674,
+          "text": "The air smelled of rain and old paper.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 91.18615594328674,
+          "end": 100.94225350426234,
+          "text": "No other passengers stirred in the dim glow.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 100.94225350426234,
+          "end": 108.92451514506057,
+          "text": "Time seemed suspended between stops.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 108.92451514506057,
+          "end": 117.5719652559253,
+          "text": "Then, a soft chime broke the stillness.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 117.5719652559253,
+          "end": 130.65400516723352,
+          "text": "The doors sighed open at Dongdaemun History & Culture Park.",
+          "scene_id": "scene-2",
+          "kind": "body"
+        },
+        {
+          "start": 130.65400516723352,
+          "end": 134.8668654776548,
+          "text": "Exit now: \ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+          "scene_id": "exit",
+          "kind": "exit"
+        }
+      ],
+      "final_scene_state": [
+        {
+          "id": "scene-1",
+          "kind": "body",
+          "sentences": [
+            "The midnight train glided silently through Seoul's dark tunnels.",
+            "No announcements echoed inside the empty carriage.",
+            "Flickering lights cast long shadows across worn seats.",
+            "My breath fogged the cold windowpane as I watched.",
+            "Station names blurred past like forgotten dreams.",
+            "A single glove lay abandoned near the door."
+          ]
+        },
+        {
+          "id": "scene-2",
+          "kind": "body",
+          "sentences": [
+            "I picked it up\u2014still warm from someone\u2019s hand.",
+            "The air smelled of rain and old paper.",
+            "No other passengers stirred in the dim glow.",
+            "Time seemed suspended between stops.",
+            "Then, a soft chime broke the stillness.",
+            "The doors sighed open at Dongdaemun History & Culture Park."
+          ]
+        },
+        {
+          "id": "exit",
+          "kind": "exit",
+          "sentences": [
+            "Exit now: \ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0"
+          ]
+        }
+      ],
+      "scene_contract": "named scene-1/scene-2/exit; only wholly unstarted scenes editable; drop local, affected-scene insert/compress; four Writer attempts including initial"
+    }
+  ],
+  "language_pair": [],
+  "attempts": [
+    {
+      "path": "/api/write",
+      "input": {
+        "lang": "en",
+        "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+        "budget_chars": 2130,
+        "is_last_scene": true,
+        "scene": "Continue a complete quiet Seoul train mystery. Use close to the 2130-character allowance, one sentence per line. Finish with the exit alert. Offline timing simulation; no source fact is supplied.",
+        "expected_pricing": {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "input_price_per_million_tokens": 0.3,
+          "output_price_per_million_tokens": 0.9
+        }
+      },
+      "state": "recorded",
+      "reserved_usd": 0.0059952,
+      "maximum_completions": 1,
+      "offline_pacing_wait_s": 0.0,
+      "pacing_excluded_from_simulated_speech_clock": true,
+      "http_status": 200,
+      "response": {
+        "mode": "live",
+        "sentences": [
+          "The night air felt still inside the subway car.",
+          "Lights flickered softly above empty seats.",
+          "No announcements played through the speakers.",
+          "Passengers sat silent, eyes fixed ahead.",
+          "A folded newspaper lay untouched on the floor.",
+          "Its headline blurred by smudged ink and time.",
+          "I glanced at my reflection in the dark glass.",
+          "My face looked back, unsure and still.",
+          "Outside, tunnels passed in rhythmic darkness.",
+          "Each station came and went without sound.",
+          "The train moved like a held breath.",
+          "No one spoke, no one stirred.",
+          "Even the hum of rails seemed low.",
+          "I checked my watch\u2014hands frozen at midnight.",
+          "Or had they stopped long before?",
+          "A child\u2019s shoe rested near the door.",
+          "Small, red, laces tied in a bow.",
+          "No one claimed it, no one noticed.",
+          "I reached out, but pulled back my hand.",
+          "The air smelled faintly of rain and metal.",
+          "Somewhere ahead, a signal blinked once.",
+          "Then silence returned, deeper than before.",
+          "I wondered if we were still moving.",
+          "Or if the train had become a dream.",
+          "My stop approached without warning.",
+          "Doors opened to a platform bathed in blue light.",
+          "No crowds, no signs, just quiet tiles.",
+          "I stepped out into the hollow station.",
+          "Echoes swallowed my footsteps whole.",
+          "Far down the tunnel, a single light swayed.",
+          "As if something watched from the dark.",
+          "I turned back\u2014the train was gone.",
+          "Only wind stirred the empty tracks.",
+          "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0"
+        ],
+        "sentence_cap": 90,
+        "fact_grounding": "station-only",
+        "char_count": 1294,
+        "receipt_schema": "last-sentence/receipt-v2",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+        "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+        "identity_match": true,
+        "usage": {
+          "prompt_tokens": 375,
+          "completion_tokens": 370,
+          "total_tokens": 745
+        },
+        "cost_usd": 0.0004455,
+        "requested_rate_cost_estimate_usd": 0.0004455,
+        "latency_ms": 6547,
+        "calls": [
+          {
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+            "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+            "identity_match": true,
+            "usage": {
+              "prompt_tokens": 375,
+              "completion_tokens": 370,
+              "total_tokens": 745
+            },
+            "cost_usd": 0.0004455,
+            "requested_rate_cost_estimate_usd": 0.0004455,
+            "latency_ms": 5141,
+            "input_token_bound": 5886,
+            "reserved_microusd": 2846,
+            "pricing": {
+              "input_price_per_million_tokens": 0.3,
+              "output_price_per_million_tokens": 0.9,
+              "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+              "observed_at": "2026-10-30T15:13:10.416Z",
+              "catalog_cache_ttl_s": 3600,
+              "fresh_for_dispatch": true,
+              "acknowledged": true
+            },
+            "rate_limit_headers": {
+              "x-ratelimit-limit-requests": "1000",
+              "x-ratelimit-remaining-requests": "999",
+              "x-ratelimit-limit-tokens": "1000000",
+              "x-ratelimit-remaining-tokens": "999094"
+            },
+            "writer_validation": {
+              "status": "valid",
+              "purpose": "story",
+              "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+              "language": "en",
+              "text_response": true,
+              "sentence_count": 34,
+              "sentences_within_cap": 34,
+              "sentences_over_cap": 0,
+              "max_sentence_chars": 48,
+              "total_chars": 1294,
+              "sentence_cap": 90,
+              "max_sentence_count": 100,
+              "required_sentence_count": null,
+              "budget_chars": 2130,
+              "scene_budget_ok": true,
+              "sentence_count_ok": true,
+              "sentence_lengths_ok": true,
+              "ending_required": true,
+              "ending_station_ok": true,
+              "passed": true,
+              "failures": []
+            }
+          }
+        ]
+      },
+      "http_elapsed_ms": 6791.07016697526,
+      "status_elapsed_ms": 810.5638744309545
+    },
+    {
+      "path": "/api/write",
+      "input": {
+        "lang": "en",
+        "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+        "budget_chars": 2130,
+        "is_last_scene": true,
+        "scene": "Continue a complete quiet Seoul train mystery. Use close to the 2130-character allowance, one sentence per line. Finish with the exit alert. Offline timing simulation; no source fact is supplied.",
+        "expected_pricing": {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "input_price_per_million_tokens": 0.3,
+          "output_price_per_million_tokens": 0.9
+        }
+      },
+      "state": "recorded",
+      "reserved_usd": 0.0059952,
+      "maximum_completions": 1,
+      "offline_pacing_wait_s": 0.0,
+      "pacing_excluded_from_simulated_speech_clock": true,
+      "http_status": 200,
+      "response": {
+        "mode": "live",
+        "sentences": [
+          "The midnight train glided silently through Seoul's dark tunnels.",
+          "No announcements echoed inside the empty carriage.",
+          "Flickering lights cast long shadows across worn seats.",
+          "My breath fogged the cold windowpane as I watched.",
+          "Station names blurred past like forgotten dreams.",
+          "A single glove lay abandoned near the door.",
+          "I picked it up\u2014still warm from someone\u2019s hand.",
+          "The air smelled of rain and old paper.",
+          "No other passengers stirred in the dim glow.",
+          "Time seemed suspended between stops.",
+          "Then, a soft chime broke the stillness.",
+          "The doors sighed open at Dongdaemun History & Culture Park.",
+          "Exit now: \ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0"
+        ],
+        "sentence_cap": 90,
+        "fact_grounding": "station-only",
+        "char_count": 591,
+        "receipt_schema": "last-sentence/receipt-v2",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+        "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+        "identity_match": true,
+        "usage": {
+          "prompt_tokens": 375,
+          "completion_tokens": 161,
+          "total_tokens": 536
+        },
+        "cost_usd": 0.00025739999999999997,
+        "requested_rate_cost_estimate_usd": 0.00025739999999999997,
+        "latency_ms": 2979,
+        "calls": [
+          {
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+            "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+            "identity_match": true,
+            "usage": {
+              "prompt_tokens": 375,
+              "completion_tokens": 161,
+              "total_tokens": 536
+            },
+            "cost_usd": 0.00025739999999999997,
+            "requested_rate_cost_estimate_usd": 0.00025739999999999997,
+            "latency_ms": 2508,
+            "input_token_bound": 5886,
+            "reserved_microusd": 2846,
+            "pricing": {
+              "input_price_per_million_tokens": 0.3,
+              "output_price_per_million_tokens": 0.9,
+              "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+              "observed_at": "2026-10-30T15:13:17.203Z",
+              "catalog_cache_ttl_s": 3600,
+              "fresh_for_dispatch": true,
+              "acknowledged": true
+            },
+            "rate_limit_headers": {
+              "x-ratelimit-limit-requests": "1000",
+              "x-ratelimit-remaining-requests": "999",
+              "x-ratelimit-limit-tokens": "1000000",
+              "x-ratelimit-remaining-tokens": "999094"
+            },
+            "writer_validation": {
+              "status": "valid",
+              "purpose": "story",
+              "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+              "language": "en",
+              "text_response": true,
+              "sentence_count": 13,
+              "sentences_within_cap": 13,
+              "sentences_over_cap": 0,
+              "max_sentence_chars": 64,
+              "total_chars": 591,
+              "sentence_cap": 90,
+              "max_sentence_count": 100,
+              "required_sentence_count": null,
+              "budget_chars": 2130,
+              "scene_budget_ok": true,
+              "sentence_count_ok": true,
+              "sentence_lengths_ok": true,
+              "ending_required": true,
+              "ending_station_ok": true,
+              "passed": true,
+              "failures": []
+            }
+          }
+        ]
+      },
+      "http_elapsed_ms": 3219.800707884133,
+      "status_elapsed_ms": 604.9361666664481
+    },
+    {
+      "path": "/api/plan",
+      "input": {
+        "current_station": "\uc2dc\uccad",
+        "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+        "stations_left": 4,
+        "remaining_s": 492.5,
+        "elapsed_story_s": 0,
+        "eta_source": "operator-estimate",
+        "remaining_scenes": [],
+        "offline_provenance": "whole-train-held-out recorded receipt-time ETA",
+        "expected_pricing": {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "input_price_per_million_tokens": 0.06,
+          "output_price_per_million_tokens": 0.24
+        }
+      },
+      "state": "failed",
+      "reserved_usd": 0.00323712,
+      "maximum_completions": 3,
+      "offline_pacing_wait_s": 0.0,
+      "pacing_excluded_from_simulated_speech_clock": true,
+      "http_status": 502,
+      "response": {
+        "mode": "replay-only",
+        "error": "invalid_plan",
+        "message": "The Conductor returned an unsupported operation",
+        "receipt_schema": "last-sentence/receipt-v2",
+        "model": "nvidia/Nemotron-3_5-Lightning",
+        "requested_model": "nvidia/Nemotron-3_5-Lightning",
+        "provider_reported_model": "nvidia/Nemotron-3_5-Lightning",
+        "identity_match": true,
+        "usage": {
+          "prompt_tokens": 1942,
+          "completion_tokens": 174,
+          "total_tokens": 2116
+        },
+        "cost_usd": 0.00015827999999999998,
+        "requested_rate_cost_estimate_usd": 0.00015827999999999998,
+        "latency_ms": 7509,
+        "calls": [
+          {
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": "nvidia/Nemotron-3_5-Lightning",
+            "requested_model": "nvidia/Nemotron-3_5-Lightning",
+            "provider_reported_model": "nvidia/Nemotron-3_5-Lightning",
+            "identity_match": true,
+            "usage": {
+              "prompt_tokens": 770,
+              "completion_tokens": 17,
+              "total_tokens": 787
+            },
+            "cost_usd": 5.027999999999999e-05,
+            "requested_rate_cost_estimate_usd": 5.027999999999999e-05,
+            "latency_ms": 1161,
+            "input_token_bound": 5824,
+            "reserved_microusd": 446,
+            "pricing": {
+              "input_price_per_million_tokens": 0.06,
+              "output_price_per_million_tokens": 0.24,
+              "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+              "observed_at": "2026-10-30T15:13:20.533Z",
+              "catalog_cache_ttl_s": 3600,
+              "fresh_for_dispatch": true,
+              "acknowledged": true
+            },
+            "rate_limit_headers": {
+              "x-ratelimit-limit-requests": "1000",
+              "x-ratelimit-remaining-requests": "999",
+              "x-ratelimit-limit-tokens": "2000000",
+              "x-ratelimit-remaining-tokens": "1999232"
+            }
+          },
+          {
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": "nvidia/Nemotron-3_5-Lightning",
+            "requested_model": "nvidia/Nemotron-3_5-Lightning",
+            "provider_reported_model": "nvidia/Nemotron-3_5-Lightning",
+            "identity_match": true,
+            "usage": {
+              "prompt_tokens": 843,
+              "completion_tokens": 15,
+              "total_tokens": 858
+            },
+            "cost_usd": 5.418e-05,
+            "requested_rate_cost_estimate_usd": 5.418e-05,
+            "latency_ms": 1246,
+            "input_token_bound": 6227,
+            "reserved_microusd": 470,
+            "pricing": {
+              "input_price_per_million_tokens": 0.06,
+              "output_price_per_million_tokens": 0.24,
+              "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+              "observed_at": "2026-10-30T15:13:22.029Z",
+              "catalog_cache_ttl_s": 3600,
+              "fresh_for_dispatch": true,
+              "acknowledged": true
+            },
+            "rate_limit_headers": {
+              "x-ratelimit-limit-requests": "1000",
+              "x-ratelimit-remaining-requests": "999",
+              "x-ratelimit-limit-tokens": "2000000",
+              "x-ratelimit-remaining-tokens": "1999184"
+            }
+          },
+          {
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": "nvidia/Nemotron-3_5-Lightning",
+            "requested_model": "nvidia/Nemotron-3_5-Lightning",
+            "provider_reported_model": "nvidia/Nemotron-3_5-Lightning",
+            "identity_match": true,
+            "usage": {
+              "prompt_tokens": 329,
+              "completion_tokens": 142,
+              "total_tokens": 471
+            },
+            "cost_usd": 5.3819999999999996e-05,
+            "requested_rate_cost_estimate_usd": 5.3819999999999996e-05,
+            "latency_ms": 4071,
+            "input_token_bound": 5751,
+            "reserved_microusd": 442,
+            "pricing": {
+              "input_price_per_million_tokens": 0.06,
+              "output_price_per_million_tokens": 0.24,
+              "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+              "observed_at": "2026-10-30T15:13:23.599Z",
+              "catalog_cache_ttl_s": 3600,
+              "fresh_for_dispatch": true,
+              "acknowledged": true
+            },
+            "rate_limit_headers": {
+              "x-ratelimit-limit-requests": "1000",
+              "x-ratelimit-remaining-requests": "999",
+              "x-ratelimit-limit-tokens": "2000000",
+              "x-ratelimit-remaining-tokens": "1999362"
+            }
+          }
+        ]
+      },
+      "http_elapsed_ms": 7690.7058749347925,
+      "status_elapsed_ms": 245.9287503734231,
+      "failure": "SimulationError: Worker request failed; attempt and receipts retained"
+    }
+  ],
+  "failures": [
+    {
+      "type": "SimulationError",
+      "reason": "SimulationError: Worker request failed; attempt and receipts retained"
+    }
+  ],
+  "measured_tts_runs": 0,
+  "max_execution_seconds": 5400.0,
+  "pacing": {
+    "rpm": 45,
+    "tpm": 300000,
+    "reservation": "worst-case completion groups and input+output token envelope",
+    "wait_s": 0.0,
+    "excluded_from_simulated_speech_clock": true,
+    "assumption": "No competing account traffic; provider limits may differ. Dispatched failures are never retried automatically."
+  },
+  "price_revalidations": [],
+  "execution_transport": "protected-worker-http",
+  "notice": "Model-generated text on recorded receipt-time arrival traces. Speech duration is simulated from fixed Unicode characters/second plus measured HTTP latency. Offline 45RPM/300000TPM pacing and public-price audit waits count in real runtime but are excluded from the simulated speech clock; this assumes no competing account traffic. No browser TTS, door-open, or real-world narration accuracy is measured.",
+  "trace_sha256": "5c5bd96c331ca0ae0bd1f5b7d48d6d83dfc95840925a220e7ec31bc5746ca9d0",
+  "line_coverage": [
+    "2\ud638\uc120",
+    "5\ud638\uc120",
+    "7\ud638\uc120"
+  ],
+  "distinct_train_identities": 5,
+  "windows_per_line": {
+    "2\ud638\uc120": 2,
+    "5\ud638\uc120": 2,
+    "7\ud638\uc120": 1
+  },
+  "selection_notice": "Only eligible recorded lines are included. No line-5/7 results exist unless those traces are supplied. Windows may overlap; repeated windows are not independent journeys.",
+  "eta_training": "Other train identities from this offline trace; whole target train identity excluded. This is not forward-in-time online validation.",
+  "actual_api_cost_usd": 0.00086118,
+  "known_usage_cost_usd": 0.00086118,
+  "reserved_upper_bound_usd": 0.01522752,
+  "reserved_completion_bound": 5,
+  "coverage": {
+    "journeys": 1,
+    "complete_paired_journeys": 0,
+    "unpaired_journeys": 1,
+    "rows_by_policy": {
+      "fixed_clip": 1,
+      "single_fit": 1,
+      "sentence_replan": 0
+    },
+    "comparison_basis": "unpaired-only",
+    "pairing_definition": "All three policies for the same frozen journey id; measured import also verifies train, line, exit/arrival and replay origin/direction when present."
+  },
+  "completed_simulation_runs": 2,
+  "inference_dispatch_attempts": 3,
+  "model_completion_attempts": 5,
+  "completion_attempt_count_known": true
+}

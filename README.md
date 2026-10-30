@@ -1,35 +1,35 @@
 # Last Sentence · 마지막 문장
 
-A story that is intended to finish at your subway stop. Select a destination, follow the sentence stream, and inspect how the available time changes the story.
+A story intended to finish at your subway stop. Select a destination, follow the sentence stream, and inspect how the available time changes the story.
 
-**Current build: public keyless recorded/fixture replay and deployed same-origin API; successful Nemotron completions, matrix evaluation and live timed narration remain UNRUN.** Two direct authentication smoke requests returned HTTP 401. A local Nebius key is now present with mode `600`, but provider authentication has not succeeded; it has not been uploaded to the Worker, whose inference remains disabled. Stories are hand-authored until connected generation is explicitly selected. Recorded replay uses known provider timestamps; synthetic fixtures are separate. Replay needs no account or keys. It is not evidence of ±30-second performance on a train.
+**Current build, October 31, 2026 KST: public recorded/fixture replay, a protected Worker API with verified real Nemotron responses, and an offline model-backed comparison with one retained output rejection.** Default replay uses authored text and needs no account or key. Connected generation requires an application session token and makes billable requests. Recorded replay knows the provider timestamps in advance; it does not establish prospective train, browser-speech or door-opening accuracy.
 
-[Open the demo](https://last-sentence.felix-market-radar.workers.dev) · [Public MIT source](https://github.com/testofschool/last-sentence) · [UI specification](docs/UI_SPEC.md). The Worker URL is the canonical same-origin UI/API deployment. [Cloudflare Pages](https://last-sentence.pages.dev) is a static keyless mirror. Public UI, asset and UI-spec responses were checked against the local source on October 30, 2026 KST; deployment does not establish runtime model use.
+[Open the demo](https://last-sentence.felix-market-radar.workers.dev) · [Public MIT source](https://github.com/testofschool/last-sentence) · [UI specification](docs/UI_SPEC.md). The Worker is the canonical same-origin UI/API deployment. [Cloudflare Pages](https://last-sentence.pages.dev) remains a static keyless mirror.
 
 ```sh
 cd ~/dev/last-sentence
 npm run dev
 ```
 
-Open the printed local URL. Choose Replay, a source, train journey and destination, then start. Try ×16 to inspect the ending; pause, scrub, switch language or restart. Audio is optional and browser voices vary. Keyless replay has no inference cost. Keep the screen open.
+Choose Replay, a source, train journey and destination, then start. Try ×16 to inspect the ending; pause, scrub, switch language or restart. Audio is optional and browser voices vary. Keep the screen open. The local preview binds to `127.0.0.1`, loads no provider credentials and keeps its live API disabled.
 
 ## Which model does what
 
-| Component | Intended live model/service | Implementation and execution status |
+| Component | Model/service | Observed scope |
 | --- | --- | --- |
-| Conductor | `nvidia/Nemotron-3_5-Lightning` on Nebius Token Factory | Tools for ETA, character budget and scene operations; API implemented, runtime model behavior UNMEASURED |
-| English Writer | `nvidia/nemotron-3-super-120b-a12b` | Sentence and destination checks implemented; real output UNMEASURED |
-| Korean Writer | `nvidia/Nemotron-3-Ultra-550b-a55b` | Selected because its supported-language list includes Korean; real output UNMEASURED |
-| Neighbourhood fact | Tavily | Source URL retained when available; real search UNRUN |
-| Train position | Seoul real-time subway sample API | Dated observations recorded separately from fixture journeys |
+| Conductor | `nvidia/Nemotron-3_5-Lightning` on Nebius Token Factory | Real planning responses and receipts observed; tool execution and failures are retained per request |
+| English Writer | `nvidia/nemotron-3-super-120b-a12b` | Real generated text and validation receipts observed; rejected outputs remain failures |
+| Korean Writer | `nvidia/Nemotron-3-Ultra-550b-a55b` | Real controlled probe, timing pair and connected browser generation observed; Korean quality remains unmeasured |
+| Neighbourhood fact | Tavily | Optional source URL path; real search remains UNRUN |
+| Train position | Seoul real-time subway sample API | Frozen observations recorded separately from synthetic fixtures |
 
-The prepared Live controller uses a completed, provenance-bound ETA artifact and server-cached train arrivals. It requires a selected actual train/direction and a forward exit on a line whose own quality gate passes. Routes follow the line-2 main loop, the actual line-5 branch/terminus, or the line-7 chain. The train clock keeps advancing while model requests run; rewritten text waits for a sentence boundary. These behaviors have mock tests; actual model-backed Live use remains unrun.
+The model cards were checked on October 30, 2026 KST. Ultra explicitly lists Korean among its supported languages; omission from another card does not prove inability. In the controlled same-Korean-scene probe, one request per Writer produced six inspected nonempty lines, all within the 40-Unicode-character cap. This **6/6 mechanical observation** is not a language-quality score, model ranking or general obedience rate.
 
-The public model catalog and model cards were checked on October 30, 2026 KST. A language missing from a card's supported-language list does not prove that the model cannot generate that language. This is a conservative model-selection policy.
+The prepared Live controller requires a fresh verified train-arrival anchor, actual train/direction, forward exit and a passing per-line ETA gate. Wall-clock time continues during requests; rewritten text waits for a sentence boundary. Real rider operation, model-backed Live narration, browser TTS and door timing remain unvalidated.
 
 ## Run and inspect
 
-Node.js 22+ and Python 3.10+ are used; the local frontend has no package dependencies. The test command also needs pytest (`python3 -m pip install pytest` if absent).
+Node.js 22+ and Python 3.10+ are used; the frontend has no package dependencies. The Python tests require pytest.
 
 ```sh
 npm test
@@ -37,31 +37,43 @@ python3 -I scripts/preflight.py
 python3 -I scripts/verify.py
 ```
 
-Preflight makes public read-only requests, saves dated primary-source evidence, and checks only whether the three expected key files exist. It does not install tools, read key bytes, register accounts, spend credits or deploy. `verify.py` tests the code, checks local credential bytes without printing them, and hashes deliverables. Finish or stop recording before the final integrity check.
+Preflight makes public read-only requests and checks key-file presence. It does not install tools, read key bytes, spend credits or deploy. `verify.py` tests code, checks local credential bytes without printing them, and hashes deliverables. `npm run build` prepares `dist/` with app assets and linked documents.
 
-The local server binds to `127.0.0.1` and never loads credentials. It serves `/api/status` with live services disabled. Cloudflare Worker development and a protected live setup are documented in [API.md](docs/API.md). Keep vendor keys on the server. `npm run build` prepares `dist/` with both app assets and linked documents for one-origin hosting.
+“Generate with connected models” is an explicit optional billable action. It uses the configured Worker and a separate **application session token**, never a provider key in the browser. The frontend generation flow and offline Worker measurements have separate evidence: authenticated Worker responses do not by themselves prove that a browser journey or live rider session completed. See [API setup](docs/API.md) and [limitations](docs/LIMITATIONS.md).
 
-“Generate with connected models” is an explicit optional billable action. It checks a separately configured Worker and session credential before requesting a fact, a plan and a story; subsequent station events can replan. This path was reviewed and mock-tested, but has not executed against real models. Its replay clock is known in advance and cannot establish prospective arrival accuracy.
+## Evidence and current execution boundary
 
-## Evidence and results
-
-| Quantity | Current meaning |
+| Evidence | Meaning |
 | --- | --- |
-| 3 × 40-minute recordings | 600 actual sample observations per line: 1,800 total, 0 gap records; offline proxy validation is separate from speech accuracy |
-| 3 fixture journeys | Synthetic line 2, 5 and 7 scenarios for deterministic UI checks |
-| 2 authentication smoke requests | Both returned HTTP 401; 0 successful completions; provider usage and actual cost are null, not a verified $0 charge |
-| 0 measured model-backed journeys | The 30×3 comparison is gated on actual observations and credentials |
+| 3 × 40-minute recordings | 600 actual sample observations per line, 1,800 total and no gap records; station-arrival proxy data |
+| 3 fixture journeys | Explicitly synthetic line 2, 5 and 7 scenarios |
+| Verified real Nemotron receipts | 93 exact-ID responses including rejected outputs; $0.01405146 known usage/catalog estimate, with missing prior costs separate |
+| Controlled Korean probe | One request per Super/Ultra; six of six inspected lines within 40 characters; semantic quality unmeasured |
+| [Reduced attempt 07](evidence/model-reduced-20261031-07.json) | All17 planned slots visited:16 scored,1 retained output rejection;4/5 fully paired windows; sentence-replan0/5 within±30seconds |
+| Full 30×3 comparison | **UNRUN**: the handoff's before-19:30 KST condition was missed |
 
-The full **30-journey × 3-policy + 2-language** plan has a conservative bound of **$2.60596288 / 1,370 completions** at the checked prices. It fits the $3 guard with an explicitly configured 2,048-completion Worker ceiling and enforced 16,384-token input envelope. The default 300-completion setting still refuses the full plan. Reduced plans are optional diagnostics; the original balanced 10-journeys-per-line comparison remains the target. A bound is not actual spend or a reservation; no matrix or controlled feedback experiment has run. The two direct smoke requests retain a conservative outside-Worker reserve of **1,974 microUSD ($0.001974)**. The planned Worker cap is therefore **$2.998026**, within the existing $3 total authorization; this reduced cap has not been deployed and does not establish a provider charge.
+The reduced comparison finished with one retained model-output failure. Earlier versions and interrupted05 remain separate. Failed slots receive no invented score; missing usage/cost is not replaced by zero. See [final runtime audit](evidence/runtime-live-audit.json), [results](docs/RESULTS.md) and [feedback](docs/FEEDBACK.md).
 
-[Results](docs/RESULTS.md) separate deterministic scheduling tests from observed train records and real inference. Real Nemotron inference is directly authorized up to **$3 total**. The present mode `600` local key was rejected by the provider, so a valid credential remains the blocker; inference stays disabled and no first verified model reply, tool result or model-timing measurement exists. Refresh pricing, account for the outside-Worker smoke reserve and inspect remaining shared reservations before execution. A guarded model-backed timing-simulation runner is prepared for that authenticated run; it retains actual model receipts while labeling character-rate speech timing as simulation. Actual browser-speech results require separately recorded events. [Limitations](docs/LIMITATIONS.md) explain the gaps. [Prior art](docs/PRIOR_ART.md) includes systems that already adapt stories to journeys; no novelty or superiority claim follows from this prototype.
+The [final runtime audit](evidence/runtime-live-audit.json) records **93 exact-ID provider responses**, including rejected outputs, with a known usage/catalog subtotal of **$0.01405146**. The two earlier401 POST costs and interrupted05 outcome remain unknown; the account invoice is unverified. [reduced attempt 07](evidence/model-reduced-20261031-07.json) visited **17/17 slots:16 scored,1 known output rejection,0 unstarted**. Sentence-replan scored **0/5 within±30seconds**; this is fixed-character-rate simulation, not browser speech or doors. The connected capture contains **4 provider completions grouped into2 UI service events**.
 
-`REPORT.md` records acceptance A1–A7, P1–P12 and remaining gates. [Feedback](docs/FEEDBACK.md) contains only observations that were actually made. [Runbook](docs/RUNBOOK.md) lists the next steps needed for a model-backed, reviewable release; [video script](docs/VIDEO_SCRIPT.md) is a draft using the current evidence boundary.
+The direct authorization is **$3 total**. Three direct smokes retain a conservative **$0.002961 outside-Worker reserve**; the deployed Worker portion is **$2.997039**, so the two bounds sum to $3. These are reservation limits, not an account invoice. Known usage/catalog estimates are separate from the unknown costs of the two earlier 401 requests and the interrupted attempt-05 dispatch. The same Durable Object ledger is retained across redeployments.
+
+The checked-in configuration keeps `ENABLE_LIVE=false` and its default completion allowance. The current protected deployment uses explicit overrides; repeat them for an authorized redeploy rather than silently changing the recorded profile:
+
+```sh
+npx wrangler deploy --config worker/wrangler.jsonc \
+  --var ENABLE_LIVE:true --var LIVE_BUDGET_USD:2.997039 \
+  --var LIVE_MAX_COMPLETIONS:2048
+```
+
+Do not reset the Durable Object ledger to obtain fresh capacity. Refresh prices and inspect authenticated remaining reservations before any further experiment. The historical full-plan bound of $2.60596288 at saved catalog prices is a planning artifact, not a completed experiment or current spending total.
+
+[Prior art](docs/PRIOR_ART.md) includes systems that already adapt stories to journeys; no novelty or superiority claim follows from this prototype. [Runbook](docs/RUNBOOK.md) separates the remaining work from the released build. Video publication, messaging and Devpost submission remain human actions outside the current execution authorization.
 
 ## 한국어
 
-목적지에 도착할 때 끝나는 이야기를 실험하는 공개 프로토타입입니다. 직접 쓴 예시 문장에 실제 열차의 기록된 시각이나 별도의 합성 시간표를 연결해 재생합니다. 화면의 종료 오차를 실제 문 열림 시각이나 앞으로의 도착 예측 성능으로 해석하면 안 됩니다.
+기본 화면은 기록된 역 관측 시각 또는 합성 시간표와 사람이 쓴 문장을 재생합니다. Worker에서는 유효한 키로 실제 Nemotron 응답을 확인했고, 별도 앱 세션 토큰으로 보호된 모델 호출이 가능합니다. 공급자 API 키는 브라우저나 Git에 넣지 않습니다. Pages는 키 없는 정적 미러입니다.
 
-GitHub 공개 저장소와 Cloudflare 배포는 확인했습니다. Worker가 화면과 API를 함께 제공하며, Pages는 키 없는 정적 미러입니다. 실제 Nemotron 추론은 총 $3 한도로 직접 승인되었습니다. 로컬 키는 권한 600으로 저장됐지만 인증 확인용 POST 2회와 읽기 전용 GET 진단 2회가 모두 HTTP 401을 반환했습니다. 성공한 모델 응답은 0건이며 사용량·실제 청구액은 확인되지 않았습니다. 키를 Worker에 올리지 않았고 배포된 추론 기능은 꺼져 있습니다. 모델 비교·한국어 피드백 실험, Tavily 검색, 실시간 운행에 맞춘 이야기 생성, 영상과 제출은 아직 완료되지 않았습니다. 기록이 부족한 역 구간은 검증된 ETA로 표시하지 않습니다. API 키는 브라우저나 Git에 넣지 않습니다.
+축소 비교 07은 예정17건을 모두 시도해16건을 채점하고1건의 출력 탈락을 보존했습니다. 재계획 방식은±30초 이내0/5였습니다. 실제 모델 응답93건의 알려진 비용 추정은$0.01405146이며, 이전 비용 미반환3건은 별도입니다. 전체 30×3 비교는 19:30 실행 조건을 지나 미실행입니다. 한국어 동일 장면 실험은 모델별 1회, 총 6줄이 40자 이내였다는 기계적 관측이며 한국어 품질이나 우열을 입증하지 않습니다. 문자 속도 기반 타이밍 시뮬레이션을 실제 음성·열차·문 열림 정확도로 해석하면 안 됩니다.
 
 MIT · felix · 2026

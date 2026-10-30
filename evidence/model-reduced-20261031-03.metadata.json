@@ -1,0 +1,17 @@
+{
+  "source_commit": "00d630348835dcfd7ce30f482ebc2a54aa016950",
+  "writer_source_sha256": "d09b0536d842b03afaec0efd7016cb221ab88385c1a3828f33c3fc475b98a3d7",
+  "prompt_version": "normal-writer-short-lines-v2-20261031",
+  "prior_rejected_run": "evidence/model-reduced-20261031-02.json",
+  "server_limits_before": {
+    "completion_cap": 2048,
+    "completion_calls_used": 3,
+    "completion_calls_remaining": 2045,
+    "reserved_usd": 0.009631,
+    "reservation_budget_usd": 2.997039,
+    "seoul_calls_used_today": 0,
+    "seoul_daily_cap": 950,
+    "search_calls_used": 0,
+    "search_lifetime_cap": 100
+  }
+}

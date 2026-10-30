@@ -1,0 +1,181 @@
+{
+  "schema": "last-sentence/public-controlled-korean-feedback-v1",
+  "raw_source_sha256": "8c35877f67bc400705ff35acdbc8535138f3f84cec1f6e30a1434c27035d75e9",
+  "evidence_kind": "controlled-worker-feedback-probe",
+  "status": "complete",
+  "started_at": "2026-10-30T15:06:55.165608+00:00",
+  "finished_at": "2026-10-30T15:07:06.618082+00:00",
+  "common_request": {
+    "purpose": "feedback-korean-compare",
+    "lang": "ko",
+    "sentence_count": 3,
+    "budget_chars": 120,
+    "scene": "서울 지하철 빈 좌석에서 노란 봉투를 발견한 사람이 봉투 속 손그림 지도를 펼치는 장면입니다. 인물과 장소를 늘리지 말고 이 장면만 짧은 한국어 이야기로 쓰세요."
+  },
+  "common_request_sha256": "bde448c43d5203f3e317c3e4f1452a0cbda4b2f0089a45e76fc4e2c12eab8305",
+  "rows": [
+    {
+      "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+      "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+      "identity_match": true,
+      "http_status": 200,
+      "status": "success",
+      "common_request_sha256": "bde448c43d5203f3e317c3e4f1452a0cbda4b2f0089a45e76fc4e2c12eab8305",
+      "sentences": [
+        "지하철 빈 좌석에 앉아 노란 봉투를 꺼냈다.",
+        "봉투 안에는 아이 같은 손그림 지도가 펼쳐져 있었다.",
+        "길목마다 작은 별이 그려져 있어 마음이 따뜻해졌다."
+      ],
+      "unicode_line_lengths": [
+        24,
+        29,
+        28
+      ],
+      "validation_countable": true,
+      "received_at": "2026-10-30T15:07:00.273990+00:00",
+      "client_latency_ms": 2633.7602911517024,
+      "worker_latency_ms": 2056,
+      "completion_receipt": {
+        "receipt_schema": "last-sentence/receipt-v2",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "requested_model": "nvidia/nemotron-3-super-120b-a12b",
+        "provider_reported_model": "nvidia/nemotron-3-super-120b-a12b",
+        "identity_match": true,
+        "usage": {
+          "prompt_tokens": 156,
+          "completion_tokens": 49,
+          "total_tokens": 205
+        },
+        "cost_usd": 9.09e-05,
+        "requested_rate_cost_estimate_usd": 9.09e-05,
+        "latency_ms": 1351,
+        "input_token_bound": 4899,
+        "reserved_microusd": 1632,
+        "pricing": {
+          "input_price_per_million_tokens": 0.3,
+          "output_price_per_million_tokens": 0.9,
+          "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+          "observed_at": "2026-10-30T15:06:58.564Z",
+          "fresh_for_dispatch": true,
+          "acknowledged": true
+        },
+        "rate_limit_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-limit-tokens": "1000000",
+          "x-ratelimit-remaining-tokens": "999698"
+        },
+        "writer_validation": {
+          "status": "valid",
+          "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+          "purpose": "feedback-korean-compare",
+          "language": "ko",
+          "text_response": true,
+          "sentence_count": 3,
+          "sentences_within_cap": 3,
+          "sentences_over_cap": 0,
+          "max_sentence_chars": 29,
+          "total_chars": 81,
+          "sentence_cap": 40,
+          "max_sentence_count": 3,
+          "required_sentence_count": 3,
+          "budget_chars": 120,
+          "scene_budget_ok": true,
+          "sentence_count_ok": true,
+          "sentence_lengths_ok": true,
+          "ending_required": false,
+          "ending_station_ok": null,
+          "passed": true,
+          "failures": []
+        }
+      }
+    },
+    {
+      "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "provider_reported_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "identity_match": true,
+      "http_status": 200,
+      "status": "success",
+      "common_request_sha256": "bde448c43d5203f3e317c3e4f1452a0cbda4b2f0089a45e76fc4e2c12eab8305",
+      "sentences": [
+        "지하철 빈 좌석에 노란 봉투가 있다",
+        "손그림 지도가 봉투 속에서 펼쳐진다",
+        "누군가 길을 찾으려 지도를 본다"
+      ],
+      "unicode_line_lengths": [
+        19,
+        19,
+        17
+      ],
+      "validation_countable": true,
+      "received_at": "2026-10-30T15:07:06.616163+00:00",
+      "client_latency_ms": 4134.574874304235,
+      "worker_latency_ms": 3605,
+      "completion_receipt": {
+        "receipt_schema": "last-sentence/receipt-v2",
+        "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "requested_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "provider_reported_model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "identity_match": true,
+        "usage": {
+          "prompt_tokens": 156,
+          "completion_tokens": 36,
+          "total_tokens": 192
+        },
+        "cost_usd": 0.000264,
+        "requested_rate_cost_estimate_usd": 0.000264,
+        "latency_ms": 2940,
+        "input_token_bound": 4899,
+        "reserved_microusd": 5439,
+        "pricing": {
+          "input_price_per_million_tokens": 1,
+          "output_price_per_million_tokens": 3,
+          "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+          "observed_at": "2026-10-30T15:07:03.333Z",
+          "fresh_for_dispatch": true,
+          "acknowledged": true
+        },
+        "rate_limit_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-limit-tokens": "2000000",
+          "x-ratelimit-remaining-tokens": "1999698"
+        },
+        "writer_validation": {
+          "status": "valid",
+          "counting_basis": "trimmed-nonempty-lines/unicode-code-points",
+          "purpose": "feedback-korean-compare",
+          "language": "ko",
+          "text_response": true,
+          "sentence_count": 3,
+          "sentences_within_cap": 3,
+          "sentences_over_cap": 0,
+          "max_sentence_chars": 19,
+          "total_chars": 55,
+          "sentence_cap": 40,
+          "max_sentence_count": 3,
+          "required_sentence_count": 3,
+          "budget_chars": 120,
+          "scene_budget_ok": true,
+          "sentence_count_ok": true,
+          "sentence_lengths_ok": true,
+          "ending_required": false,
+          "ending_station_ok": null,
+          "passed": true,
+          "failures": []
+        }
+      }
+    }
+  ],
+  "worker_write_attempts": 2,
+  "provider_completion_receipts": 2,
+  "within_cap_line_units": 6,
+  "countable_line_units": 6,
+  "usage_price_estimate_usd": "0.0003549",
+  "quality_assessment": "UNMEASURED; one response/model on one scene, no superiority or general obedience claim",
+  "onboarding": {
+    "recorded_collector_seconds": 481.013955,
+    "recorded_collector_minutes": 8.01689925,
+    "scope": "First verified reply within this collector only; not first API reply overall, signup, key creation or server credential identity proof"
+  }
+}

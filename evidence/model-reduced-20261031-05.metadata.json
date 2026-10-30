@@ -1,0 +1,21 @@
+{
+  "source_commit": "398182a8030db953032334d46c95d9f0700979f7",
+  "worker_source_sha256": "2a6441c28cb515a3be28c4befb38e1d28646f143aa849eb7d9cfcdcb79d237c4",
+  "prompt_version": "writer-budgeted-lines-v3/conductor-ops-contract-v4",
+  "server_limits_before": {
+    "completion_cap": 2048,
+    "completion_calls_used": 9,
+    "completion_calls_remaining": 2039,
+    "reserved_usd": 0.019498,
+    "reservation_budget_usd": 2.997039,
+    "seoul_calls_used_today": 0,
+    "seoul_daily_cap": 950,
+    "search_calls_used": 0,
+    "search_lifetime_cap": 100
+  },
+  "prior_failed_runs": [
+    "02",
+    "03",
+    "04"
+  ]
+}

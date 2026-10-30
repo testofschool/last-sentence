@@ -1,0 +1,17 @@
+{
+  "schema": "last-sentence/interrupted-run-v1",
+  "recorded_at": "2026-10-30T15:17:39.013642+00:00",
+  "run": "evidence/model-reduced-20261031-05.json",
+  "client_process_exit": 130,
+  "cause": "Operator stopped after noticing failed prompt-envelope regression check; test failure was not correctly gated before deploy/run",
+  "dispatch_groups_started": 1,
+  "receipts_received": 0,
+  "attempt_states": [
+    "dispatched"
+  ],
+  "outcome": "unknown_after_inflight_interruption",
+  "actual_usage_cost_usd": null,
+  "no_unchanged_automatic_retry": true,
+  "raw_checkpoint_preserved": true,
+  "global_worker_reservations_retained": true
+}

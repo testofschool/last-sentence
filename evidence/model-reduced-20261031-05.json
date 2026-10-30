@@ -1,0 +1,98 @@
+{
+  "schema": "last-sentence/matrix-v1",
+  "mode": "model-backed-timing-simulation",
+  "evidence_kind": "model-backed-timing-simulation",
+  "status": "running",
+  "cost_plan": {
+    "journeys": 5,
+    "policy_runs": 15,
+    "language_pair_runs": 2,
+    "max_input_tokens_per_completion": 16384,
+    "max_conductor_output_tokens": 400,
+    "max_writer_output_tokens": 1200,
+    "max_conductor_calls": 252,
+    "max_writer_calls": 43,
+    "worst_case_usd": 0.58566688,
+    "cap_usd": 2.997039,
+    "max_total_completions": 295,
+    "configured_completion_cap": 2048,
+    "required_worker_live_max_completions": 295,
+    "allowed_cost": true,
+    "allowed_completions": true,
+    "allowed": true,
+    "pricing_source": "saved-live-catalog",
+    "runner_enforcement_required": "Reject requests above the input envelope; reserve worst-case cost before each call. Includes all fallback attempts. No calls made by this script."
+  },
+  "rows": [],
+  "language_pair": [],
+  "attempts": [
+    {
+      "path": "/api/write",
+      "input": {
+        "lang": "en",
+        "exit_station": "\ub3d9\ub300\ubb38\uc5ed\uc0ac\ubb38\ud654\uacf5\uc6d0",
+        "budget_chars": 2130,
+        "is_last_scene": true,
+        "scene": "Continue a complete quiet Seoul train mystery. Use close to the 2130-character allowance, one sentence per line. Finish with the exit alert. Offline timing simulation; no source fact is supplied.",
+        "expected_pricing": {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "input_price_per_million_tokens": 0.3,
+          "output_price_per_million_tokens": 0.9
+        }
+      },
+      "state": "dispatched",
+      "reserved_usd": 0.0059952,
+      "maximum_completions": 1,
+      "offline_pacing_wait_s": 0.0,
+      "pacing_excluded_from_simulated_speech_clock": true
+    }
+  ],
+  "failures": [],
+  "measured_tts_runs": 0,
+  "max_execution_seconds": 4800.0,
+  "pacing": {
+    "rpm": 45,
+    "tpm": 300000,
+    "reservation": "worst-case completion groups and input+output token envelope",
+    "wait_s": 0.0,
+    "excluded_from_simulated_speech_clock": true,
+    "assumption": "No competing account traffic; provider limits may differ. Dispatched failures are never retried automatically."
+  },
+  "price_revalidations": [],
+  "execution_transport": "protected-worker-http",
+  "notice": "Model-generated text on recorded receipt-time arrival traces. Speech duration is simulated from fixed Unicode characters/second plus measured HTTP latency. Offline 45RPM/300000TPM pacing and public-price audit waits count in real runtime but are excluded from the simulated speech clock; this assumes no competing account traffic. No browser TTS, door-open, or real-world narration accuracy is measured.",
+  "trace_sha256": "5c5bd96c331ca0ae0bd1f5b7d48d6d83dfc95840925a220e7ec31bc5746ca9d0",
+  "line_coverage": [
+    "2\ud638\uc120",
+    "5\ud638\uc120",
+    "7\ud638\uc120"
+  ],
+  "distinct_train_identities": 5,
+  "windows_per_line": {
+    "2\ud638\uc120": 2,
+    "5\ud638\uc120": 2,
+    "7\ud638\uc120": 1
+  },
+  "selection_notice": "Only eligible recorded lines are included. No line-5/7 results exist unless those traces are supplied. Windows may overlap; repeated windows are not independent journeys.",
+  "eta_training": "Other train identities from this offline trace; whole target train identity excluded. This is not forward-in-time online validation.",
+  "actual_api_cost_usd": null,
+  "known_usage_cost_usd": 0.0,
+  "reserved_upper_bound_usd": 0.0059952,
+  "reserved_completion_bound": 1,
+  "coverage": {
+    "journeys": 0,
+    "complete_paired_journeys": 0,
+    "unpaired_journeys": 0,
+    "rows_by_policy": {
+      "fixed_clip": 0,
+      "single_fit": 0,
+      "sentence_replan": 0
+    },
+    "comparison_basis": "unpaired-only",
+    "pairing_definition": "All three policies for the same frozen journey id; measured import also verifies train, line, exit/arrival and replay origin/direction when present."
+  },
+  "completed_simulation_runs": 0,
+  "inference_dispatch_attempts": 1,
+  "model_completion_attempts": 0,
+  "completion_attempt_count_known": false
+}
