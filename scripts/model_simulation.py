@@ -162,6 +162,7 @@ class WorkerHttp:
 
 
 def validate_calls(response, expected_model, maximum):
+    """Validate provenance and component-based cost before checking total counters."""
     calls = response.get("calls")
     if not isinstance(calls, list) or not 1 <= len(calls) <= maximum:
         raise SimulationError("missing or excessive completion receipts")
@@ -205,6 +206,22 @@ def validate_calls(response, expected_model, maximum):
             or not math.isfinite(aggregate_estimate) or aggregate_estimate < 0 or not math.isclose(aggregate_estimate, total, rel_tol=1e-9, abs_tol=1e-12)):
         raise SimulationError("aggregate requested-rate estimate does not match completion receipts")
     return calls, total
+
+
+def validate_usage_summaries(response, calls):
+    """Reject invalid totals without discarding an already verified component cost."""
+    fields = ("prompt_tokens", "completion_tokens", "total_tokens")
+    def checked(value):
+        if (not isinstance(value, dict)
+                or any(not isinstance(value.get(key), int) or isinstance(value[key], bool)
+                       or value[key] < 0 for key in fields)
+                or value['total_tokens'] != value['prompt_tokens'] + value['completion_tokens']):
+            raise SimulationError("missing or inconsistent usage total_tokens; no further dispatch")
+        return value
+    summaries = [checked(call['usage']) for call in calls]
+    aggregate = checked(response.get('usage'))
+    if any(aggregate[key] != sum(usage[key] for usage in summaries) for key in fields):
+        raise SimulationError("aggregate usage does not match completion receipts; no further dispatch")
 
 
 class Session:
@@ -339,6 +356,9 @@ class Session:
                 raise SimulationError("actual receipt costs exceeded the local cap; abort")
             if cost > upper + 1e-12 or any((call["pricing"]["input_price_per_million_tokens"], call["pricing"]["output_price_per_million_tokens"]) != self.prices[model] for call in calls):
                 raise SimulationError("Worker pricing differs from the acknowledged snapshot; abort before further dispatch")
+            attempt['usage_summary_valid'] = False
+            validate_usage_summaries(result, calls)
+            attempt['usage_summary_valid'] = True
             if path == '/api/write':
                 for call in calls:
                     try:

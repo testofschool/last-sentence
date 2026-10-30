@@ -63,7 +63,7 @@ class FakeWorker:
                         "limits":{"reservation_budget_usd":3,"reserved_usd":0,"completion_calls_remaining":0 if self.insufficient else 300}},5
         model = LIGHTNING if path == "/api/plan" else ULTRA if body["lang"] == "ko" else SUPER
         a,b = {LIGHTNING:(.06,.24),SUPER:(.3,.9),ULTRA:(1,3)}[model]
-        usage = {"prompt_tokens":100,"completion_tokens":100}
+        usage = {"prompt_tokens":100,"completion_tokens":100,"total_tokens":200}
         cost = (100*a+100*b)/1_000_000
         call = {**model_identity(model),"usage":None if self.missing_usage else usage,"cost_usd":None if self.missing_usage else cost,
                 "requested_rate_cost_estimate_usd":None if self.missing_usage else cost,
@@ -297,6 +297,36 @@ def test_unknown_transport_after_partial_score_aborts_all_remaining_slots(tmp_pa
     assert result['actual_api_cost_usd'] is None and result['known_usage_cost_usd']>0
     assert result['evaluation_coverage']['total']['unstarted']==3
     assert result['evaluation_coverage']['language_pair']['attempted']==0
+
+
+@pytest.mark.parametrize('level',['call','aggregate'])
+@pytest.mark.parametrize('invalid',['missing','boolean','mismatch','negative'])
+def test_invalid_usage_totals_abort_after_partial_score_but_preserve_known_component_cost(tmp_path,level,invalid):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker();posts=0
+    def invalid_total_rejection(path,body,timeout):
+        nonlocal posts
+        code,response,elapsed=fake(path,body,timeout)
+        if path!='/api/status':
+            posts+=1
+            if posts==2:
+                call=response['calls'][0]
+                call['writer_validation']=writer_validation(['No exit.'],body['lang'],body['budget_chars'],True,body['exit_station'])
+                response.pop('sentences');response['error']='writer_constraint_failure';code=502
+                container=call if level=='call' else response
+                container['usage']=dict(container['usage'])
+                if invalid=='missing':container['usage'].pop('total_tokens')
+                else:container['usage']['total_tokens']={'boolean':True,'mismatch':201,'negative':-1}[invalid]
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'invalid-total.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=invalid_total_rejection)
+    assert result['status']=='aborted' and posts==2
+    assert len(result['rows'])==1 and result['language_pair']==[]
+    assert result['evaluation_coverage']['total']['unstarted']==3
+    expected=sum(c['cost_usd'] for a in result['attempts'] for c in a['response']['calls'])
+    assert result['actual_api_cost_usd']==pytest.approx(expected)
+    assert result['known_usage_cost_usd']==pytest.approx(expected)
+    assert result['attempts'][-1]['usage_summary_valid'] is False
+    assert 'usage' in result['failures'][-1]['reason']
 
 
 @pytest.mark.parametrize('failure',['auth','quota','catalog','wrong-path-error','successful-validation'])
