@@ -188,12 +188,135 @@ def test_rejected_writer_keeps_inspected_denominator_and_known_paid_usage(tmp_pa
     output=tmp_path/'rejected.json'
     result=execute(trace,catalog,output,'https://worker.example',token,
                    journeys=1,execute_flag=True,ack_cost=3,transport=rejected_writer)
-    assert result['status']=='aborted' and result['rows']==[]
-    assert result['actual_api_cost_usd']>0 and result['inference_dispatch_attempts']==1
+    assert result['status']=='completed-with-model-failures' and result['rows']==[]
+    assert result['language_pair']==[] and len(result['failures'])==5
+    assert result['actual_api_cost_usd']>0 and result['inference_dispatch_attempts']==8
+    assert result['evaluation_coverage']['total']=={
+        'scheduled':5,'attempted':5,'scored':0,'failed':5,
+        'rejected_model_output':5,'aborted':0,'unstarted':0}
     validation=result['attempts'][-1]['response']['calls'][0]['writer_validation']
     assert validation['sentence_count']==2 and validation['sentences_within_cap']==1
     assert validation['sentences_over_cap']==1 and validation['passed'] is False
     assert 'X'*91 not in output.read_text()
+
+
+def test_known_writer_rejection_finishes_all_seventeen_slots_without_retry_or_score(tmp_path):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker();writes=0
+    def reject_first(path,body,timeout):
+        nonlocal writes
+        code,response,elapsed=fake(path,body,timeout)
+        if path=='/api/write':
+            writes+=1
+            if writes==1:
+                response['calls'][0]['writer_validation']=writer_validation(
+                    ['A short sentence with no exit.'],body['lang'],body['budget_chars'],True,body['exit_station'])
+                response.pop('sentences');response['error']='writer_constraint_failure';code=502
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'continued.json','https://worker.example',token,
+                   journeys=5,segments=3,execute_flag=True,ack_cost=3,transport=reject_first)
+    assert result['status']=='completed-with-model-failures'
+    assert len(result['rows'])==14 and len(result['language_pair'])==2
+    assert result['completed_simulation_runs']==16 and result['failed_simulation_runs']==1
+    totals=result['evaluation_coverage']['total']
+    assert totals=={'scheduled':17,'attempted':17,'scored':16,'failed':1,
+                    'rejected_model_output':1,'aborted':0,'unstarted':0}
+    fixed=result['evaluation_coverage']['policies']['fixed_clip']
+    assert (fixed['attempted'],fixed['scored'],fixed['failed'],fixed['unstarted'])==(5,4,1,0)
+    assert result['evaluation_coverage']['language_pair']['scored']==2
+    slots=result['slot_outcomes']
+    assert len({(s['group'],s['id'],s['policy'],s['lang']) for s in slots})==17
+    assert all(s['retry_performed'] is False for s in slots)
+    failed=slots[0]
+    assert failed['status']=='failed-model-output' and failed['scored'] is False
+    assert 'landing_error_s' not in failed and failed['attempt_indices']==[0]
+    assert not any(r['id']==failed['id'] and r['policy']==failed['policy'] for r in result['rows'])
+    assert result['attempts'][0]['state']=='rejected-model-output'
+    assert result['attempts'][0]['response']['calls'][0]['writer_validation']['failures']==['station_ending']
+    all_costs=sum(c['cost_usd'] for a in result['attempts'] for c in a['response']['calls'])
+    assert result['actual_api_cost_usd']==pytest.approx(all_costs)
+    assert sum(s['cost_usd'] for s in slots)==pytest.approx(all_costs)
+    assert result['coverage']['unpaired_journeys']==1
+
+
+def test_known_invalid_plan_skips_only_that_slot_and_still_evaluates_language_pair(tmp_path):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker();rejected=False
+    def reject_first_plan(path,body,timeout):
+        nonlocal rejected
+        code,response,elapsed=fake(path,body,timeout)
+        if path=='/api/plan' and not rejected:
+            rejected=True;response.pop('plan');response['error']='invalid_plan';code=502
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'invalid-plan.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=reject_first_plan)
+    assert result['status']=='completed-with-model-failures'
+    assert [r['policy'] for r in result['rows']]==['fixed_clip','single_fit']
+    assert len(result['language_pair'])==2 and result['actual_api_cost_usd']>0
+    failed=result['failures'][0]
+    assert failed['error_code']=='invalid_plan' and failed['policy']=='sentence_replan'
+    assert failed['group']=='policy' and failed['scored'] is False
+    assert result['evaluation_coverage']['total']['attempted']==5
+    assert result['evaluation_coverage']['language_pair']['unstarted']==0
+
+
+@pytest.mark.parametrize('invalid',['usage','identity','validation'])
+def test_rejection_with_invalid_evidence_after_partial_scores_still_aborts(tmp_path,invalid):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker();posts=0
+    def invalid_rejection(path,body,timeout):
+        nonlocal posts
+        code,response,elapsed=fake(path,body,timeout)
+        if path!='/api/status':
+            posts+=1
+            if posts==2:
+                response.pop('sentences');response['error']='writer_constraint_failure';code=502
+                call=response['calls'][0]
+                call['writer_validation']=writer_validation(['No exit.'],body['lang'],body['budget_chars'],True,body['exit_station'])
+                if invalid=='usage':call['usage']=None
+                elif invalid=='identity':call['provider_reported_model']=ULTRA
+                else:call['writer_validation']['sentences_within_cap']+=1
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'invalid-rejection.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=invalid_rejection)
+    assert result['status']=='aborted' and posts==2
+    assert len(result['rows'])==1 and result['language_pair']==[]
+    assert result['evaluation_coverage']['total']['unstarted']==3
+    assert result['slot_outcomes'][-1]['status']=='aborted'
+    if invalid!='validation':assert result['actual_api_cost_usd'] is None
+
+
+def test_unknown_transport_after_partial_score_aborts_all_remaining_slots(tmp_path):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker();posts=0
+    def lost_response(path,body,timeout):
+        nonlocal posts
+        if path!='/api/status':
+            posts+=1
+            if posts==2:raise OSError('synthetic lost response')
+        return fake(path,body,timeout)
+    result=execute(trace,catalog,tmp_path/'unknown.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=lost_response)
+    assert result['status']=='aborted' and posts==2 and len(result['rows'])==1
+    assert result['actual_api_cost_usd'] is None and result['known_usage_cost_usd']>0
+    assert result['evaluation_coverage']['total']['unstarted']==3
+    assert result['evaluation_coverage']['language_pair']['attempted']==0
+
+
+@pytest.mark.parametrize('failure',['auth','quota','catalog','wrong-path-error','successful-validation'])
+def test_non_model_failures_are_fatal_even_with_known_receipts(tmp_path,failure):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker();posts=0
+    def other_failure(path,body,timeout):
+        nonlocal posts
+        code,response,elapsed=fake(path,body,timeout)
+        if path!='/api/status':
+            posts+=1
+            if posts==2:
+                response.pop('sentences')
+                response['error']={'auth':'unauthorized','quota':'inference_quota','catalog':'pricing_changed',
+                                   'wrong-path-error':'invalid_plan','successful-validation':'writer_constraint_failure'}[failure]
+                code={'auth':401,'quota':429,'catalog':409}.get(failure,502)
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'fatal.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=other_failure)
+    assert result['status']=='aborted' and posts==2
+    assert len(result['rows'])==1 and result['evaluation_coverage']['total']['unstarted']==3
 
 
 @pytest.mark.parametrize('mutation',['missing','disagrees_with_text'])

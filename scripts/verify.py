@@ -68,7 +68,7 @@ def main():
               "network_inference_calls":0,"public_deployment":"UNRUN","remote_clone":"UNRUN_NO_REMOTE"}
     eta_path = ROOT/"evidence/eta_evaluation.json"
     result["eta_validation"] = json.loads(eta_path.read_text()) if eta_path.exists() else None
-    result["release_status"] = "HOLD: real inference, observed audio timing and public release are unverified"
+    result["release_status"] = "LOCAL_CHECKS_ONLY: see REPORT.md for separately verified runtime, publication and field-validation status"
     result["status"] = "PASS_LOCAL" if all(r["exit_code"] == 0 for r in outcomes) and secrets["status"] != "FAIL" else "FAIL"
     (ROOT/"evidence/verification.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
     print(result["status"])

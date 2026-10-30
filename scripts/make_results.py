@@ -6,6 +6,7 @@ import html
 import json
 import math
 from pathlib import Path
+import shlex
 import statistics
 
 from run_matrix import SUPER, ULTRA, policy_coverage
@@ -135,7 +136,30 @@ def observed_eta_section(eta, quality, line=None):
     return lines
 
 
-def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidence=None):
+def reproduction_section(matrix, output, matrix_path=None, matrix_sha256=None):
+    lines = ["## Reproduce", ""]
+    if matrix.get("mode") not in ("model-backed-timing-simulation", "recorded-browser-measurements"):
+        return lines + ["```sh",
+            "python3 scripts/run_matrix.py --mode plan --journeys 30 --max-completions 2048 --out evidence/cost-plan-full.json",
+            "python3 scripts/run_matrix.py --mode simulation --out evidence/simulation-matrix.json",
+            "python3 scripts/make_results.py evidence/simulation-matrix.json", "```", ""]
+    lines += ["Re-render the retained results from the repository root. This makes no inference requests "
+              "and does not replace the input with a synthetic fixture.", "",
+              f"Retained mode: `{table_text(matrix['mode'])}`; execution transport: "
+              f"`{table_text(matrix.get('execution_transport', 'not recorded'))}`.", "",
+              f"Trace SHA-256 recorded by the matrix: `{table_text(matrix.get('trace_sha256', 'not recorded'))}`.", "",
+              f"Trace source path recorded by the matrix: `{table_text(matrix.get('trace_path', 'not recorded'))}`.", ""]
+    if matrix_path is None:
+        return lines + ["The retained matrix source path was not supplied to this renderer; "
+                        "no executable reproduction command is invented.", ""]
+    if matrix_sha256 is None:
+        matrix_sha256 = hashlib.sha256(Path(matrix_path).read_bytes()).hexdigest()
+    return lines + [f"Retained matrix: `{table_text(matrix_path)}`; SHA-256: `{matrix_sha256}`.", "", "```sh",
+                    f"python3 scripts/make_results.py {shlex.quote(str(matrix_path))} --out {shlex.quote(str(output))}",
+                    "```", ""]
+
+
+def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidence=None, *, matrix_path=None, matrix_sha256=None):
     rows = matrix.get("rows", [])
     measured = matrix.get("mode") == "recorded-browser-measurements"
     model_simulated = matrix.get("mode") == "model-backed-timing-simulation"
@@ -207,10 +231,9 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidenc
               "Largest errors among completed scored rows, retained verbatim. Unscored execution failures have no invented landing error; "
               "they remain in the separate failures/attempts records and model-failure section when applicable:", "", "```json",
               json.dumps(sorted(rows, key=lambda r: abs(r["landing_error_s"]), reverse=True)[:5], ensure_ascii=False, indent=2),
-              "```", "", "## Reproduce", "", "```sh",
-              "python3 scripts/run_matrix.py --mode plan --journeys 30 --max-completions 2048 --out evidence/cost-plan-full.json",
-              "python3 scripts/run_matrix.py --mode simulation --out evidence/simulation-matrix.json",
-              "python3 scripts/make_results.py evidence/simulation-matrix.json", "```", "",
+              "```", ""]
+    lines += reproduction_section(matrix, output, matrix_path, matrix_sha256)
+    lines += [
               "Planning uses the saved live model catalog and includes all Conductor fallback attempts. "
               "Both the dollar ceiling and the default 300 lifetime completion ceiling are checked; "
               "5 journeys × 3 policies plus 2 language runs have a conservative 295-completion bound. "
@@ -230,7 +253,15 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidenc
               "`run_matrix.py --mode measured --measurements FILE --trace RECORDED.jsonl`. "
               "The importer requires matching trace SHA-256, actual arrival records, complete usage/cost/latency receipts, "
               "and a total cost no higher than $3.00. Character-count speech estimates are rejected as measured audio.", ""]
-    lines += ["Model-backed timing simulation example (requires separately authorized execution and configured credentials):", "", "```sh",
+    if measured or model_simulated:
+        lines += ["Starting a new data acquisition is a separate experiment, not the retained-results reproduction above. "
+                  "Any model-backed rerun requires the guarded runner's explicit `--execute` and cost acknowledgement, "
+                  "fresh prices, protected credentials and sufficient remaining cumulative budget/call capacity. "
+                  "Choose a fresh output filename; never overwrite or automatically retry the retained matrix. "
+                  "New browser-speech measurements additionally require actual instrumented speech events; "
+                  "model-backed timing simulation cannot replace them.", ""]
+    else:
+        lines += ["Model-backed timing simulation example (requires separately authorized execution and configured credentials):", "", "```sh",
               "python3 scripts/run_matrix.py --mode model-simulation --journeys 30 --max-completions 2048 \\",
               "  --trace web/replay/trace_2026-10-30_all_lines.jsonl --catalog evidence/model-prices.json \\",
               "  --worker-url https://YOUR-WORKER.example --session-key-file ~/.last_sentence_session \\",
@@ -284,7 +315,9 @@ def main():
         eta_path=getattr(args,f"eta_evaluation_{number}");quality_path=getattr(args,f"trace_quality_{number}")
         line_evidence.append({"line":f"{number}호선","eta":json.loads(eta_path.read_text()) if eta_path.is_file() else None,
                               "quality":json.loads(quality_path.read_text()) if quality_path.is_file() else None})
-    render(json.loads(args.matrix.read_text()), args.out, eta, quality,line_evidence)
+    matrix_raw = args.matrix.read_bytes()
+    render(json.loads(matrix_raw), args.out, eta, quality,line_evidence,
+           matrix_path=args.matrix, matrix_sha256=hashlib.sha256(matrix_raw).hexdigest())
     print(args.out)
 
 

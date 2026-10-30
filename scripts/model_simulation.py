@@ -25,6 +25,30 @@ class SimulationError(ValueError):
     pass
 
 
+class ModelOutputRejection(SimulationError):
+    """A fully receipted model rejection ends this slot, never retries it."""
+    def __init__(self, code, attempt_index):
+        self.code, self.attempt_index = code, attempt_index
+        super().__init__(f"Worker rejected model output: {code}; receipts and cost retained")
+
+
+def evaluation_coverage(slots, journeys):
+    def summary(selected, scheduled):
+        return {"scheduled": scheduled, "attempted": len(selected),
+                "scored": sum(slot["status"] == "scored" for slot in selected),
+                "failed": sum(slot["status"] in ("failed-model-output", "aborted") for slot in selected),
+                "rejected_model_output": sum(slot["status"] == "failed-model-output" for slot in selected),
+                "aborted": sum(slot["status"] == "aborted" for slot in selected),
+                "unstarted": max(0, scheduled - len(selected))}
+    pair = [slot for slot in slots if slot["group"] == "language_pair"]
+    return {"total": summary(slots, journeys * len(POLICIES) + 2),
+            "policies": {policy: summary([slot for slot in slots if slot["group"] == "policy"
+                                          and slot["policy"] == policy], journeys) for policy in POLICIES},
+            "language_pair": {**summary(pair, 2),
+                              "languages": {lang: summary([slot for slot in pair if slot["lang"] == lang], 1)
+                                            for lang in ("en", "ko")}}}
+
+
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         # Session credentials belong only to the configured Worker origin.
@@ -198,7 +222,7 @@ class Session:
         self.unknown_cost = False
         self.document = {"schema":"last-sentence/matrix-v1", "mode":"model-backed-timing-simulation",
             "evidence_kind":"model-backed-timing-simulation", "status":"running", "cost_plan":plan,
-            "rows":[], "language_pair":[], "attempts":[], "failures":[], "measured_tts_runs":0,
+            "rows":[], "language_pair":[], "attempts":[], "failures":[], "slot_outcomes":[], "measured_tts_runs":0,
             "max_execution_seconds":max_seconds,
             "pacing":{"rpm":45,"tpm":300000,"reservation":"worst-case completion groups and input+output token envelope",
                       "wait_s":0,"excluded_from_simulated_speech_clock":True,
@@ -218,11 +242,17 @@ class Session:
 
     def save(self):
         receipt_groups = [attempt.get("response", {}).get("calls") for attempt in self.document["attempts"]]
+        slots = evaluation_coverage(self.document["slot_outcomes"], self.plan["journeys"])
         self.document.update(actual_api_cost_usd=None if self.unknown_cost else self.actual,
             known_usage_cost_usd=self.actual, reserved_upper_bound_usd=self.reserved,
             reserved_completion_bound=self.reserved_calls, coverage=policy_coverage(self.document["rows"]),
             completed_simulation_runs=len(self.document["rows"]) + len(self.document["language_pair"]),
             inference_dispatch_attempts=len(self.document["attempts"]),
+            evaluation_coverage=slots,
+            scheduled_simulation_runs=slots["total"]["scheduled"],
+            attempted_simulation_runs=slots["total"]["attempted"],
+            failed_simulation_runs=slots["total"]["failed"],
+            unstarted_simulation_runs=slots["total"]["unstarted"],
             model_completion_attempts=sum(len(group) for group in receipt_groups if isinstance(group, list)),
             completion_attempt_count_known=all(isinstance(group, list) for group in receipt_groups))
         self.output.parent.mkdir(parents=True, exist_ok=True)
@@ -319,11 +349,19 @@ class Session:
                     except ValueError as exc:
                         raise SimulationError(str(exc)) from exc
             if code != 200 or result.get("error"):
+                known_writer_rejection = (path == '/api/write' and result.get('error') == 'writer_constraint_failure'
+                    and all(call['writer_validation']['status'] == 'rejected'
+                            and call['writer_validation']['passed'] is False for call in calls))
+                known_plan_rejection = path == '/api/plan' and result.get('error') == 'invalid_plan'
+                if code == 502 and (known_writer_rejection or known_plan_rejection):
+                    raise ModelOutputRejection(result['error'], len(self.document['attempts']) - 1)
                 raise SimulationError("Worker request failed; attempt and receipts retained")
             return result, (status_elapsed + elapsed) / 1000
         except Exception as exc:
-            attempt["state"] = "failed"
+            attempt["state"] = "rejected-model-output" if isinstance(exc, ModelOutputRejection) else "failed"
             attempt["failure"] = type(exc).__name__ + ": " + str(exc) if isinstance(exc, SimulationError) else type(exc).__name__
+            if isinstance(exc, ModelOutputRejection):
+                raise
             raise SimulationError(attempt["failure"]) from exc
         finally:
             self.save()
@@ -557,16 +595,39 @@ def execute(trace, catalog, output, worker_url, key_file, journeys=30, cap=3.0, 
         selection_notice="Only eligible recorded lines are included. No line-5/7 results exist unless those traces are supplied. Windows may overlap; repeated windows are not independent journeys.",
         eta_training="Other train identities from this offline trace; whole target train identity excluded. This is not forward-in-time online validation.")
     session.save()
+    def run_slot(window, policy, language, group):
+        start, known_before = len(session.document['attempts']), session.actual
+        slot = {"id": window['id'], "line": window['line'], "trainNo": window['trainNo'],
+                "policy": policy, "lang": language, "group": group, "status": "running", "scored": False}
+        session.document['slot_outcomes'].append(slot)
+        session.save()
+        try:
+            scored = simulate_story(session, window, policy, language, cps)
+            session.document['language_pair' if group == 'language_pair' else 'rows'].append(scored)
+            slot.update(status='scored', scored=True)
+        except ModelOutputRejection as exc:
+            slot.update(status='failed-model-output', error_code=exc.code)
+            session.document['failures'].append({"type": type(exc).__name__, "reason": str(exc),
+                "scope": "slot", "slot_index": len(session.document['slot_outcomes']) - 1,
+                "id": window['id'], "line": window['line'], "policy": policy, "lang": language,
+                "group": group, "error_code": exc.code, "failed_attempt_index": exc.attempt_index,
+                "scored": False, "retry_performed": False})
+        except Exception:
+            slot['status'] = 'aborted'
+            raise
+        finally:
+            slot.update(attempt_indices=list(range(start, len(session.document['attempts']))),
+                        cost_usd=None if session.unknown_cost else session.actual - known_before,
+                        retry_performed=False)
+            session.save()
     try:
         session.status(plan["max_total_completions"], plan["worst_case_usd"])
         for window in windows:
             for policy in POLICIES:
-                session.document["rows"].append(simulate_story(session, window, policy, "en", cps))
-                session.save()
+                run_slot(window, policy, "en", "policy")
         for language in ("en", "ko"):
-            session.document["language_pair"].append(simulate_story(session, windows[0], "sentence_replan", language, cps))
-            session.save()
-        session.document["status"] = "complete"
+            run_slot(windows[0], "sentence_replan", language, "language_pair")
+        session.document["status"] = "completed-with-model-failures" if session.document['failures'] else "complete"
     except Exception as exc:
         session.document["status"] = "aborted"
         session.document["failures"].append({"type":type(exc).__name__,"reason":str(exc) if isinstance(exc, SimulationError) else type(exc).__name__})
