@@ -1,0 +1,13 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+.local/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+evidence/preflight/*.txt
+dist/

@@ -1,0 +1,20 @@
+{
+  "schema": "last-sentence/model-prices-v1",
+  "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+  "retrieved_at": "2026-10-30T01:34:59.831418+00:00",
+  "source_sha256": "1bb263542944594c9df3d2b4fa3d1933432397ad847a6d5aa2a2e2941f94724c",
+  "prices": {
+    "nvidia/Nemotron-3_5-Lightning": {
+      "input_price_per_million_tokens": 0.06,
+      "output_price_per_million_tokens": 0.24
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "input_price_per_million_tokens": 0.3,
+      "output_price_per_million_tokens": 0.9
+    },
+    "nvidia/Nemotron-3-Ultra-550b-a55b": {
+      "input_price_per_million_tokens": 1,
+      "output_price_per_million_tokens": 3
+    }
+  }
+}

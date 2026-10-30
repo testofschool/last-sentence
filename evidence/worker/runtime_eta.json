@@ -1,0 +1,88 @@
+{
+  "checked_at": "2026-10-30T01:22:29.880Z",
+  "runtime": "Wrangler 4.156.0 local workerd",
+  "base": "http://127.0.0.1:8791",
+  "configuration": {
+    "ENABLE_LIVE": "false",
+    "provider_credentials_loaded": false
+  },
+  "checks": [
+    {
+      "path": "/api/status",
+      "status": 200,
+      "sha256": "e95dcc0faef6d8c60afa7f140e3c71b348c0fa857e1eab651c3f97b92836671f",
+      "json": {
+        "mode": "replay-only",
+        "inference_enabled": false,
+        "position_enabled": false,
+        "tavily_enabled": false,
+        "auth_required": true,
+        "eta_model_configured": false,
+        "eta_model": {
+          "valid": false,
+          "reason": "recording_not_complete"
+        },
+        "max_input_token_bound": 32768,
+        "limits": {
+          "completion_cap": 300,
+          "completion_calls_used": null,
+          "completion_calls_remaining": null,
+          "reserved_usd": null,
+          "reservation_budget_usd": 3
+        },
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 12
+      }
+    },
+    {
+      "path": "/api/eta?line=2%ED%98%B8%EC%84%A0&from=%EC%8B%9C%EC%B2%AD&to=%EC%9D%84%EC%A7%80%EB%A1%9C4%EA%B0%80&direction=0&observed_at=2026-10-30T01%3A22%3A29.791Z",
+      "status": 200,
+      "sha256": "c5afdc8179201e1c33fca2130072aee23f389937ae95caf13b01fcb9d355d0fd",
+      "json": {
+        "mode": "eta-unavailable",
+        "eta_available": false,
+        "reason": "recording_not_complete",
+        "experimental": true,
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 1
+      }
+    },
+    {
+      "path": "/replay/eta-bundle.json",
+      "status": 200,
+      "sha256": "538869cf11e9800aae8da8af0db38b64a355a64efce0364fcb0d031a5af7f82d",
+      "recording_complete": false,
+      "trace_sha256": "d4d0cc0aed6ee34cdced14b342968ff28f7e1f66be66650e1d6d88f0230dbca4",
+      "evaluation": {
+        "method": "leave-one-train-identity-out",
+        "station_horizons": [
+          3,
+          10
+        ],
+        "n": 74,
+        "train_identities": 6,
+        "median_relative_error": 0.12237911852802738,
+        "gate_lte_15_percent": true,
+        "status": "measured",
+        "excluded_predictions": 0,
+        "arrival_event": "station-arrival-proxy",
+        "rejected": {
+          "gaps": 0,
+          "non_arrival": 92,
+          "missing_fields": 0,
+          "stale": 0,
+          "synthetic": 0,
+          "continuity_gaps": 0,
+          "source_breaks": 0,
+          "direction_breaks": 0
+        }
+      }
+    }
+  ],
+  "passed": true,
+  "interpretation": "Current recording is still partial. Runtime correctly refuses ETA readiness before the complete frozen-trace gate. Positive completed-bundle behavior is covered by mocked unit tests; no train or model call was made."
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "last-sentence",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "../dist", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  "observability": { "enabled": true, "head_sampling_rate": 0.1 },
+  "vars": {
+    "ENABLE_LIVE": "false",
+    "LIVE_BUDGET_USD": "3.00",
+    "LIVE_MAX_COMPLETIONS": "300",
+    "SEOUL_API_BASE": "https://swopenapi.seoul.go.kr"
+  },
+  "durable_objects": { "bindings": [{ "name": "LIMITS", "class_name": "UsageLimits" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["UsageLimits"] }]
+}

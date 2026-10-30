@@ -1,0 +1,21 @@
+{
+  "fetched_at": "2026-10-30T01:34:59.831418+00:00",
+  "models": {
+    "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": [
+      0.06,
+      0.24
+    ],
+    "nvidia/Nemotron-3_5-Lightning": [
+      0.06,
+      0.24
+    ],
+    "nvidia/nemotron-3-super-120b-a12b": [
+      0.3,
+      0.9
+    ],
+    "nvidia/Nemotron-3-Ultra-550b-a55b": [
+      1,
+      3
+    ]
+  }
+}

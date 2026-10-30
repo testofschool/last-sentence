@@ -1,0 +1,232 @@
+{
+  "schema": "last-sentence/eta-bundle-v1",
+  "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+  "prepared_at": "2026-10-30T01:43:03.173358+00:00",
+  "recording_complete": true,
+  "model": {
+    "schema": "last-sentence/eta-v1",
+    "source": "recorded-station-arrival-proxy",
+    "segments": {
+      "2호선|시청|을지로입구": {
+        "median_s": 104.0,
+        "sd_s": 7.84573486395988,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|을지로입구|을지로3가": {
+        "median_s": 137.0,
+        "sd_s": 43.53032148846237,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|을지로3가|을지로4가": {
+        "median_s": 88.0,
+        "sd_s": 6.79869268479038,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|을지로4가|동대문역사문화공원": {
+        "median_s": 110.0,
+        "sd_s": 1.0,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|동대문역사문화공원|신당": {
+        "median_s": 107.0,
+        "sd_s": 2.0,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|신당|상왕십리": {
+        "median_s": 101.5,
+        "sd_s": 3.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|상왕십리|왕십리": {
+        "median_s": 99.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|왕십리|한양대": {
+        "median_s": 130.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|한양대|뚝섬": {
+        "median_s": 149.5,
+        "sd_s": 8.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|당산|합정": {
+        "median_s": 169.0,
+        "sd_s": 0.816496580927726,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|합정|홍대입구": {
+        "median_s": 121.0,
+        "sd_s": 2.0548046676563256,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|홍대입구|신촌": {
+        "median_s": 165.0,
+        "sd_s": 19.258475767539053,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|신촌|이대": {
+        "median_s": 109.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|이대|아현": {
+        "median_s": 103.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|아현|충정로": {
+        "median_s": 102.0,
+        "sd_s": 2.0,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|충정로|시청": {
+        "median_s": 120.0,
+        "sd_s": 0.4714045207910317,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|종합운동장|잠실새내": {
+        "median_s": 111.0,
+        "sd_s": 2.3570226039551585,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|잠실새내|잠실": {
+        "median_s": 118.0,
+        "sd_s": 2.8674417556808756,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|잠실|잠실나루": {
+        "median_s": 117.0,
+        "sd_s": 3.7416573867739413,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|잠실나루|강변": {
+        "median_s": 153.0,
+        "sd_s": 16.990193249832878,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|강변|구의": {
+        "median_s": 130.0,
+        "sd_s": 10.143416036468626,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|구의|건대입구": {
+        "median_s": 133.0,
+        "sd_s": 6.377042156569663,
+        "n": 3,
+        "trains": 3
+      },
+      "2호선|사당|방배": {
+        "median_s": 151.5,
+        "sd_s": 3.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|방배|서초": {
+        "median_s": 161.0,
+        "sd_s": 2.0,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|서초|교대": {
+        "median_s": 99.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|교대|강남": {
+        "median_s": 138.5,
+        "sd_s": 6.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|강남|역삼": {
+        "median_s": 102.5,
+        "sd_s": 3.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|역삼|선릉": {
+        "median_s": 119.0,
+        "sd_s": 2.0,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|선릉|삼성": {
+        "median_s": 134.5,
+        "sd_s": 1.5,
+        "n": 2,
+        "trains": 2
+      },
+      "2호선|삼성|종합운동장": {
+        "median_s": 105.0,
+        "sd_s": 1.0,
+        "n": 2,
+        "trains": 2
+      }
+    },
+    "line_medians_s": {
+      "2호선": 120.0
+    },
+    "segment_observations": 84,
+    "usable_segments": 30,
+    "rejected": {
+      "gaps": 0,
+      "non_arrival": 236,
+      "missing_fields": 0,
+      "stale": 0,
+      "synthetic": 0,
+      "continuity_gaps": 0,
+      "source_breaks": 0,
+      "direction_breaks": 0
+    }
+  },
+  "evaluation": {
+    "method": "leave-one-train-identity-out",
+    "station_horizons": [
+      3,
+      10
+    ],
+    "n": 338,
+    "train_identities": 9,
+    "median_relative_error": 0.04955196136866458,
+    "gate_lte_15_percent": true,
+    "status": "measured",
+    "excluded_predictions": 0,
+    "arrival_event": "station-arrival-proxy",
+    "rejected": {
+      "gaps": 0,
+      "non_arrival": 236,
+      "missing_fields": 0,
+      "stale": 0,
+      "synthetic": 0,
+      "continuity_gaps": 0,
+      "source_breaks": 0,
+      "direction_breaks": 0
+    }
+  },
+  "notice": "Experimental estimate from station-arrival proxy observations. Held-out windows overlap; a passed median-error gate is not a confidence interval or a guarantee of ±30-second narration."
+}

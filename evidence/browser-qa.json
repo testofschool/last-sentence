@@ -1,0 +1,64 @@
+{
+  "scope": "desktop browser QA, keyless only",
+  "browser": "Codex in-app browser",
+  "url": "http://127.0.0.1:4188/",
+  "cases": [
+    {
+      "case": "full English fixture replay at 16x",
+      "status": "PASS",
+      "observation": "final station-naming line and explicitly by-construction -3.0s fixture schedule result"
+    },
+    {
+      "case": "recorded source and train selection",
+      "status": "PASS",
+      "observation": "validated record-backed line2 journey choices and known-timeline labels"
+    },
+    {
+      "case": "full Korean recorded replay at 16x",
+      "status": "PASS",
+      "observation": "Korean authored final line ends with selected station; known-timeline result disclosed"
+    },
+    {
+      "case": "scrub and resume",
+      "status": "PASS",
+      "observation": "scrub140s updates sentence then resume advances clock"
+    },
+    {
+      "case": "restart and source defaults",
+      "status": "PASS",
+      "observation": "recorded source default; fixture fallback; reset restores opening"
+    },
+    {
+      "case": "Live without keys",
+      "status": "PASS",
+      "observation": "explicit unavailable status; playback disabled"
+    },
+    {
+      "case": "connected generation without keys",
+      "status": "PASS",
+      "observation": "disabled service error; no inference receipts or paid calls"
+    },
+    {
+      "case": "speech availability control",
+      "status": "PASS_CONTROL_ONLY",
+      "observation": "normal-speed speech toggle; no continuous audio completion measurement"
+    },
+    {
+      "case": "mobile/phone",
+      "status": "UNRUN",
+      "observation": "separate Chrome connection timed out; no phone test"
+    }
+  ],
+  "continuous_audio_timing": "UNMEASURED",
+  "vendor_inference_requests": 0,
+  "screenshot": "evidence/replay-desktop.png",
+  "final_checked_at": "2026-10-30T01:44:30.663623+00:00",
+  "final_recording": {
+    "complete": true,
+    "polls": 120,
+    "observations": 600,
+    "gaps": 0
+  },
+  "final_ui": "Latest completed-recording manifest loaded in isolated Codex browser tab; replay is default, five observed train windows, no inference receipts.",
+  "live_public_api_evidence": "evidence/worker/runtime_frozen_eta.json"
+}

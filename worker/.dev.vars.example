@@ -1,0 +1,9 @@
+# Copy to .dev.vars locally. Keep .dev.vars ignored.
+# No external call occurs unless ENABLE_LIVE=true AND LIVE_ACCESS_TOKEN is set.
+ENABLE_LIVE=false
+NEBIUS_API_KEY=
+SEOUL_RT_KEY=
+TAVILY_API_KEY=
+LIVE_ACCESS_TOKEN=
+# Optional exact frontend origin. Omit when static assets share this Worker.
+ALLOWED_ORIGIN=

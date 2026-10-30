@@ -1,0 +1,231 @@
+{
+  "checked_at": "2026-10-30T01:10:30.656Z",
+  "runtime": "Wrangler 4.156.0 local workerd",
+  "base": "http://127.0.0.1:8791",
+  "configuration": {
+    "ENABLE_LIVE": "false",
+    "provider_credentials_loaded": false,
+    "network_scope": "loopback HTTP only; no provider requests"
+  },
+  "passed": true,
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 10928,
+      "sha256": "10eac28237f8cb932668b11dd0f061f0d938585fb142936b3c821edb596ef65b",
+      "latency_ms": 53,
+      "title": "Last Sentence"
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 42296,
+      "sha256": "0ad636190c2e27cca8715e7dcc24f3cca82e4f27f7d7c74c8ca1cb5a20f04c3b",
+      "latency_ms": 7
+    },
+    {
+      "path": "/docs/LIMITATIONS.md",
+      "status": 200,
+      "content_type": "text/markdown; charset=utf-8",
+      "bytes": 3466,
+      "sha256": "4c3f0d06981f3d0893a3803d83f5346795ef02764be324643d4ea858e1dd1d85",
+      "latency_ms": 8
+    },
+    {
+      "path": "/docs/RESULTS.md",
+      "status": 200,
+      "content_type": "text/markdown; charset=utf-8",
+      "bytes": 5240,
+      "sha256": "4547c1e7f77ac56115bfdcb27899aad57d0ec8fe455dfb536f796cda1bcb4122",
+      "latency_ms": 7
+    },
+    {
+      "path": "/docs/API.md",
+      "status": 200,
+      "content_type": "text/markdown; charset=utf-8",
+      "bytes": 9447,
+      "sha256": "5b56a6ce0f97481a4d8055095a72ee2627d3b98dc7299ffd304b872e4f3f48b7",
+      "latency_ms": 6
+    },
+    {
+      "path": "/replay/manifest.json",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 1271,
+      "sha256": "92bd6b7e42c4fcc838bb984bbe4b679b55f000e17e9b93a602f84e8a8a501937",
+      "latency_ms": 9,
+      "schema": "last-sentence/replay-v1",
+      "provenance": "synthetic-fixture"
+    },
+    {
+      "path": "/api/status",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 342,
+      "sha256": "9af699a4da3bd94ffaca85931f866a04068303974db297fb06c7a324b91b8bdb",
+      "latency_ms": 20,
+      "json": {
+        "mode": "replay-only",
+        "inference_enabled": false,
+        "position_enabled": false,
+        "tavily_enabled": false,
+        "auth_required": true,
+        "eta_model_configured": false,
+        "limits": {
+          "completion_cap": 300,
+          "completion_calls_used": null,
+          "completion_calls_remaining": null,
+          "reserved_usd": null,
+          "reservation_budget_usd": 3
+        },
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 0
+      }
+    },
+    {
+      "path": "/api/position?line=2%ED%98%B8%EC%84%A0",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 118,
+      "sha256": "64738451bad809c8b1b968e9d4e8171d73e6327542967fad2ad2d8ffc3a9e256",
+      "latency_ms": 7,
+      "json": {
+        "mode": "replay-forced",
+        "positions": [],
+        "reason": "live_disabled",
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 0
+      }
+    },
+    {
+      "path": "/api/fact?station=Seongsu",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 132,
+      "sha256": "60a5b9ce81a0f8e6c996ea38fffe54f2b87648976f4b2cc28f73cb9a299449ef",
+      "latency_ms": 5,
+      "json": {
+        "mode": "station-only",
+        "fact": null,
+        "tavily_ok": false,
+        "reason": "live_disabled",
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 0
+      }
+    },
+    {
+      "path": "/api/write",
+      "status": 503,
+      "content_type": "application/json",
+      "bytes": 171,
+      "sha256": "f1cfce6e81035a5790b4420bee7152fd5b57caf83e777f6fe79f5453c0fcda88",
+      "latency_ms": 12,
+      "json": {
+        "mode": "replay-only",
+        "error": "live_disabled",
+        "message": "Live services are disabled; use the labeled fixture replay",
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 2
+      }
+    }
+  ],
+  "eta_runtime": {
+    "checked_at": "2026-10-30T01:22:29.880Z",
+    "runtime": "Wrangler 4.156.0 local workerd",
+    "base": "http://127.0.0.1:8791",
+    "configuration": {
+      "ENABLE_LIVE": "false",
+      "provider_credentials_loaded": false
+    },
+    "checks": [
+      {
+        "path": "/api/status",
+        "status": 200,
+        "sha256": "e95dcc0faef6d8c60afa7f140e3c71b348c0fa857e1eab651c3f97b92836671f",
+        "json": {
+          "mode": "replay-only",
+          "inference_enabled": false,
+          "position_enabled": false,
+          "tavily_enabled": false,
+          "auth_required": true,
+          "eta_model_configured": false,
+          "eta_model": {
+            "valid": false,
+            "reason": "recording_not_complete"
+          },
+          "max_input_token_bound": 32768,
+          "limits": {
+            "completion_cap": 300,
+            "completion_calls_used": null,
+            "completion_calls_remaining": null,
+            "reserved_usd": null,
+            "reservation_budget_usd": 3
+          },
+          "model": null,
+          "usage": null,
+          "cost_usd": 0,
+          "latency_ms": 12
+        }
+      },
+      {
+        "path": "/api/eta?line=2%ED%98%B8%EC%84%A0&from=%EC%8B%9C%EC%B2%AD&to=%EC%9D%84%EC%A7%80%EB%A1%9C4%EA%B0%80&direction=0&observed_at=2026-10-30T01%3A22%3A29.791Z",
+        "status": 200,
+        "sha256": "c5afdc8179201e1c33fca2130072aee23f389937ae95caf13b01fcb9d355d0fd",
+        "json": {
+          "mode": "eta-unavailable",
+          "eta_available": false,
+          "reason": "recording_not_complete",
+          "experimental": true,
+          "model": null,
+          "usage": null,
+          "cost_usd": 0,
+          "latency_ms": 1
+        }
+      },
+      {
+        "path": "/replay/eta-bundle.json",
+        "status": 200,
+        "sha256": "538869cf11e9800aae8da8af0db38b64a355a64efce0364fcb0d031a5af7f82d",
+        "recording_complete": false,
+        "trace_sha256": "d4d0cc0aed6ee34cdced14b342968ff28f7e1f66be66650e1d6d88f0230dbca4",
+        "evaluation": {
+          "method": "leave-one-train-identity-out",
+          "station_horizons": [
+            3,
+            10
+          ],
+          "n": 74,
+          "train_identities": 6,
+          "median_relative_error": 0.12237911852802738,
+          "gate_lte_15_percent": true,
+          "status": "measured",
+          "excluded_predictions": 0,
+          "arrival_event": "station-arrival-proxy",
+          "rejected": {
+            "gaps": 0,
+            "non_arrival": 92,
+            "missing_fields": 0,
+            "stale": 0,
+            "synthetic": 0,
+            "continuity_gaps": 0,
+            "source_breaks": 0,
+            "direction_breaks": 0
+          }
+        }
+      }
+    ],
+    "passed": true,
+    "interpretation": "Current recording is still partial. Runtime correctly refuses ETA readiness before the complete frozen-trace gate. Positive completed-bundle behavior is covered by mocked unit tests; no train or model call was made."
+  }
+}

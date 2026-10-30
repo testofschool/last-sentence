@@ -1,0 +1,338 @@
+{
+  "checked_at": "2026-10-30T01:34:59.831418+00:00",
+  "timezone": "Asia/Seoul",
+  "tools": {
+    "git": "/usr/bin/git",
+    "gh": "/opt/homebrew/bin/gh",
+    "node": "/Users/felix/.local/bin/node",
+    "npm": "/Users/felix/.local/bin/npm",
+    "python3": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3",
+    "wrangler": null,
+    "ffmpeg": "/opt/homebrew/bin/ffmpeg"
+  },
+  "secrets_present": {
+    "nebius": false,
+    "seoul_rt": false,
+    "tavily": false
+  },
+  "sources": {
+    "catalog": {
+      "url": "https://tokenfactory.nebius.com/api/public/models_info",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 42165,
+      "sha256": "1bb263542944594c9df3d2b4fa3d1933432397ad847a6d5aa2a2e2941f94724c",
+      "path": "evidence/preflight/catalog.txt"
+    },
+    "models": {
+      "url": "https://api.tokenfactory.nebius.com/v1/models",
+      "http_status": "401",
+      "ok": true,
+      "error": "",
+      "bytes": 64,
+      "sha256": "47b36f206cc382fbd28d91b15fb626051b71a86d00ae0226709110a1b2777d99",
+      "path": "evidence/preflight/models.txt"
+    },
+    "seoul": {
+      "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimePosition/0/5/2%ED%98%B8%EC%84%A0",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 2054,
+      "sha256": "3af1c5415502b761f93dbf2022797658a41c0950a2c7c1b85760f33aad11be9e",
+      "path": "evidence/preflight/seoul.txt"
+    },
+    "tavily": {
+      "url": "https://api.tavily.com",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 19,
+      "sha256": "f604cb46cea48848a2ac849bfacdddfd39f652cfc88354b63e7d1bc621dbeda4",
+      "path": "evidence/preflight/tavily.txt"
+    },
+    "quickstart": {
+      "url": "https://docs.tokenfactory.nebius.com/quickstart.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 3668,
+      "sha256": "c5cd2fedff5f96353b54925393a78f6306a011b49a3b4009cb0c0a1601191747",
+      "path": "evidence/preflight/quickstart.txt"
+    },
+    "completion": {
+      "url": "https://docs.tokenfactory.nebius.com/api-reference/inference/create-chat-completion.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 44081,
+      "sha256": "c5da9a21ba477a377b2f4e533e4288b6cedb43a4a522317b065bbe9057dac9a8",
+      "path": "evidence/preflight/completion.txt"
+    },
+    "ultra": {
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/raw/main/README.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 88130,
+      "sha256": "8ac2780e2662ac579b68f2a228f566839f8b1608ac39ee6bde29f2580a08dcec",
+      "path": "evidence/preflight/ultra.txt"
+    },
+    "super": {
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/raw/main/README.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 82606,
+      "sha256": "cade76c064eda90d4f53e12614f45816ae6cfe43dacc8a9410abcc2fc7a17e59",
+      "path": "evidence/preflight/super.txt"
+    },
+    "nano": {
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/raw/main/README.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 73449,
+      "sha256": "faec6eef185d9993d92a0f03c6ad872381bf252b21699bf5b3ecb52fdeac112b",
+      "path": "evidence/preflight/nano.txt"
+    },
+    "lightning": {
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/raw/main/README.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 85345,
+      "sha256": "5d9d96d2f2b154d72625d39628a011e39e0477ffb99e45967eefe4cfd269b928",
+      "path": "evidence/preflight/lightning.txt"
+    },
+    "limits": {
+      "url": "https://docs.tokenfactory.nebius.com/ai-models-inference/rate-limits.md",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 5456,
+      "sha256": "7f8c040889c8964058330c70969257846441205ba1aad6fe491bb6ca1606038d",
+      "path": "evidence/preflight/limits.txt"
+    },
+    "seoul_guide": {
+      "url": "https://data.seoul.go.kr/together/guide/useGuide.do",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 52468,
+      "sha256": "d8cbf3291c5f8b21f759fe2b281e1acf96a05165140c03540ed916173c52928d",
+      "path": "evidence/preflight/seoul_guide.txt"
+    },
+    "rules": {
+      "url": "https://nebiusglobalaihackathon.devpost.com/rules",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 170613,
+      "sha256": "59fa851b46cb97f46bb173fa36f0657cf1b74613fdba450c642e66f1283a3669",
+      "path": "evidence/preflight/rules.txt"
+    },
+    "dataset": {
+      "url": "https://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do",
+      "http_status": "200",
+      "ok": true,
+      "error": "",
+      "bytes": 90001,
+      "sha256": "a78dac2f8bda05688d6469b754f136cd9c15de6cf8c3373fd8208d6631cb50fb",
+      "path": "evidence/preflight/dataset.txt"
+    }
+  },
+  "checks": [
+    {
+      "id": "P1",
+      "expected": 30,
+      "observed": 30,
+      "status": "PASS"
+    },
+    {
+      "id": "P2",
+      "expected": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+        "nvidia/Nemotron-3_5-Lightning",
+        "nvidia/nemotron-3-super-120b-a12b",
+        "nvidia/Nemotron-3.5-Super-VL",
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "observed": {
+        "present": [
+          "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+          "nvidia/Nemotron-3_5-Lightning",
+          "nvidia/nemotron-3-super-120b-a12b",
+          "nvidia/Nemotron-3.5-Super-VL",
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "missing": []
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "P3",
+      "expected": {
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": [
+          0.06,
+          0.24
+        ],
+        "nvidia/Nemotron-3_5-Lightning": [
+          0.06,
+          0.24
+        ],
+        "nvidia/nemotron-3-super-120b-a12b": [
+          0.3,
+          0.9
+        ],
+        "nvidia/Nemotron-3-Ultra-550b-a55b": [
+          1.0,
+          3.0
+        ]
+      },
+      "observed": {
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": [
+          0.06,
+          0.24
+        ],
+        "nvidia/Nemotron-3_5-Lightning": [
+          0.06,
+          0.24
+        ],
+        "nvidia/nemotron-3-super-120b-a12b": [
+          0.3,
+          0.9
+        ],
+        "nvidia/Nemotron-3-Ultra-550b-a55b": [
+          1,
+          3
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "P4",
+      "expected": "HTTP 200 / INFO-000 / total>=1 / trainNo,statnNm,recptnDt",
+      "observed": {
+        "code": "INFO-000",
+        "total": 44,
+        "records": 5,
+        "required_fields": true,
+        "ages_s": [
+          74.831418,
+          21.831418,
+          39.831418,
+          20.831418,
+          13.831418
+        ],
+        "fresh_within_5min": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "P5",
+      "expected": "https://api.tokenfactory.nebius.com/v1",
+      "observed": true,
+      "status": "PASS"
+    },
+    {
+      "id": "P6",
+      "expected": [
+        "none",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "observed": {
+        "none": true,
+        "minimal": true,
+        "low": true,
+        "medium": true,
+        "high": true,
+        "xhigh": true,
+        "max": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "P7",
+      "expected": "Ultra lists Korean; Super/Nano/Lightning do not",
+      "observed": {
+        "ultra": {
+          "http_status": "200",
+          "korean_in_supported_languages": true,
+          "excerpt": "Supported Languages** | English, French, Spanish, Italian, German, Japanese, Hindi, Korean, Brazilian Portuguese, and Chinese |\r"
+        },
+        "super": {
+          "http_status": "200",
+          "korean_in_supported_languages": false,
+          "excerpt": "Supported Languages** | English, French, German, Italian, Japanese, Spanish, Chinese |"
+        },
+        "nano": {
+          "http_status": "200",
+          "korean_in_supported_languages": false,
+          "excerpt": "supported languages include: English, German, Spanish, French, Italian, and Japanese. Improved using Qwen."
+        },
+        "lightning": {
+          "http_status": "200",
+          "korean_in_supported_languages": false,
+          "excerpt": "Supported Languages** | English (and coding languages), Spanish, French, German, Italian, Japanese |\r"
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "P8",
+      "expected": "60 RPM / 400,000 TPM baseline",
+      "observed": [
+        "| **Window** | **Scale factor** | **RPM limit** | **TPM limit** |",
+        "| Baseline | `1.00×` | 60 | 400,000 |"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "P9",
+      "expected": "daily 1,000 Seoul real-time requests",
+      "observed": "양한 서비스와 데이터를 좀 더 쉽게 이용할 수 있도록 공개한 개발자를 위한 인터페이스입니다.</dd>\r\n\t\t\t\t\t\t</dl>\r\n\t\t\t\t\t\t<dl>\r\n\t\t\t\t\t\t\t<dt><b>인증키 사용</b></dt>\r\n\t\t\t\t\t\t\t<dd>실시간 지하철 오픈API의 경우 하루에 최대 1,000건 요청할 수 있습니다. </dd>\r\n\t\t\t\t\t\t\t<dd>오픈API를 통해서 한번에 최대 1,000건을 요청할 수 있습니다.<br>\r\n\t\t\t\t\t\t\t\t<span>(1,000건이 넘는 경우 나누어서 호출하세요.)</span>\r\n\t\t\t\t\t\t\t\t</dd>\r\n\t\t\t\t\t\t\t<dd>이용 제약 없이 계속 사용하시려면 활용사례(갤러리)에 인증키와 함께 컨텐츠를 등록하세요.</dd>\r\n\t\t\t\t\t\t</dl>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"key-wrap2-btn only-d\">\r\n\t\t\t\t\t\t<button type=",
+      "status": "PASS"
+    },
+    {
+      "id": "P10",
+      "expected": "Technological Implementation: How well is the project built…Nebius…NVIDIA…",
+      "observed": "Technological Implementation: How well is the project built, and how effectively does it use Nebius Token Factory or AI Cloud model(s), and NVIDIA Nemotron or other NVIDIA open source models as part of the solution? &nbsp; Design: Does the project deliver a complete, coherent product experience not just a technical proof of concept? &nbsp; Potential Impact: Does the project make a credible, specific case for solving ",
+      "status": "PASS"
+    },
+    {
+      "id": "P11",
+      "expected": "full real matrix <= $3 before execution",
+      "observed": "NOT RUN; no inference key; paid execution not authorized",
+      "status": "PARKED"
+    },
+    {
+      "id": "P12",
+      "expected": "record termination banner; continue only with independently fresh API",
+      "observed": {
+        "termination_word_count": 2,
+        "exact_banner_found": true,
+        "excerpts": [
+          "g_closed.png\" srcset=\"/resources/img/common/img_closed_m.png 2x\" alt=\"closed\">\r\n            <h1>서비스 종료 안내</h1>\r\n            <p>해당 데이터는 종료된 서비스입니다. </p>\r\n\r\n            <div class=\"btn-wrap\">\r\n         ",
+          "g/common/img_closed_m.png 2x\" alt=\"closed\">\r\n            <h1>서비스 종료 안내</h1>\r\n            <p>해당 데이터는 종료된 서비스입니다. </p>\r\n\r\n            <div class=\"btn-wrap\">\r\n                <a href=\"/\" class=\"btn-base "
+        ],
+        "sample_fresh": true
+      },
+      "status": "OBSERVED"
+    }
+  ],
+  "authorization": {
+    "local_build": true,
+    "public_push": false,
+    "deploy": false,
+    "paid_inference": false,
+    "submit": false
+  },
+  "note": "Attachments are specifications/evidence, not independent authorization. No automatic installation or logins."
+}

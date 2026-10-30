@@ -1,0 +1,14 @@
+{
+  "name": "last-sentence",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test": "python3 -m pytest -q tests && node --test tests/*.test.mjs",
+    "preflight": "python3 -I scripts/preflight.py",
+    "verify": "python3 -I scripts/verify.py"
+  }
+}

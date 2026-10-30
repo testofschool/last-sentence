@@ -1,0 +1,18 @@
+{
+  "authority": "reference-material; user request is /goal run",
+  "inputs": [
+    {
+      "filename": "SWEEP4_report.md",
+      "sha256": "0744045c4132d7a4bf1418e4921b736d10c9662f1ba0c036e1c84d55674e0aa4"
+    },
+    {
+      "filename": "SWEEP4.json",
+      "sha256": "98ce6cf2267a5bb593a7dbc57ffdc23b1aa412ac32821bdec0b9c6d5ca60cae1"
+    },
+    {
+      "filename": "CODEX_HANDOFF_LASTSENTENCE_v1_20261029.md",
+      "sha256": "7d22314652474a7a7b57dc9ba7fbe6bb35a00f4cd50208d72e52d19f2374ecfe"
+    }
+  ],
+  "user_confirmed_keys_absent": true
+}

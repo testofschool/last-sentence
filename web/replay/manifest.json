@@ -1,0 +1,10 @@
+{
+  "schema": "last-sentence/replay-v1",
+  "provenance": "synthetic-fixture",
+  "notice": "Authored timing fixtures for interaction testing. Not recorded journeys or model output. Station arrival is a proxy; door-open timing is unmeasured.",
+  "journeys": [
+    {"id":"line2-fixture","line":"2호선","trainNo":"DEMO-2","source":"synthetic-fixture","arrival_event":"station-arrival-proxy","eta_s":600,"stations":[{"name":"강남","offset_s":0},{"name":"역삼","offset_s":125},{"name":"선릉","offset_s":259},{"name":"삼성","offset_s":411},{"name":"종합운동장","offset_s":560}]},
+    {"id":"line5-fixture","line":"5호선","trainNo":"DEMO-5","source":"synthetic-fixture","arrival_event":"station-arrival-proxy","eta_s":600,"stations":[{"name":"여의도","offset_s":0},{"name":"여의나루","offset_s":150},{"name":"마포","offset_s":303},{"name":"공덕","offset_s":441},{"name":"애오개","offset_s":590}]},
+    {"id":"line7-fixture","line":"7호선","trainNo":"DEMO-7","source":"synthetic-fixture","arrival_event":"station-arrival-proxy","eta_s":600,"stations":[{"name":"어린이대공원","offset_s":0},{"name":"건대입구","offset_s":132},{"name":"자양","offset_s":265},{"name":"청담","offset_s":402},{"name":"강남구청","offset_s":555}]}
+  ]
+}

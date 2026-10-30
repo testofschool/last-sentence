@@ -1,0 +1,275 @@
+{
+  "checked_at": "2026-10-30T01:28:11.368Z",
+  "runtime": "Wrangler 4.156.0 local workerd",
+  "base": "http://127.0.0.1:8792",
+  "profile": {
+    "ENABLE_LIVE": true,
+    "SEOUL_RT_KEY": "published SAMPLE",
+    "session_token": "excluded",
+    "NEBIUS_API_KEY": "empty",
+    "TAVILY_API_KEY": "empty"
+  },
+  "outbound_position_attempt_count": 2,
+  "inference_completion_count_delta": 0,
+  "search_count_delta": 0,
+  "verified_arrival_candidate": true,
+  "checks": [
+    {
+      "path": "/api/status",
+      "status": 200,
+      "json": {
+        "mode": "replay-only",
+        "inference_enabled": false,
+        "position_enabled": true,
+        "tavily_enabled": false,
+        "auth_required": true,
+        "eta_model_configured": false,
+        "eta_model": {
+          "valid": false,
+          "reason": "recording_not_complete"
+        },
+        "max_input_token_bound": 32768,
+        "limits": {
+          "completion_cap": 300,
+          "completion_calls_used": 0,
+          "completion_calls_remaining": 300,
+          "reserved_usd": 0,
+          "reservation_budget_usd": 3,
+          "seoul_calls_used_today": 2,
+          "seoul_daily_cap": 950,
+          "search_calls_used": 0,
+          "search_lifetime_cap": 100
+        },
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 21
+      }
+    },
+    {
+      "path": "/api/position?line=2%ED%98%B8%EC%84%A0",
+      "status": 200,
+      "json": {
+        "mode": "live",
+        "positions": [
+          {
+            "subwayId": "1002",
+            "trainNo": "2149",
+            "statnId": "1002000214",
+            "statnNm": "강변",
+            "updnLine": "1",
+            "trainSttus": "1",
+            "recptnDt": "2026-10-30 10:27:03",
+            "statnTnm": "성수종착",
+            "statnTid": "1002000211",
+            "directAt": "0",
+            "lstcarAt": "0"
+          },
+          {
+            "subwayId": "1002",
+            "trainNo": "3142",
+            "statnId": "1002000202",
+            "statnNm": "을지로입구",
+            "updnLine": "0",
+            "trainSttus": "2",
+            "recptnDt": "2026-10-30 10:27:22",
+            "statnTnm": "성수종착",
+            "statnTid": "1002000211",
+            "directAt": "0",
+            "lstcarAt": "0"
+          },
+          {
+            "subwayId": "1002",
+            "trainNo": "2153",
+            "statnId": "1002000219",
+            "statnNm": "삼성",
+            "updnLine": "1",
+            "trainSttus": "1",
+            "recptnDt": "2026-10-30 10:26:45",
+            "statnTnm": "성수종착",
+            "statnTid": "1002000211",
+            "directAt": "0",
+            "lstcarAt": "0"
+          },
+          {
+            "subwayId": "1002",
+            "trainNo": "2148",
+            "statnId": "1002000240",
+            "statnNm": "신촌",
+            "updnLine": "0",
+            "trainSttus": "2",
+            "recptnDt": "2026-10-30 10:27:16",
+            "statnTnm": "성수종착",
+            "statnTid": "1002000211",
+            "directAt": "0",
+            "lstcarAt": "0"
+          },
+          {
+            "subwayId": "1002",
+            "trainNo": "3150",
+            "statnId": "1002000239",
+            "statnNm": "홍대입구",
+            "updnLine": "0",
+            "trainSttus": "1",
+            "recptnDt": "2026-10-30 10:26:14",
+            "statnTnm": "성수종착",
+            "statnTid": "1002000211",
+            "directAt": "0",
+            "lstcarAt": "0"
+          }
+        ],
+        "sample_key": true,
+        "transport": "http-public-sample",
+        "transport_fallback": true,
+        "observed_at": "2026-10-30T01:28:11.332Z",
+        "arrival_reference": "station-position-proxy-not-doors-open",
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 3510
+      }
+    },
+    {
+      "path": "/api/eta?line=2%ED%98%B8%EC%84%A0&trainNo=2149&direction=1",
+      "status": 200,
+      "json": {
+        "mode": "eta-unavailable",
+        "eta_available": false,
+        "reason": "recording_not_complete",
+        "experimental": true,
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 1
+      }
+    },
+    {
+      "path": "/api/plan",
+      "status": 400,
+      "json": {
+        "mode": "replay-only",
+        "error": "verified_eta_unavailable",
+        "message": "A verified observed ETA is required: recording_not_complete",
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 3
+      }
+    },
+    {
+      "path": "/api/status",
+      "status": 200,
+      "json": {
+        "mode": "replay-only",
+        "inference_enabled": false,
+        "position_enabled": true,
+        "tavily_enabled": false,
+        "auth_required": true,
+        "eta_model_configured": false,
+        "eta_model": {
+          "valid": false,
+          "reason": "recording_not_complete"
+        },
+        "max_input_token_bound": 32768,
+        "limits": {
+          "completion_cap": 300,
+          "completion_calls_used": 0,
+          "completion_calls_remaining": 300,
+          "reserved_usd": 0,
+          "reservation_budget_usd": 3,
+          "seoul_calls_used_today": 4,
+          "seoul_daily_cap": 950,
+          "search_calls_used": 0,
+          "search_lifetime_cap": 100
+        },
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 3
+      }
+    }
+  ],
+  "passed": true,
+  "previous_attempt": {
+    "checked_at": "2026-10-30T01:27:05.655Z",
+    "passed": false,
+    "outbound_position_attempt_count": 2,
+    "inference_completion_count_delta": 0,
+    "position_response": {
+      "path": "/api/position?line=2%ED%98%B8%EC%84%A0",
+      "status": 502,
+      "json": {
+        "mode": "replay-only",
+        "error": "upstream_unavailable",
+        "message": "Upstream request failed or timed out",
+        "model": null,
+        "usage": null,
+        "cost_usd": 0,
+        "latency_ms": 7
+      }
+    }
+  },
+  "verified_anchor_candidates": [
+    {
+      "station": "강변",
+      "raw_station": "강변",
+      "recptnDt": "2026-10-30 10:27:03",
+      "epoch_s": 1793323623,
+      "trainSttus": "1",
+      "trainNo": "2149",
+      "direction": "1",
+      "line": "2호선",
+      "verified": true,
+      "terminus": {
+        "station": "성수",
+        "id": "1002000211",
+        "raw_name": "성수종착"
+      },
+      "directAt": "0",
+      "lstcarAt": "0",
+      "transport": "http-public-sample",
+      "cached_at": "2026-10-30T01:28:11.368Z"
+    },
+    {
+      "station": "삼성",
+      "raw_station": "삼성",
+      "recptnDt": "2026-10-30 10:26:45",
+      "epoch_s": 1793323605,
+      "trainSttus": "1",
+      "trainNo": "2153",
+      "direction": "1",
+      "line": "2호선",
+      "verified": true,
+      "terminus": {
+        "station": "성수",
+        "id": "1002000211",
+        "raw_name": "성수종착"
+      },
+      "directAt": "0",
+      "lstcarAt": "0",
+      "transport": "http-public-sample",
+      "cached_at": "2026-10-30T01:28:11.368Z"
+    },
+    {
+      "station": "홍대입구",
+      "raw_station": "홍대입구",
+      "recptnDt": "2026-10-30 10:26:14",
+      "epoch_s": 1793323574,
+      "trainSttus": "1",
+      "trainNo": "3150",
+      "direction": "0",
+      "line": "2호선",
+      "verified": true,
+      "terminus": {
+        "station": "성수",
+        "id": "1002000211",
+        "raw_name": "성수종착"
+      },
+      "directAt": "0",
+      "lstcarAt": "0",
+      "transport": "http-public-sample",
+      "cached_at": "2026-10-30T01:28:11.368Z"
+    }
+  ],
+  "anchor_validation_note": "Actual public position response passed the same Worker arrival/terminus guard. Positive cached ETA lookup remains gated until the complete recording is frozen."
+}

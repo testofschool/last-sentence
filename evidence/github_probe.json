@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-10-30T01:40:35.550488+00:00",
+  "target": "https://github.com/testofschool/last-sentence",
+  "operation": "read-only gh repo view",
+  "result": "unresolved-or-inaccessible",
+  "error": "GraphQL: Could not resolve to a Repository with the name testofschool/last-sentence.",
+  "public_creation": false,
+  "push": false
+}

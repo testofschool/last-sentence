@@ -1,0 +1,13 @@
+{
+  "started_at_utc": "2026-10-30T01:08:36.510271+00:00",
+  "ended_at_utc": "2026-10-30T01:08:56.569816+00:00",
+  "started_at_kst": "2026-10-30T10:08:36.510271+09:00",
+  "duration_s": 20.058,
+  "url": "https://swopenapi.seoul.go.kr/api/subway/sample/json/realtimePosition/0/5/2%ED%98%B8%EC%84%A0",
+  "credential": "public sample only",
+  "curl_exit_code": 28,
+  "http_status": "000",
+  "stderr": "curl: (28) Connection timed out after 20006 milliseconds",
+  "response_body": null,
+  "transport_policy": "HTTPS only; no private key fallback over HTTP"
+}
