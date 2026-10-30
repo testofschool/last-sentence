@@ -1,0 +1,41 @@
+{
+  "schema": "last-sentence/authentication-check-v1",
+  "checked_at": "2026-10-30T07:34:52.994269+00:00",
+  "endpoint": "https://api.tokenfactory.nebius.com/v1/chat/completions",
+  "requested_model": "nvidia/Nemotron-3_5-Lightning",
+  "authenticated_smoke_attempts": 2,
+  "smoke_http_statuses": [
+    401,
+    401
+  ],
+  "latency_ms": [
+    1427.02,
+    879.32
+  ],
+  "successful_provider_completions": 0,
+  "provider_usage_returned": false,
+  "actual_usage_cost_usd": null,
+  "direct_smoke_reserve_microusd": 1974,
+  "required_worker_cap_before_enable_usd": "2.998026",
+  "worker_inference_enabled": false,
+  "credential_status": "local file present mode600; Token Factory rejected authentication",
+  "read_only_models_checks": {
+    "attempts": 2,
+    "http_statuses": [
+      401,
+      401
+    ],
+    "no_model_completion_requested": true
+  },
+  "client_header_check": "synthetic local exact Authorization header PASS; official Bearer scheme; native curl default config disabled also401",
+  "retry_policy": "No unchanged automatic retry; second smoke followed explicit user credential replacement",
+  "cost_limit_scope": "Approved total$3; outside-Worker smoke allowances held; null provider costs stay unknown",
+  "not_proven": [
+    "valid provider credentials",
+    "promo credit balance",
+    "real model output",
+    "tool support",
+    "sentence obedience",
+    "matrix performance"
+  ]
+}

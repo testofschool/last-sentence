@@ -1,12 +1,31 @@
-# Feedback draft · observed October 30, 2026 KST
+# Feedback draft · authentication update October 30, 2026 KST
 
-This is a local draft, not a feedback submission. Actual authenticated inference has not run.
+This is a local draft, not a feedback submission. A local Nebius key is now present with mode `600`, but provider authentication has not succeeded. Successful model completions are **0**; the matrix and controlled Korean feedback collector have not run. The provider credential has not been uploaded to the deployed Worker, whose inference remains disabled. Real Nemotron inference remains directly authorized up to **$3 total**.
+
+## Current authentication observations · October 30, 2026 KST
+
+| Observation | Measured result and boundary |
+| --- | --- |
+| First direct POST smoke, 16:26:30 KST | `nvidia/Nemotron-3_5-Lightning`, `max_tokens:16`; HTTP 401; 1427.02 ms error-response latency; provider model, usage and actual cost null |
+| Replacement-key direct POST smoke, 16:30:44 KST | Same requested model and token ceiling; HTTP 401; 879.32 ms error-response latency; provider model, usage and actual cost null |
+| Read-only GET diagnostic 1 | `/v1/models` returned HTTP 401 using the official Bearer scheme; no completion requested |
+| Read-only GET diagnostic 2 | Native `/usr/bin/curl -q` returned HTTP 401; default curl configuration disabled; no completion requested |
+| Local header diagnostic | Synthetic loopback request matched the expected Authorization header exactly; this was not a provider-authentication success |
+| First verified model reply | UNMEASURED; no successful reply or verified provider model identity exists |
+| Attempt and cost accounting | 2 direct POST authentication smokes, 2 separate read-only GET diagnostics, 0 successful completions. Both smoke usage/cost values are null; no verified $0 charge is claimed |
+| Conservative reserve | 987 microUSD per POST smoke; 1,974 microUSD ($0.001974) cumulative outside-Worker reserve. Planned Worker cap $2.998026 retains the directly authorized $3 total; the reduced cap is not deployed |
+
+Sanitized private evidence is retained as `nebius-smoke-20261030-01.json`, `nebius-smoke-20261030-02.json`, `nebius-auth-diagnostic.json` and `nebius-native-auth-diagnostic.json` in the proposal evidence folder. The HTTP 401 results establish credential rejection in these requests, not its account-side cause. There is no successful model output from which to report tool support, sentence obedience, Korean quality, completion latency or timing accuracy.
+
+## Earlier public/keyless observations · October 30, 2026, before credential setup
+
+The following rows retain the earlier keyless preflight snapshot. The current credential state is described above; earlier file absence is historical.
 
 | Question | Observation |
 | --- | --- |
-| Key to first Nemotron reply | UNMEASURED; no Nebius key was present |
+| Key to first Nemotron reply | Historical snapshot: UNMEASURED; no Nebius key was present at that earlier check |
 | Public model discovery | HTTP 200; 30 model entries; all 5 preregistered Nemotron IDs present |
-| Public inference reachability | `/v1/models` returned HTTP 401 without a key; no authentication success is implied |
+| Public inference reachability | Earlier keyless `/v1/models` check returned HTTP 401 without a key; separate from the two later credential-bearing GET diagnostics above |
 | Price endpoint | All four preregistered input/output prices matched the public catalog; useful for planning a cost bound |
 | `reasoning_effort` accepted by Lightning/Super/Ultra | UNMEASURED; documented enum verified, runtime acceptance not tested |
 | Lightning tool calls | UNMEASURED; tool loop and fallback paths tested with mocked responses only |
