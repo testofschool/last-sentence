@@ -56,7 +56,7 @@ class HttpTransport:
         if Path('/etc/ssl/cert.pem').is_file(): context.load_verify_locations('/etc/ssl/cert.pem')
         self.opener = urllib.request.build_opener(NoRedirect(), urllib.request.HTTPSHandler(context=context))
     def __call__(self, method, url, body=None, token=None, timeout=15):
-        headers = {'accept': 'application/json'}
+        headers = {'accept': 'application/json', 'User-Agent': 'Last-Sentence-Evaluation/0.1'}
         if token: headers['authorization'] = 'Bearer ' + token
         raw = None
         if body is not None:

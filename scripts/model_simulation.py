@@ -119,7 +119,8 @@ class WorkerHttp:
     def __call__(self, path, payload, timeout):
         body = json.dumps(payload, ensure_ascii=False).encode() if payload is not None else None
         request = urllib.request.Request(self.base + path, data=body,
-            headers={"Authorization": "Bearer " + self._token, "Content-Type": "application/json"},
+            headers={"Authorization": "Bearer " + self._token, "Content-Type": "application/json",
+                     "User-Agent": "Last-Sentence-Evaluation/0.1"},
             method="POST" if body is not None else "GET")
         started = time.monotonic()
         try:
