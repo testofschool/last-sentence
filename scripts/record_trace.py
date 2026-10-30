@@ -15,7 +15,7 @@ import urllib.parse
 import urllib.request
 
 KST = dt.timezone(dt.timedelta(hours=9))
-FIELDS = ("subwayId", "trainNo", "statnId", "statnNm", "updnLine", "trainSttus", "recptnDt")
+FIELDS = ("subwayId", "trainNo", "statnId", "statnNm", "updnLine", "trainSttus", "recptnDt", "statnTid", "statnTnm")
 
 
 def now():

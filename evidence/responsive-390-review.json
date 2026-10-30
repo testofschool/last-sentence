@@ -1,0 +1,52 @@
+{
+  "schema": "last-sentence/responsive-qa-v1",
+  "date_kst": "2026-10-30",
+  "method": {
+    "kind": "desktop fixed-width iframe screenshot review",
+    "iframe_css_width_px": 390,
+    "browser": "Codex in-app browser, root-created isolated QA tab",
+    "device_emulation": false,
+    "actual_phone": false,
+    "numeric_scroll_metrics_collected": false
+  },
+  "evidence": [
+    "responsive-390.png",
+    "responsive-390-after.png",
+    "responsive-390-lower.png",
+    "responsive-390-bottom.png",
+    "responsive-390-receipts.png"
+  ],
+  "finding": {
+    "before": "At 390 CSS pixels, Source, Journey and Boarding shared three narrow columns; selected source and journey labels were visibly truncated.",
+    "change": "At widths <=540px, use a two-column grid: Source and Journey, then Boarding and the provenance note. Added a literal space before the intro line break for the mobile hidden-break layout.",
+    "verified_after": "Selected Source and Journey labels are fully visible in the captured case; no visible horizontal spill or clipped controls in the reviewed regions."
+  },
+  "reviewed_regions": [
+    "header and hero",
+    "Replay/Live and language controls",
+    "line, exit, source, journey and boarding selectors",
+    "current story and Sound off state",
+    "station timeline and readable chapter bands",
+    "play, restart and speed controls",
+    "Conductor and budget/log panels",
+    "Receipts and Generate with connected models button",
+    "limitations link and footer"
+  ],
+  "results": {
+    "visual_layout": "PASS after the responsive selector fix",
+    "sound_in_harness": "OFF",
+    "model_calls_in_harness": 0,
+    "actual_phone_H5": "UNRUN",
+    "model_or_live_arrival_accuracy": "NOT TESTED BY THIS QA"
+  },
+  "limitations": [
+    "This is desktop iframe CSS/layout evidence, not a phone, touch, mobile browser or device test.",
+    "No numerical overflow measurement was collected; findings are visual screenshot inspection.",
+    "This local harness made no model calls and did not start speech."
+  ],
+  "cleanup": {
+    "fixed_html_only_loopback_server": "stopped",
+    "temporary_harness_files": "removed",
+    "isolated_browser_tab": "root will close tab4; no existing QA tabs were modified"
+  }
+}

@@ -21,7 +21,7 @@ Open the printed local URL. Choose Replay, a source, train journey and destinati
 | Neighbourhood fact | Tavily | Source URL retained when available; real search UNRUN |
 | Train position | Seoul real-time subway sample API | Dated observations recorded separately from fixture journeys |
 
-The prepared Live controller uses a completed, provenance-bound ETA artifact and server-cached train arrivals. It requires a selected actual train/direction and a forward line-2 exit. The train clock keeps advancing while model requests run; rewritten text waits for a sentence boundary. These behaviors have mock tests; actual model-backed Live use remains unrun.
+The prepared Live controller uses a completed, provenance-bound ETA artifact and server-cached train arrivals. It requires a selected actual train/direction and a forward exit on a line whose own quality gate passes. Routes follow the line-2 main loop, the actual line-5 branch/terminus, or the line-7 chain. The train clock keeps advancing while model requests run; rewritten text waits for a sentence boundary. These behaviors have mock tests; actual model-backed Live use remains unrun.
 
 The public model catalog and model cards were checked on October 30, 2026 KST. A language missing from a card's supported-language list does not prove that the model cannot generate that language. This is a conservative model-selection policy.
 
@@ -45,11 +45,12 @@ The local server binds to `127.0.0.1` and never loads credentials. It serves `/a
 
 | Quantity | Current meaning |
 | --- | --- |
+| 3 × 40-minute recordings | 600 actual sample observations per line: 1,800 total, 0 gap records; offline proxy validation is separate from speech accuracy |
 | 3 fixture journeys | Synthetic line 2, 5 and 7 scenarios for deterministic UI checks |
 | $0 inference cost | No paid model/search requests were made in this build run |
 | 0 measured model-backed journeys | The 30×3 comparison is gated on actual observations and credentials |
 
-The conservative full plan is **$4.85581376 / 1,370 completions**, so it is refused by the $3/default-300-call gates. A **5-journey × 3-policy + 2-language** plan is **$1.09062176 / 295 completions** at the checked prices. This is a bound, not actual spend or reserved capacity. The 17-journey alternative needs an explicitly raised completion-count setting and remains unrun.
+The full **30-journey × 3-policy + 2-language** plan has a conservative bound of **$2.60596288 / 1,370 completions** at the checked prices. It fits the $3 guard with an explicitly configured 2,048-completion Worker ceiling and enforced 16,384-token input envelope. The default 300-completion setting still refuses the full plan. Reduced plans are optional diagnostics; the original balanced 10-journeys-per-line comparison remains the target. A bound is not actual spend or a reservation, and no inference experiment has run.
 
 [Results](docs/RESULTS.md) separate deterministic scheduling tests from observed train records and real inference. A guarded model-backed timing-simulation runner is prepared for an explicitly approved, authenticated run; it retains actual model receipts while labeling character-rate speech timing as simulation. Actual browser-speech results require separately recorded events. [Limitations](docs/LIMITATIONS.md) explain the gaps. [Prior art](docs/PRIOR_ART.md) includes systems that already adapt stories to journeys; no novelty or superiority claim follows from this prototype.
 

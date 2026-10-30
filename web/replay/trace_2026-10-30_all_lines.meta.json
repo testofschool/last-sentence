@@ -1,0 +1,96 @@
+{
+  "schema": "last-sentence/trace-v1",
+  "source": "seoul-sample",
+  "line": "combined",
+  "lines": [
+    "2호선",
+    "5호선",
+    "7호선"
+  ],
+  "started_at": "2026-10-30T10:02:51+09:00",
+  "last_poll_at": "2026-10-30T11:28:43+09:00",
+  "interval_s": 20,
+  "polls": 360,
+  "observations": 1800,
+  "gaps": 0,
+  "complete": true,
+  "arrival_event": "station-arrival-proxy",
+  "recordings": [
+    {
+      "path": "web/replay/trace_2026-10-30.jsonl",
+      "sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+      "lines": [
+        "2호선"
+      ],
+      "recording_complete": true,
+      "metadata": {
+        "schema": "last-sentence/trace-v1",
+        "source": "seoul-sample",
+        "line": "2호선",
+        "started_at": "2026-10-30T10:02:51+09:00",
+        "planned_minutes": 40.0,
+        "interval_s": 20.0,
+        "polls": 120,
+        "observations": 600,
+        "gaps": 0,
+        "complete": true,
+        "arrival_event": "station-arrival-proxy",
+        "last_poll_at": "2026-10-30T10:42:31+09:00",
+        "finished_at": "2026-10-30T10:42:51+09:00"
+      },
+      "included_records": 600,
+      "truncated_last_line_excluded": false
+    },
+    {
+      "path": "web/replay/trace_2026-10-30_line5.jsonl",
+      "sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+      "lines": [
+        "5호선"
+      ],
+      "recording_complete": true,
+      "metadata": {
+        "schema": "last-sentence/trace-v1",
+        "source": "seoul-sample",
+        "line": "5호선",
+        "started_at": "2026-10-30T10:49:03+09:00",
+        "planned_minutes": 40.0,
+        "interval_s": 20.0,
+        "polls": 120,
+        "observations": 600,
+        "gaps": 0,
+        "complete": true,
+        "arrival_event": "station-arrival-proxy",
+        "last_poll_at": "2026-10-30T11:28:43+09:00",
+        "finished_at": "2026-10-30T11:29:03+09:00"
+      },
+      "included_records": 600,
+      "truncated_last_line_excluded": false
+    },
+    {
+      "path": "web/replay/trace_2026-10-30_line7.jsonl",
+      "sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+      "lines": [
+        "7호선"
+      ],
+      "recording_complete": true,
+      "metadata": {
+        "schema": "last-sentence/trace-v1",
+        "source": "seoul-sample",
+        "line": "7호선",
+        "started_at": "2026-10-30T10:49:03+09:00",
+        "planned_minutes": 40.0,
+        "interval_s": 20.0,
+        "polls": 120,
+        "observations": 600,
+        "gaps": 0,
+        "complete": true,
+        "arrival_event": "station-arrival-proxy",
+        "last_poll_at": "2026-10-30T11:28:43+09:00",
+        "finished_at": "2026-10-30T11:29:03+09:00"
+      },
+      "included_records": 600,
+      "truncated_last_line_excluded": false
+    }
+  ],
+  "notice": "Concatenation of actual per-line recording snapshots, sorted by poll timestamp. No gap filling, interpolation or synthetic observations."
+}

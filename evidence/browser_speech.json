@@ -1,0 +1,87 @@
+{
+  "schema": "last-sentence/browser-speech-qa-v1",
+  "status": "PASS_AUTHORED_LOCAL_UI",
+  "checked_at": "2026-10-30T02:18:10.431425+00:00",
+  "mode": "authored-browser-ui-qa",
+  "notice": "Actual uninterrupted local browser speech over an already-known recorded replay clock. Human-authored story; no vendor model or search calls. This is not causal arrival prediction, model-backed matrix evidence, prospective narration, or door-opening accuracy.",
+  "code_snapshot": "Development pages loaded during ongoing local code changes; final source/unit/runtime validation is separate.",
+  "runs": [
+    {
+      "line": "2호선",
+      "trainNo": "3142",
+      "boarding_station": "당산",
+      "exit_station": "합정",
+      "recorded_duration_s": 170,
+      "language": "en",
+      "speed": 1,
+      "audio_state": "on",
+      "speech_clock": "browser-speech-end-event",
+      "displayed_landing_error_s": -9.3,
+      "display_precision_s": 0.1,
+      "ui_label": "SPEECH VS OBSERVATION",
+      "ui_description": "Uninterrupted browser speech-end timing vs a recorded observation. The provider timestamp is not a door sensor; prospective arrival accuracy remains unmeasured.",
+      "story_provenance": "hand-authored",
+      "actual_api_calls": 0,
+      "screenshot": "evidence/browser-speech-line2.png",
+      "raw_source_event_pair": {
+        "boarding_observation_at": "2026-10-30T10:08:20+09:00",
+        "arrival_observation_at": "2026-10-30T10:11:10+09:00",
+        "identity": "2호선|0|2026-10-30|3142"
+      },
+      "raw_source_path": "web/replay/trace_2026-10-30.jsonl",
+      "raw_source_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5"
+    },
+    {
+      "line": "5호선",
+      "trainNo": "5071",
+      "boarding_station": "서대문",
+      "exit_station": "광화문",
+      "recorded_duration_s": 124,
+      "language": "ko",
+      "speed": 1,
+      "audio_state": "on",
+      "speech_clock": "browser-speech-end-event",
+      "displayed_landing_error_s": -4.1,
+      "display_precision_s": 0.1,
+      "ui_label": "SPEECH VS OBSERVATION",
+      "ui_description": "Uninterrupted browser speech-end timing vs a recorded observation. The provider timestamp is not a door sensor; prospective arrival accuracy remains unmeasured.",
+      "story_provenance": "hand-authored",
+      "recording_complete_at_test": false,
+      "actual_api_calls": 0,
+      "screenshot": "evidence/browser-speech-line5.png",
+      "raw_source_event_pair": {
+        "boarding_observation_at": "2026-10-30T10:53:10+09:00",
+        "arrival_observation_at": "2026-10-30T10:55:14+09:00",
+        "identity": "5호선|1|2026-10-30|5071"
+      },
+      "raw_source_path": "web/replay/trace_2026-10-30_line5.jsonl",
+      "raw_source_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d"
+    },
+    {
+      "line": "7호선",
+      "trainNo": "7147",
+      "boarding_station": "상도",
+      "exit_station": "장승배기",
+      "recorded_duration_s": 123,
+      "language": "en",
+      "speed": 1,
+      "audio_state": "on",
+      "speech_clock": "browser-speech-end-event",
+      "displayed_landing_error_s": -7.0,
+      "display_precision_s": 0.1,
+      "ui_label": "SPEECH VS OBSERVATION",
+      "ui_description": "Uninterrupted browser speech-end timing vs a recorded observation. The provider timestamp is not a door sensor; prospective arrival accuracy remains unmeasured.",
+      "story_provenance": "hand-authored",
+      "recording_complete_at_test": false,
+      "actual_api_calls": 0,
+      "screenshot": "evidence/browser-speech-line7.png",
+      "raw_source_event_pair": {
+        "boarding_observation_at": "2026-10-30T10:55:52+09:00",
+        "arrival_observation_at": "2026-10-30T10:57:55+09:00",
+        "identity": "7호선|1|2026-10-30|7147"
+      },
+      "raw_source_path": "web/replay/trace_2026-10-30_line7.jsonl",
+      "raw_source_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4"
+    }
+  ]
+}

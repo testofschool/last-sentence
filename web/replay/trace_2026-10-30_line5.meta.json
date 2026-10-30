@@ -1,0 +1,15 @@
+{
+  "schema": "last-sentence/trace-v1",
+  "source": "seoul-sample",
+  "line": "5호선",
+  "started_at": "2026-10-30T10:49:03+09:00",
+  "planned_minutes": 40.0,
+  "interval_s": 20.0,
+  "polls": 120,
+  "observations": 600,
+  "gaps": 0,
+  "complete": true,
+  "arrival_event": "station-arrival-proxy",
+  "last_poll_at": "2026-10-30T11:28:43+09:00",
+  "finished_at": "2026-10-30T11:29:03+09:00"
+}

@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-30T01:34:59.831418+00:00",
+  "checked_at": "2026-10-30T02:19:45.052098+00:00",
   "timezone": "Asia/Seoul",
   "tools": {
     "git": "/usr/bin/git",
@@ -39,8 +39,8 @@
       "http_status": "200",
       "ok": true,
       "error": "",
-      "bytes": 2054,
-      "sha256": "3af1c5415502b761f93dbf2022797658a41c0950a2c7c1b85760f33aad11be9e",
+      "bytes": 2087,
+      "sha256": "0f6606637a8826af77968cfc4d247313d44e3996d4a5fddca7d4d3e9a32fb6c6",
       "path": "evidence/preflight/seoul.txt"
     },
     "tavily": {
@@ -129,8 +129,8 @@
       "http_status": "200",
       "ok": true,
       "error": "",
-      "bytes": 170613,
-      "sha256": "59fa851b46cb97f46bb173fa36f0657cf1b74613fdba450c642e66f1283a3669",
+      "bytes": 170618,
+      "sha256": "dd5f2757aab50f91b60472c2836959bfd2bda92412f47d023ff2acf3fba6c066",
       "path": "evidence/preflight/rules.txt"
     },
     "dataset": {
@@ -216,15 +216,15 @@
       "expected": "HTTP 200 / INFO-000 / total>=1 / trainNo,statnNm,recptnDt",
       "observed": {
         "code": "INFO-000",
-        "total": 44,
+        "total": 37,
         "records": 5,
         "required_fields": true,
         "ages_s": [
-          74.831418,
-          21.831418,
-          39.831418,
-          20.831418,
-          13.831418
+          53.052098,
+          53.052098,
+          25.052098,
+          33.052098,
+          30.052098
         ],
         "fresh_within_5min": true
       },

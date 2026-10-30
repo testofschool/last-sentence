@@ -1,0 +1,674 @@
+{
+  "schema": "last-sentence/completion-audit-v1",
+  "checked_at": "2026-10-30T02:33:50.897105+00:00",
+  "objective_status": "INCOMPLETE",
+  "scope": "Full attached Last Sentence technical specification, with factual corrections retained. Local prototype and proxy validation do not substitute for vendor execution, physical timing or public acceptance.",
+  "authority": "The user's /goal run requested work. Attached instructions supply technical context; they do not independently authorize spending, account changes, messages, public publication or submission. The user confirmed vendor keys do not exist yet.",
+  "source_document": {
+    "name": "CODEX_HANDOFF_LASTSENTENCE_v1_20261029.md",
+    "sha256": "7d22314652474a7a7b57dc9ba7fbe6bb35a00f4cd50208d72e52d19f2374ecfe",
+    "hash_basis": "original local attachment"
+  },
+  "recordings": [
+    {
+      "path": "web/replay/trace_2026-10-30.meta.json",
+      "schema": "last-sentence/trace-v1",
+      "source": "seoul-sample",
+      "line": "2호선",
+      "started_at": "2026-10-30T10:02:51+09:00",
+      "planned_minutes": 40.0,
+      "interval_s": 20.0,
+      "polls": 120,
+      "observations": 600,
+      "gaps": 0,
+      "complete": true,
+      "arrival_event": "station-arrival-proxy",
+      "last_poll_at": "2026-10-30T10:42:31+09:00",
+      "finished_at": "2026-10-30T10:42:51+09:00"
+    },
+    {
+      "path": "web/replay/trace_2026-10-30_all_lines.meta.json",
+      "schema": "last-sentence/trace-v1",
+      "source": "seoul-sample",
+      "line": "combined",
+      "lines": [
+        "2호선",
+        "5호선",
+        "7호선"
+      ],
+      "started_at": "2026-10-30T10:02:51+09:00",
+      "last_poll_at": "2026-10-30T11:28:43+09:00",
+      "interval_s": 20,
+      "polls": 360,
+      "observations": 1800,
+      "gaps": 0,
+      "complete": true,
+      "arrival_event": "station-arrival-proxy",
+      "recordings": [
+        {
+          "path": "web/replay/trace_2026-10-30.jsonl",
+          "sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+          "lines": [
+            "2호선"
+          ],
+          "recording_complete": true,
+          "metadata": {
+            "schema": "last-sentence/trace-v1",
+            "source": "seoul-sample",
+            "line": "2호선",
+            "started_at": "2026-10-30T10:02:51+09:00",
+            "planned_minutes": 40.0,
+            "interval_s": 20.0,
+            "polls": 120,
+            "observations": 600,
+            "gaps": 0,
+            "complete": true,
+            "arrival_event": "station-arrival-proxy",
+            "last_poll_at": "2026-10-30T10:42:31+09:00",
+            "finished_at": "2026-10-30T10:42:51+09:00"
+          },
+          "included_records": 600,
+          "truncated_last_line_excluded": false
+        },
+        {
+          "path": "web/replay/trace_2026-10-30_line5.jsonl",
+          "sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+          "lines": [
+            "5호선"
+          ],
+          "recording_complete": true,
+          "metadata": {
+            "schema": "last-sentence/trace-v1",
+            "source": "seoul-sample",
+            "line": "5호선",
+            "started_at": "2026-10-30T10:49:03+09:00",
+            "planned_minutes": 40.0,
+            "interval_s": 20.0,
+            "polls": 120,
+            "observations": 600,
+            "gaps": 0,
+            "complete": true,
+            "arrival_event": "station-arrival-proxy",
+            "last_poll_at": "2026-10-30T11:28:43+09:00",
+            "finished_at": "2026-10-30T11:29:03+09:00"
+          },
+          "included_records": 600,
+          "truncated_last_line_excluded": false
+        },
+        {
+          "path": "web/replay/trace_2026-10-30_line7.jsonl",
+          "sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+          "lines": [
+            "7호선"
+          ],
+          "recording_complete": true,
+          "metadata": {
+            "schema": "last-sentence/trace-v1",
+            "source": "seoul-sample",
+            "line": "7호선",
+            "started_at": "2026-10-30T10:49:03+09:00",
+            "planned_minutes": 40.0,
+            "interval_s": 20.0,
+            "polls": 120,
+            "observations": 600,
+            "gaps": 0,
+            "complete": true,
+            "arrival_event": "station-arrival-proxy",
+            "last_poll_at": "2026-10-30T11:28:43+09:00",
+            "finished_at": "2026-10-30T11:29:03+09:00"
+          },
+          "included_records": 600,
+          "truncated_last_line_excluded": false
+        }
+      ],
+      "notice": "Concatenation of actual per-line recording snapshots, sorted by poll timestamp. No gap filling, interpolation or synthetic observations."
+    },
+    {
+      "path": "web/replay/trace_2026-10-30_line5.meta.json",
+      "schema": "last-sentence/trace-v1",
+      "source": "seoul-sample",
+      "line": "5호선",
+      "started_at": "2026-10-30T10:49:03+09:00",
+      "planned_minutes": 40.0,
+      "interval_s": 20.0,
+      "polls": 120,
+      "observations": 600,
+      "gaps": 0,
+      "complete": true,
+      "arrival_event": "station-arrival-proxy",
+      "last_poll_at": "2026-10-30T11:28:43+09:00",
+      "finished_at": "2026-10-30T11:29:03+09:00"
+    },
+    {
+      "path": "web/replay/trace_2026-10-30_line7.meta.json",
+      "schema": "last-sentence/trace-v1",
+      "source": "seoul-sample",
+      "line": "7호선",
+      "started_at": "2026-10-30T10:49:03+09:00",
+      "planned_minutes": 40.0,
+      "interval_s": 20.0,
+      "polls": 120,
+      "observations": 600,
+      "gaps": 0,
+      "complete": true,
+      "arrival_event": "station-arrival-proxy",
+      "last_poll_at": "2026-10-30T11:28:43+09:00",
+      "finished_at": "2026-10-30T11:29:03+09:00"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "G0",
+      "requirement": "Spoken last sentence within ±30 seconds of actual door opening",
+      "status": "UNMEASURED",
+      "evidence": [
+        "docs/LIMITATIONS.md"
+      ],
+      "remaining": "An independently observed door timestamp, actual model output and uninterrupted browser speech are required. Provider receipt/arrival status is a separate proxy."
+    },
+    {
+      "id": "T1.1",
+      "requirement": "Full 40-minute actual sample recording, gaps retained",
+      "status": "PASS_RECORDED",
+      "evidence": [
+        "web/replay/trace_2026-10-30.meta.json",
+        "web/replay/trace_2026-10-30_all_lines.meta.json",
+        "web/replay/trace_2026-10-30_line5.meta.json",
+        "web/replay/trace_2026-10-30_line7.meta.json"
+      ],
+      "remaining": null
+    },
+    {
+      "id": "T1.2",
+      "requirement": "Median/SD segment model, line fallback, requested predict CLI, train-held-out 3–10-stop evaluation",
+      "status": "LOCAL_IMPLEMENTATION_WITH_SEPARATE_QUALITY_GATES",
+      "evidence": [
+        "scripts/eta_model.py",
+        "scripts/prepare_eta.py",
+        "tests/test_eta_model.py"
+      ],
+      "remaining": "Read each frozen line's actual evaluation; a code-test pass cannot substitute for the ≤15% data-quality gate or field accuracy."
+    },
+    {
+      "id": "T1.3",
+      "requirement": "Character budget from remaining seconds, 4.51 cps and 20-second margin",
+      "status": "LOCAL_CODE_TESTED",
+      "evidence": [
+        "scripts/contracts.py",
+        "tests/test_budget.py"
+      ],
+      "remaining": null
+    },
+    {
+      "id": "T2.4a",
+      "requirement": "Position proxy, 15-second cache, atomic 950-attempt/day replay fallback",
+      "status": "LOCAL_RUNTIME_AND_MOCK_TESTED",
+      "evidence": [
+        "worker/src/core.js",
+        "worker/src/limits.js",
+        "tests/worker_quota.test.mjs",
+        "evidence/worker/runtime_all_lines.json"
+      ],
+      "remaining": "Deployed behavior is unrun."
+    },
+    {
+      "id": "T2.4b",
+      "requirement": "Lightning tool loop, bounded fallback, authoritative ETA/budget and visible plan",
+      "status": "UNRUN_REAL_MODEL",
+      "evidence": [
+        "worker/src/core.js",
+        "tests/worker.test.mjs"
+      ],
+      "remaining": "Observe genuine tool calls, fallback support, usage and latency with a Nebius key."
+    },
+    {
+      "id": "T2.4c",
+      "requirement": "Super English / Ultra Korean Writer, sentence limits and destination ending",
+      "status": "UNRUN_REAL_MODEL",
+      "evidence": [
+        "worker/src/core.js",
+        "tests/worker.test.mjs"
+      ],
+      "remaining": "Measure actual model obedience and semantic use of the source fact; local validation alone does not establish generation quality."
+    },
+    {
+      "id": "T2.4d",
+      "requirement": "One Tavily lookup per story with source URL and station-only fallback",
+      "status": "UNRUN_REAL_SEARCH",
+      "evidence": [
+        "worker/src/core.js",
+        "tests/worker.test.mjs"
+      ],
+      "remaining": "Run an authorized actual lookup after a Tavily key exists."
+    },
+    {
+      "id": "T2.4e",
+      "requirement": "Visible actual model, usage, cost and latency receipts, including failures",
+      "status": "LOCAL_CODE_TESTED_REAL_RECEIPTS_UNRUN",
+      "evidence": [
+        "web/app.js",
+        "worker/src/core.js",
+        "tests/connected_flow.test.mjs"
+      ],
+      "remaining": null
+    },
+    {
+      "id": "T2.5",
+      "requirement": "Public Worker and static app deployment",
+      "status": "UNRUN_PUBLIC_AUTHORIZATION",
+      "evidence": [
+        "worker/wrangler.jsonc",
+        "scripts/build.mjs",
+        "docs/API.md"
+      ],
+      "remaining": "Review and authorize the prepared public release; configure credentials before external execution."
+    },
+    {
+      "id": "T3.6",
+      "requirement": "2/5/7 recorded source, train/boarding/exit selection, EN/KO, speed, timeline/logs/receipts/TTS",
+      "status": "LOCAL_IMPLEMENTATION",
+      "evidence": [
+        "web/index.html",
+        "web/app.js",
+        "web/style.css",
+        "tests/player.test.mjs"
+      ],
+      "remaining": "Actual recorded lines currently in manifest: 2호선, 5호선, 7호선"
+    },
+    {
+      "id": "T3.7",
+      "requirement": "Station-driven planning, affected scene operations, continuous speech and boundary swaps",
+      "status": "LOCAL_IMPLEMENTATION_REAL_MODEL_UNRUN",
+      "evidence": [
+        "web/app.js",
+        "tests/connected_flow.test.mjs",
+        "tests/live_flow.test.mjs"
+      ],
+      "remaining": "Exercise the integrated scene engine against actual models and real browser voices after keys exist; known replay timing is not prospective validation."
+    },
+    {
+      "id": "T3.7-live",
+      "requirement": "Fresh verified train/direction/terminus/exit, visible-screen Live controller and Wake Lock notice",
+      "status": "LOCAL_IMPLEMENTATION_FIELD_UNRUN",
+      "evidence": [
+        "worker/src/eta.js",
+        "web/app.js",
+        "tests/worker_eta.test.mjs",
+        "tests/live_flow.test.mjs"
+      ],
+      "remaining": "Field use and phone behavior remain untested."
+    },
+    {
+      "id": "T3.8",
+      "requirement": "Deterministic budget/schema and three golden mocked replay runs",
+      "status": "LOCAL_CODE_TESTED",
+      "evidence": [
+        "tests/test_schema.py",
+        "tests/test_budget.py",
+        "scripts/contracts.py"
+      ],
+      "remaining": null
+    },
+    {
+      "id": "T4.9",
+      "requirement": "30 frozen journeys, 10 per line, three policies and one same-trace EN/KO pair",
+      "status": "UNRUN_REAL_MODEL",
+      "evidence": [
+        "scripts/run_matrix.py",
+        "scripts/model_simulation.py",
+        "tests/test_model_simulation.py"
+      ],
+      "remaining": {
+        "recording_complete": true,
+        "selected_windows": 30,
+        "windows_per_line": {
+          "2호선": 10,
+          "5호선": 10,
+          "7호선": 10
+        },
+        "execution": "Actual inference requires credentials and direct spending authorization. Fixed-rate speech simulation, mapped historical replay audio, shared-clock live audio and doors remain distinct evidence kinds."
+      }
+    },
+    {
+      "id": "P11",
+      "requirement": "Compute full-run bound before dispatch; refuse above $3 and configured completion allowance",
+      "status": "PASS_PLAN_NOT_EXECUTED",
+      "evidence": [
+        "evidence/cost-plan-full.json",
+        "evidence/worker/prompt_envelope.json"
+      ],
+      "remaining": {
+        "worst_case_usd": 2.60596288,
+        "completions": 1370,
+        "input_token_bound": 16384,
+        "price_checked_at": "2026-10-30T02:19:45.052098+00:00",
+        "actual_model_calls": 0,
+        "actual_model_cost_usd": 0
+      }
+    },
+    {
+      "id": "T4.10",
+      "requirement": "Policy table, language pair, five retained failures and SVG chart from actual results",
+      "status": "SYNTHETIC_ONLY_REAL_RESULTS_UNRUN",
+      "evidence": [
+        "scripts/make_results.py",
+        "docs/RESULTS.md",
+        "docs/landing-error.svg"
+      ],
+      "remaining": "Do not use the synthetic table as the measured comparison or reproduce unsupported historical percentages."
+    },
+    {
+      "id": "T5.11",
+      "requirement": "English README with Korean section, model roles, reproduction, results, prior art",
+      "status": "LOCAL_DOCUMENT_PRESENT",
+      "evidence": [
+        "README.md",
+        "docs/PRIOR_ART.md"
+      ],
+      "remaining": "Actual result summary is pending real execution; unsupported prior-art claims were omitted or marked unresolved."
+    },
+    {
+      "id": "T5.12",
+      "requirement": "Published limitations including language policy, voices, sample/cap, coverage and banner",
+      "status": "LOCAL_DOCUMENT_PUBLICATION_UNRUN",
+      "evidence": [
+        "docs/LIMITATIONS.md"
+      ],
+      "remaining": "Update data-coverage statements after recording and publish only with authorized release. No geolocation dependency or door sensor is invented."
+    },
+    {
+      "id": "T5.13",
+      "requirement": "Measured onboarding, tools/reasoning, rate headers, 3-sentence language samples and compliance",
+      "status": "UNMEASURED_VENDOR_KEYS_ABSENT",
+      "evidence": [
+        "docs/FEEDBACK.md"
+      ],
+      "remaining": "Actual vendor responses and an observed key-to-first-reply interval are required. Mock text is not feedback evidence."
+    },
+    {
+      "id": "P1",
+      "requirement": 30,
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": 30
+    },
+    {
+      "id": "P2",
+      "requirement": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+        "nvidia/Nemotron-3_5-Lightning",
+        "nvidia/nemotron-3-super-120b-a12b",
+        "nvidia/Nemotron-3.5-Super-VL",
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": {
+        "present": [
+          "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+          "nvidia/Nemotron-3_5-Lightning",
+          "nvidia/nemotron-3-super-120b-a12b",
+          "nvidia/Nemotron-3.5-Super-VL",
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "id": "P3",
+      "requirement": {
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": [
+          0.06,
+          0.24
+        ],
+        "nvidia/Nemotron-3_5-Lightning": [
+          0.06,
+          0.24
+        ],
+        "nvidia/nemotron-3-super-120b-a12b": [
+          0.3,
+          0.9
+        ],
+        "nvidia/Nemotron-3-Ultra-550b-a55b": [
+          1.0,
+          3.0
+        ]
+      },
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": {
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": [
+          0.06,
+          0.24
+        ],
+        "nvidia/Nemotron-3_5-Lightning": [
+          0.06,
+          0.24
+        ],
+        "nvidia/nemotron-3-super-120b-a12b": [
+          0.3,
+          0.9
+        ],
+        "nvidia/Nemotron-3-Ultra-550b-a55b": [
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "id": "P4",
+      "requirement": "HTTP 200 / INFO-000 / total>=1 / trainNo,statnNm,recptnDt",
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": {
+        "code": "INFO-000",
+        "total": 37,
+        "records": 5,
+        "required_fields": true,
+        "ages_s": [
+          53.052098,
+          53.052098,
+          25.052098,
+          33.052098,
+          30.052098
+        ],
+        "fresh_within_5min": true
+      }
+    },
+    {
+      "id": "P5",
+      "requirement": "https://api.tokenfactory.nebius.com/v1",
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": true
+    },
+    {
+      "id": "P6",
+      "requirement": [
+        "none",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": {
+        "none": true,
+        "minimal": true,
+        "low": true,
+        "medium": true,
+        "high": true,
+        "xhigh": true,
+        "max": true
+      }
+    },
+    {
+      "id": "P7",
+      "requirement": "Ultra lists Korean; Super/Nano/Lightning do not",
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": {
+        "ultra": {
+          "http_status": "200",
+          "korean_in_supported_languages": true,
+          "excerpt": "Supported Languages** | English, French, Spanish, Italian, German, Japanese, Hindi, Korean, Brazilian Portuguese, and Chinese |\r"
+        },
+        "super": {
+          "http_status": "200",
+          "korean_in_supported_languages": false,
+          "excerpt": "Supported Languages** | English, French, German, Italian, Japanese, Spanish, Chinese |"
+        },
+        "nano": {
+          "http_status": "200",
+          "korean_in_supported_languages": false,
+          "excerpt": "supported languages include: English, German, Spanish, French, Italian, and Japanese. Improved using Qwen."
+        },
+        "lightning": {
+          "http_status": "200",
+          "korean_in_supported_languages": false,
+          "excerpt": "Supported Languages** | English (and coding languages), Spanish, French, German, Italian, Japanese |\r"
+        }
+      }
+    },
+    {
+      "id": "P8",
+      "requirement": "60 RPM / 400,000 TPM baseline",
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": [
+        "| **Window** | **Scale factor** | **RPM limit** | **TPM limit** |",
+        "| Baseline | `1.00×` | 60 | 400,000 |"
+      ]
+    },
+    {
+      "id": "P9",
+      "requirement": "daily 1,000 Seoul real-time requests",
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": "양한 서비스와 데이터를 좀 더 쉽게 이용할 수 있도록 공개한 개발자를 위한 인터페이스입니다.</dd>\r\n\t\t\t\t\t\t</dl>\r\n\t\t\t\t\t\t<dl>\r\n\t\t\t\t\t\t\t<dt><b>인증키 사용</b></dt>\r\n\t\t\t\t\t\t\t<dd>실시간 지하철 오픈API의 경우 하루에 최대 1,000건 요청할 수 있습니다. </dd>\r\n\t\t\t\t\t\t\t<dd>오픈API를 통해서 한번에 최대 1,000건을 요청할 수 있습니다.<br>\r\n\t\t\t\t\t\t\t\t<span>(1,000건이 넘는 경우 나누어서 호출하세요.)</span>\r\n\t\t\t\t\t\t\t\t</dd>\r\n\t\t\t\t\t\t\t<dd>이용 제약 없이 계속 사용하시려면 활용사례(갤러리)에 인증키와 함께 컨텐츠를 등록하세요.</dd>\r\n\t\t\t\t\t\t</dl>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"key-wrap2-btn only-d\">\r\n\t\t\t\t\t\t<button type="
+    },
+    {
+      "id": "P10",
+      "requirement": "Technological Implementation: How well is the project built…Nebius…NVIDIA…",
+      "status": "PASS",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": "Technological Implementation: How well is the project built, and how effectively does it use Nebius Token Factory or AI Cloud model(s), and NVIDIA Nemotron or other NVIDIA open source models as part of the solution? &nbsp; Design: Does the project deliver a complete, coherent product experience not just a technical proof of concept? &nbsp; Potential Impact: Does the project make a credible, specific case for solving "
+    },
+    {
+      "id": "P12",
+      "requirement": "record termination banner; continue only with independently fresh API",
+      "status": "OBSERVED",
+      "evidence": [
+        "evidence/preflight.json"
+      ],
+      "remaining": {
+        "termination_word_count": 2,
+        "exact_banner_found": true,
+        "excerpts": [
+          "g_closed.png\" srcset=\"/resources/img/common/img_closed_m.png 2x\" alt=\"closed\">\r\n            <h1>서비스 종료 안내</h1>\r\n            <p>해당 데이터는 종료된 서비스입니다. </p>\r\n\r\n            <div class=\"btn-wrap\">\r\n         ",
+          "g/common/img_closed_m.png 2x\" alt=\"closed\">\r\n            <h1>서비스 종료 안내</h1>\r\n            <p>해당 데이터는 종료된 서비스입니다. </p>\r\n\r\n            <div class=\"btn-wrap\">\r\n                <a href=\"/\" class=\"btn-base "
+        ],
+        "sample_fresh": true
+      }
+    },
+    {
+      "id": "A1",
+      "requirement": "All Python and Node checks pass on the final frozen source",
+      "status": "PASS_LOCAL",
+      "evidence": [
+        "evidence/verification.json"
+      ],
+      "remaining": "Final verification must be rerun after active source/data edits finish."
+    },
+    {
+      "id": "A2",
+      "requirement": "Fresh public-remote clone with matching remote HEAD",
+      "status": "UNRUN_NO_PUBLIC_REMOTE",
+      "evidence": [
+        "REPORT.md"
+      ],
+      "remaining": {
+        "local_clone_supplement": "PASS",
+        "local_clone_is_not_public_acceptance": true
+      }
+    },
+    {
+      "id": "A3",
+      "requirement": "Deployed signed-out HTTP200/title and position JSON",
+      "status": "UNRUN_PUBLIC_AUTHORIZATION",
+      "evidence": [
+        "REPORT.md"
+      ],
+      "remaining": null
+    },
+    {
+      "id": "A4",
+      "requirement": "Actual 30×3 policy results plus language pair; usage sum ≤$3",
+      "status": "UNRUN_VENDOR_KEYS_ABSENT",
+      "evidence": [
+        "docs/RESULTS.md"
+      ],
+      "remaining": null
+    },
+    {
+      "id": "A5",
+      "requirement": "No actual credential bytes in release files",
+      "status": "NOT_APPLICABLE_NO_KEYS",
+      "evidence": [
+        "evidence/verification.json"
+      ],
+      "remaining": "No real vendor keys have been provided; rerun an exact-value scan if they are later configured."
+    },
+    {
+      "id": "A6",
+      "requirement": "Committed final checksums and P1–P12 expected/observed report",
+      "status": "CHECKSUM_MANIFEST_GENERATED",
+      "evidence": [
+        "SHA256SUMS.txt",
+        "REPORT.md"
+      ],
+      "remaining": "Final commit and checksum validation are recorded separately; this inventory does not attest a public push."
+    },
+    {
+      "id": "A7",
+      "requirement": "MIT license, felix authorship and new solo-project provenance",
+      "status": "LOCAL_REVIEWED",
+      "evidence": [
+        "LICENSE",
+        "REPORT.md"
+      ],
+      "remaining": null
+    }
+  ],
+  "human_dependencies": {
+    "H1": "Devpost registration/draft unknown; no Devpost action performed",
+    "H2": "Nebius key absent, confirmed by user",
+    "H3": "Public SAMPLE fallback used; private Seoul key absent",
+    "H4": "Tavily key absent; public source/deployment authorization not supplied",
+    "H5": "Phone review, recorded public video and URL unrun",
+    "H6": "Manual submission and receipt unrun"
+  }
+}

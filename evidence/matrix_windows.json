@@ -1,0 +1,970 @@
+{
+  "schema": "last-sentence/recorded-matrix-windows-v1",
+  "trace_path": "web/replay/trace_2026-10-30_all_lines.jsonl",
+  "trace_sha256": "5c5bd96c331ca0ae0bd1f5b7d48d6d83dfc95840925a220e7ec31bc5746ca9d0",
+  "recording_complete": true,
+  "requested_windows": 30,
+  "selected_windows": 30,
+  "windows_per_line": {
+    "2호선": 10,
+    "5호선": 10,
+    "7호선": 10
+  },
+  "windows": [
+    {
+      "id": "2호선|0|2026-10-30|2128|1793322113|1793322497",
+      "line": "2호선",
+      "trainNo": "2128",
+      "held_out_train_identity": "2호선|0|2026-10-30|2128",
+      "stations": [
+        {
+          "name": "시청",
+          "offset_s": 0.0
+        },
+        {
+          "name": "을지로입구",
+          "offset_s": 97.0
+        },
+        {
+          "name": "을지로3가",
+          "offset_s": 191.0
+        },
+        {
+          "name": "을지로4가",
+          "offset_s": 275.0
+        },
+        {
+          "name": "동대문역사문화공원",
+          "offset_s": 384.0
+        }
+      ],
+      "initial_forecast_s": 492.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|0|2026-10-30|5090|1793324970|1793325504",
+      "line": "5호선",
+      "trainNo": "5090",
+      "held_out_train_identity": "5호선|0|2026-10-30|5090",
+      "stations": [
+        {
+          "name": "광나루",
+          "offset_s": 0.0
+        },
+        {
+          "name": "아차산",
+          "offset_s": 143.0
+        },
+        {
+          "name": "군자",
+          "offset_s": 268.0
+        },
+        {
+          "name": "장한평",
+          "offset_s": 409.0
+        },
+        {
+          "name": "답십리",
+          "offset_s": 534.0
+        }
+      ],
+      "initial_forecast_s": 464.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7126|1793326682|1793327123",
+      "line": "7호선",
+      "trainNo": "7126",
+      "held_out_train_identity": "7호선|0|2026-10-30|7126",
+      "stations": [
+        {
+          "name": "면목",
+          "offset_s": 0.0
+        },
+        {
+          "name": "상봉",
+          "offset_s": 96.0
+        },
+        {
+          "name": "중화",
+          "offset_s": 232.0
+        },
+        {
+          "name": "먹골",
+          "offset_s": 339.0
+        },
+        {
+          "name": "태릉입구",
+          "offset_s": 441.0
+        }
+      ],
+      "initial_forecast_s": 528.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|0|2026-10-30|2148|1793323107|1793323673",
+      "line": "2호선",
+      "trainNo": "2148",
+      "held_out_train_identity": "2호선|0|2026-10-30|2148",
+      "stations": [
+        {
+          "name": "당산",
+          "offset_s": 0.0
+        },
+        {
+          "name": "합정",
+          "offset_s": 169.0
+        },
+        {
+          "name": "홍대입구",
+          "offset_s": 292.0
+        },
+        {
+          "name": "신촌",
+          "offset_s": 457.0
+        },
+        {
+          "name": "이대",
+          "offset_s": 566.0
+        }
+      ],
+      "initial_forecast_s": 577.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5071|1793324868|1793325314",
+      "line": "5호선",
+      "trainNo": "5071",
+      "held_out_train_identity": "5호선|1|2026-10-30|5071",
+      "stations": [
+        {
+          "name": "공덕",
+          "offset_s": 0.0
+        },
+        {
+          "name": "애오개",
+          "offset_s": 125.0
+        },
+        {
+          "name": "충정로",
+          "offset_s": 230.0
+        },
+        {
+          "name": "서대문",
+          "offset_s": 322.0
+        },
+        {
+          "name": "광화문",
+          "offset_s": 446.0
+        }
+      ],
+      "initial_forecast_s": 450.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7128|1793326873|1793327165",
+      "line": "7호선",
+      "trainNo": "7128",
+      "held_out_train_identity": "7호선|0|2026-10-30|7128",
+      "stations": [
+        {
+          "name": "용마산",
+          "offset_s": 0.0
+        },
+        {
+          "name": "사가정",
+          "offset_s": 101.0
+        },
+        {
+          "name": "면목",
+          "offset_s": 201.0
+        },
+        {
+          "name": "상봉",
+          "offset_s": 292.0
+        }
+      ],
+      "initial_forecast_s": 396.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|0|2026-10-30|3142|1793322157|1793322670",
+      "line": "2호선",
+      "trainNo": "3142",
+      "held_out_train_identity": "2호선|0|2026-10-30|3142",
+      "stations": [
+        {
+          "name": "신도림",
+          "offset_s": 0.0
+        },
+        {
+          "name": "문래",
+          "offset_s": 128.0
+        },
+        {
+          "name": "영등포구청",
+          "offset_s": 225.0
+        },
+        {
+          "name": "당산",
+          "offset_s": 343.0
+        },
+        {
+          "name": "합정",
+          "offset_s": 513.0
+        }
+      ],
+      "initial_forecast_s": 531.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5073|1793324899|1793325354",
+      "line": "5호선",
+      "trainNo": "5073",
+      "held_out_train_identity": "5호선|1|2026-10-30|5073",
+      "stations": [
+        {
+          "name": "영등포구청",
+          "offset_s": 0.0
+        },
+        {
+          "name": "영등포시장",
+          "offset_s": 109.0
+        },
+        {
+          "name": "신길",
+          "offset_s": 219.0
+        },
+        {
+          "name": "여의도",
+          "offset_s": 343.0
+        },
+        {
+          "name": "여의나루",
+          "offset_s": 455.0
+        }
+      ],
+      "initial_forecast_s": 472.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7138|1793325052|1793325648",
+      "line": "7호선",
+      "trainNo": "7138",
+      "held_out_train_identity": "7호선|0|2026-10-30|7138",
+      "stations": [
+        {
+          "name": "온수",
+          "offset_s": 0.0
+        },
+        {
+          "name": "천왕",
+          "offset_s": 168.0
+        },
+        {
+          "name": "광명사거리",
+          "offset_s": 319.0
+        },
+        {
+          "name": "철산",
+          "offset_s": 455.0
+        },
+        {
+          "name": "가산디지털단지",
+          "offset_s": 596.0
+        }
+      ],
+      "initial_forecast_s": 500.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|0|2026-10-30|3150|1793323285|1793323766",
+      "line": "2호선",
+      "trainNo": "3150",
+      "held_out_train_identity": "2호선|0|2026-10-30|3150",
+      "stations": [
+        {
+          "name": "당산",
+          "offset_s": 0.0
+        },
+        {
+          "name": "합정",
+          "offset_s": 168.0
+        },
+        {
+          "name": "홍대입구",
+          "offset_s": 289.0
+        },
+        {
+          "name": "신촌",
+          "offset_s": 481.0
+        }
+      ],
+      "initial_forecast_s": 445.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5589|1793324910|1793325339",
+      "line": "5호선",
+      "trainNo": "5589",
+      "held_out_train_identity": "5호선|1|2026-10-30|5589",
+      "stations": [
+        {
+          "name": "신정",
+          "offset_s": 0.0
+        },
+        {
+          "name": "목동",
+          "offset_s": 103.0
+        },
+        {
+          "name": "오목교",
+          "offset_s": 213.0
+        },
+        {
+          "name": "양평",
+          "offset_s": 327.0
+        },
+        {
+          "name": "영등포구청",
+          "offset_s": 429.0
+        }
+      ],
+      "initial_forecast_s": 480.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7140|1793325564|1793326103",
+      "line": "7호선",
+      "trainNo": "7140",
+      "held_out_train_identity": "7호선|0|2026-10-30|7140",
+      "stations": [
+        {
+          "name": "천왕",
+          "offset_s": 0.0
+        },
+        {
+          "name": "광명사거리",
+          "offset_s": 147.0
+        },
+        {
+          "name": "철산",
+          "offset_s": 285.0
+        },
+        {
+          "name": "가산디지털단지",
+          "offset_s": 431.0
+        },
+        {
+          "name": "남구로",
+          "offset_s": 539.0
+        }
+      ],
+      "initial_forecast_s": 516.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|0|2026-10-30|3180|1793323880|1793324418",
+      "line": "2호선",
+      "trainNo": "3180",
+      "held_out_train_identity": "2호선|0|2026-10-30|3180",
+      "stations": [
+        {
+          "name": "건대입구",
+          "offset_s": 0.0
+        },
+        {
+          "name": "구의",
+          "offset_s": 145.0
+        },
+        {
+          "name": "강변",
+          "offset_s": 257.0
+        },
+        {
+          "name": "잠실나루",
+          "offset_s": 412.0
+        },
+        {
+          "name": "잠실",
+          "offset_s": 538.0
+        }
+      ],
+      "initial_forecast_s": 478.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5591|1793324953|1793325450",
+      "line": "5호선",
+      "trainNo": "5591",
+      "held_out_train_identity": "5호선|1|2026-10-30|5591",
+      "stations": [
+        {
+          "name": "송정",
+          "offset_s": 0.0
+        },
+        {
+          "name": "마곡",
+          "offset_s": 120.0
+        },
+        {
+          "name": "발산",
+          "offset_s": 248.0
+        },
+        {
+          "name": "우장산",
+          "offset_s": 372.0
+        },
+        {
+          "name": "화곡",
+          "offset_s": 497.0
+        }
+      ],
+      "initial_forecast_s": 466.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|1|2026-10-30|7145|1793324979|1793325440",
+      "line": "7호선",
+      "trainNo": "7145",
+      "held_out_train_identity": "7호선|1|2026-10-30|7145",
+      "stations": [
+        {
+          "name": "숭실대입구",
+          "offset_s": 0.0
+        },
+        {
+          "name": "상도",
+          "offset_s": 104.0
+        },
+        {
+          "name": "장승배기",
+          "offset_s": 226.0
+        },
+        {
+          "name": "신대방삼거리",
+          "offset_s": 366.0
+        },
+        {
+          "name": "보라매",
+          "offset_s": 461.0
+        }
+      ],
+      "initial_forecast_s": 516.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|1|2026-10-30|2137|1793322124|1793322667",
+      "line": "2호선",
+      "trainNo": "2137",
+      "held_out_train_identity": "2호선|1|2026-10-30|2137",
+      "stations": [
+        {
+          "name": "종합운동장",
+          "offset_s": 0.0
+        },
+        {
+          "name": "잠실새내",
+          "offset_s": 116.0
+        },
+        {
+          "name": "잠실",
+          "offset_s": 238.0
+        },
+        {
+          "name": "잠실나루",
+          "offset_s": 355.0
+        },
+        {
+          "name": "강변",
+          "offset_s": 543.0
+        }
+      ],
+      "initial_forecast_s": 498.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|0|2026-10-30|5090|1793325113|1793325629",
+      "line": "5호선",
+      "trainNo": "5090",
+      "held_out_train_identity": "5호선|0|2026-10-30|5090",
+      "stations": [
+        {
+          "name": "아차산",
+          "offset_s": 0.0
+        },
+        {
+          "name": "군자",
+          "offset_s": 125.0
+        },
+        {
+          "name": "장한평",
+          "offset_s": 266.0
+        },
+        {
+          "name": "답십리",
+          "offset_s": 391.0
+        },
+        {
+          "name": "마장",
+          "offset_s": 516.0
+        }
+      ],
+      "initial_forecast_s": 464.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|1|2026-10-30|7147|1793324927|1793325475",
+      "line": "7호선",
+      "trainNo": "7147",
+      "held_out_train_identity": "7호선|1|2026-10-30|7147",
+      "stations": [
+        {
+          "name": "총신대입구(이수)",
+          "offset_s": 0.0
+        },
+        {
+          "name": "남성",
+          "offset_s": 134.0
+        },
+        {
+          "name": "숭실대입구",
+          "offset_s": 318.0
+        },
+        {
+          "name": "상도",
+          "offset_s": 425.0
+        },
+        {
+          "name": "장승배기",
+          "offset_s": 548.0
+        }
+      ],
+      "initial_forecast_s": 504.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|1|2026-10-30|2149|1793322128|1793322670",
+      "line": "2호선",
+      "trainNo": "2149",
+      "held_out_train_identity": "2호선|1|2026-10-30|2149",
+      "stations": [
+        {
+          "name": "사당",
+          "offset_s": 0.0
+        },
+        {
+          "name": "방배",
+          "offset_s": 148.0
+        },
+        {
+          "name": "서초",
+          "offset_s": 311.0
+        },
+        {
+          "name": "교대",
+          "offset_s": 410.0
+        },
+        {
+          "name": "강남",
+          "offset_s": 542.0
+        }
+      ],
+      "initial_forecast_s": 478.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5071|1793324993|1793325439",
+      "line": "5호선",
+      "trainNo": "5071",
+      "held_out_train_identity": "5호선|1|2026-10-30|5071",
+      "stations": [
+        {
+          "name": "애오개",
+          "offset_s": 0.0
+        },
+        {
+          "name": "충정로",
+          "offset_s": 105.0
+        },
+        {
+          "name": "서대문",
+          "offset_s": 197.0
+        },
+        {
+          "name": "광화문",
+          "offset_s": 321.0
+        },
+        {
+          "name": "종로3가",
+          "offset_s": 446.0
+        }
+      ],
+      "initial_forecast_s": 446.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7126|1793326778|1793327223",
+      "line": "7호선",
+      "trainNo": "7126",
+      "held_out_train_identity": "7호선|0|2026-10-30|7126",
+      "stations": [
+        {
+          "name": "상봉",
+          "offset_s": 0.0
+        },
+        {
+          "name": "중화",
+          "offset_s": 136.0
+        },
+        {
+          "name": "먹골",
+          "offset_s": 243.0
+        },
+        {
+          "name": "태릉입구",
+          "offset_s": 345.0
+        },
+        {
+          "name": "공릉",
+          "offset_s": 445.0
+        }
+      ],
+      "initial_forecast_s": 528.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|1|2026-10-30|2153|1793322417|1793323001",
+      "line": "2호선",
+      "trainNo": "2153",
+      "held_out_train_identity": "2호선|1|2026-10-30|2153",
+      "stations": [
+        {
+          "name": "서울대입구",
+          "offset_s": 0.0
+        },
+        {
+          "name": "낙성대",
+          "offset_s": 120.0
+        },
+        {
+          "name": "사당",
+          "offset_s": 270.0
+        },
+        {
+          "name": "방배",
+          "offset_s": 425.0
+        },
+        {
+          "name": "서초",
+          "offset_s": 584.0
+        }
+      ],
+      "initial_forecast_s": 478.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5073|1793325008|1793325509",
+      "line": "5호선",
+      "trainNo": "5073",
+      "held_out_train_identity": "5호선|1|2026-10-30|5073",
+      "stations": [
+        {
+          "name": "영등포시장",
+          "offset_s": 0.0
+        },
+        {
+          "name": "신길",
+          "offset_s": 110.0
+        },
+        {
+          "name": "여의도",
+          "offset_s": 234.0
+        },
+        {
+          "name": "여의나루",
+          "offset_s": 346.0
+        },
+        {
+          "name": "마포",
+          "offset_s": 501.0
+        }
+      ],
+      "initial_forecast_s": 497.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7138|1793325220|1793325763",
+      "line": "7호선",
+      "trainNo": "7138",
+      "held_out_train_identity": "7호선|0|2026-10-30|7138",
+      "stations": [
+        {
+          "name": "천왕",
+          "offset_s": 0.0
+        },
+        {
+          "name": "광명사거리",
+          "offset_s": 151.0
+        },
+        {
+          "name": "철산",
+          "offset_s": 287.0
+        },
+        {
+          "name": "가산디지털단지",
+          "offset_s": 428.0
+        },
+        {
+          "name": "남구로",
+          "offset_s": 543.0
+        }
+      ],
+      "initial_forecast_s": 500.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|0|2026-10-30|2128|1793322210|1793322606",
+      "line": "2호선",
+      "trainNo": "2128",
+      "held_out_train_identity": "2호선|0|2026-10-30|2128",
+      "stations": [
+        {
+          "name": "을지로입구",
+          "offset_s": 0.0
+        },
+        {
+          "name": "을지로3가",
+          "offset_s": 94.0
+        },
+        {
+          "name": "을지로4가",
+          "offset_s": 178.0
+        },
+        {
+          "name": "동대문역사문화공원",
+          "offset_s": 287.0
+        },
+        {
+          "name": "신당",
+          "offset_s": 396.0
+        }
+      ],
+      "initial_forecast_s": 502.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5589|1793325013|1793325450",
+      "line": "5호선",
+      "trainNo": "5589",
+      "held_out_train_identity": "5호선|1|2026-10-30|5589",
+      "stations": [
+        {
+          "name": "목동",
+          "offset_s": 0.0
+        },
+        {
+          "name": "오목교",
+          "offset_s": 110.0
+        },
+        {
+          "name": "양평",
+          "offset_s": 224.0
+        },
+        {
+          "name": "영등포구청",
+          "offset_s": 326.0
+        },
+        {
+          "name": "영등포시장",
+          "offset_s": 437.0
+        }
+      ],
+      "initial_forecast_s": 484.5,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|0|2026-10-30|7140|1793325711|1793326230",
+      "line": "7호선",
+      "trainNo": "7140",
+      "held_out_train_identity": "7호선|0|2026-10-30|7140",
+      "stations": [
+        {
+          "name": "광명사거리",
+          "offset_s": 0.0
+        },
+        {
+          "name": "철산",
+          "offset_s": 138.0
+        },
+        {
+          "name": "가산디지털단지",
+          "offset_s": 284.0
+        },
+        {
+          "name": "남구로",
+          "offset_s": 392.0
+        },
+        {
+          "name": "대림",
+          "offset_s": 519.0
+        }
+      ],
+      "initial_forecast_s": 516.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "2호선|0|2026-10-30|2148|1793323276|1793323777",
+      "line": "2호선",
+      "trainNo": "2148",
+      "held_out_train_identity": "2호선|0|2026-10-30|2148",
+      "stations": [
+        {
+          "name": "합정",
+          "offset_s": 0.0
+        },
+        {
+          "name": "홍대입구",
+          "offset_s": 123.0
+        },
+        {
+          "name": "신촌",
+          "offset_s": 288.0
+        },
+        {
+          "name": "이대",
+          "offset_s": 397.0
+        },
+        {
+          "name": "아현",
+          "offset_s": 501.0
+        }
+      ],
+      "initial_forecast_s": 528.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "5호선|1|2026-10-30|5591|1793325073|1793325578",
+      "line": "5호선",
+      "trainNo": "5591",
+      "held_out_train_identity": "5호선|1|2026-10-30|5591",
+      "stations": [
+        {
+          "name": "마곡",
+          "offset_s": 0.0
+        },
+        {
+          "name": "발산",
+          "offset_s": 128.0
+        },
+        {
+          "name": "우장산",
+          "offset_s": 252.0
+        },
+        {
+          "name": "화곡",
+          "offset_s": 377.0
+        },
+        {
+          "name": "까치산",
+          "offset_s": 505.0
+        }
+      ],
+      "initial_forecast_s": 466.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    },
+    {
+      "id": "7호선|1|2026-10-30|7145|1793325083|1793325541",
+      "line": "7호선",
+      "trainNo": "7145",
+      "held_out_train_identity": "7호선|1|2026-10-30|7145",
+      "stations": [
+        {
+          "name": "상도",
+          "offset_s": 0.0
+        },
+        {
+          "name": "장승배기",
+          "offset_s": 122.0
+        },
+        {
+          "name": "신대방삼거리",
+          "offset_s": 262.0
+        },
+        {
+          "name": "보라매",
+          "offset_s": 357.0
+        },
+        {
+          "name": "신풍",
+          "offset_s": 458.0
+        }
+      ],
+      "initial_forecast_s": 516.0,
+      "held_out_full_identity": true,
+      "arrival_event": "station-arrival-proxy",
+      "forecast_source": "other-train-identities-in-offline-recording"
+    }
+  ],
+  "model_execution_performed": false,
+  "actual_model_requests": 0,
+  "notice": "Planned selection of actual recorded windows only. May contain overlapping windows from the same train; not independent journeys. No model-backed policy comparison, speech timing, or door-open result is measured."
+}

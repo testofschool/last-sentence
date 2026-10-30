@@ -12,10 +12,11 @@ import math
 from pathlib import Path
 import statistics
 
+from topology import DATA as TOPOLOGY, canonical_station, directed_sign, resolve_route
+
 KST = dt.timezone(dt.timedelta(hours=9))
 LINE2 = "시청 을지로입구 을지로3가 을지로4가 동대문역사문화공원 신당 상왕십리 왕십리 한양대 뚝섬 성수 건대입구 구의 강변 잠실나루 잠실 잠실새내 종합운동장 삼성 선릉 역삼 강남 교대 서초 방배 사당 낙성대 서울대입구 봉천 신림 신대방 구로디지털단지 대림 신도림 문래 영등포구청 당산 합정 홍대입구 신촌 이대 아현 충정로".split()
-ROUTES = {"2호선": LINE2, "5호선": "여의도 여의나루 마포 공덕 애오개 충정로 서대문 광화문 종로3가".split(),
-          "7호선": "군자 어린이대공원 건대입구 자양 청담 강남구청 학동 논현 반포 고속터미널 내방".split()}
+ROUTES = {"2호선": LINE2, **{line:list(info["stations"]) for line, info in TOPOLOGY["lines"].items()}}
 
 
 def timestamp(value):
@@ -58,6 +59,8 @@ def load_trace(path):
 
 
 def adjacent(line, a, b):
+    if line != "2호선":
+        return directed_sign(line, a, b) is not None
     route = ROUTES.get(line, [])
     if a not in route or b not in route:
         return False
@@ -98,7 +101,7 @@ def arrivals(rows):
             continue
         date = dt.datetime.fromtimestamp(observed, KST).date().isoformat()
         identity = "|".join((str(row["line"]), str(row["updnLine"]), date, str(row["trainNo"])))
-        groups.setdefault(identity, []).append({"station": row["statnNm"], "t": observed, "polled_t": polled,
+        groups.setdefault(identity, []).append({"station": canonical_station(row["line"], row["statnNm"]), "t": observed, "polled_t": polled,
                                                "line": row["line"], "identity": identity, "source": row["source"]})
     chains = []
     for identity, events in sorted(groups.items()):
@@ -129,12 +132,12 @@ def arrivals(rows):
                     chain = []
                     travel_direction = None
                 else:
-                    route = ROUTES[event["line"]]
-                    difference = route.index(event["station"]) - route.index(chain[-1]["station"])
                     if event["line"] == "2호선":
+                        route = ROUTES[event["line"]]
+                        difference = route.index(event["station"]) - route.index(chain[-1]["station"])
                         direction = 1 if difference % len(route) == 1 else -1
                     else:
-                        direction = 1 if difference > 0 else -1
+                        direction = directed_sign(event["line"], chain[-1]["station"], event["station"])
                     if travel_direction is not None and direction != travel_direction:
                         rejected["direction_breaks"] += 1
                         if len(chain) >= 2:
@@ -173,12 +176,17 @@ def fit(rows, exclude_train=None):
 
 
 def predict(model, line, stations, elapsed_s=0):
+    stations = [canonical_station(line, name, True) for name in stations]
     if len(stations) < 2:
         raise ValueError("at least two ordered stations required")
     if not math.isfinite(elapsed_s) or elapsed_s < 0:
         raise ValueError("elapsed_s must be finite and nonnegative")
     total = 0
     fallback = []
+    if line != "2호선":
+        signs = {directed_sign(line, a, b) for a,b in zip(stations, stations[1:])}
+        if None not in signs and len(signs) > 1:
+            raise ValueError("route changes operating direction or crosses line-5 branches; supply one continuous train path")
     for a, b in zip(stations, stations[1:]):
         if not adjacent(line, a, b):
             raise ValueError("route contains unobserved topology or a station skip")
@@ -235,7 +243,12 @@ def main():
     q = sub.add_parser("predict")
     q.add_argument("--model", type=Path, default=Path("evidence/eta_model.json"))
     q.add_argument("--line", default="2호선")
-    q.add_argument("--stations", required=True, help="Comma-separated ordered station path; topology is explicit.")
+    q.add_argument("--stations", help="Comma-separated ordered station path; preserves the original explicit-path interface.")
+    q.add_argument("--from", dest="from_station")
+    q.add_argument("--to", dest="to_station")
+    q.add_argument("--direction", choices=["0", "1"])
+    q.add_argument("--terminus")
+    q.add_argument("--at", help="Explicit forecast-anchor timestamp; never interpreted as an observed arrival.")
     q.add_argument("--elapsed-s", type=float, default=0)
     args = p.parse_args()
     if args.command == "build":
@@ -243,7 +256,30 @@ def main():
     elif args.command == "evaluate":
         result = evaluate(load_trace(args.trace))
     else:
-        result = predict(json.loads(args.model.read_text()), args.line, args.stations.split(","), args.elapsed_s)
+        try:
+            if args.stations:
+                if args.from_station or args.to_station:
+                    p.error("use either --stations or --from/--to")
+                if args.direction is not None or args.terminus is not None:
+                    p.error("--direction/--terminus apply to --from/--to; --stations already specifies the complete path")
+                route = args.stations.split(",")
+            elif args.from_station and args.to_station:
+                route = resolve_route(args.line, args.from_station, args.to_station, args.direction, args.terminus, LINE2)
+            else:
+                p.error("predict requires --stations or both --from and --to")
+            model = json.loads(args.model.read_text())
+            if len(route) == 1 and route[0] in ROUTES.get(args.line, []):
+                result = {"remaining_s":0,"fallback_segments":[],"arrival_event":"station-arrival-proxy","source":model["source"]}
+            else:
+                result = predict(model, args.line, route, args.elapsed_s)
+            result["route"] = route
+            if args.at:
+                anchor = timestamp(args.at)
+                result["forecast_anchor_at"] = dt.datetime.fromtimestamp(anchor, KST).isoformat()
+                result["estimated_arrival_at"] = dt.datetime.fromtimestamp(anchor + result["remaining_s"], KST).isoformat()
+                result["clock_kind"] = "explicit-forecast-anchor-not-observed-arrival"
+        except (ValueError, KeyError) as exc:
+            p.error(str(exc))
     if getattr(args, "out", None):
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

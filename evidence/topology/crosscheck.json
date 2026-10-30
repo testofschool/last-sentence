@@ -1,0 +1,22 @@
+{
+  "5호선": {
+    "smss_nodes": 56,
+    "smss_edges": 55,
+    "scheduled_supported_edges": 55,
+    "only_smss": [],
+    "only_schedule": [],
+    "status": "MATCH",
+    "alias_normalizations": []
+  },
+  "7호선": {
+    "smss_nodes": 53,
+    "smss_edges": 52,
+    "scheduled_supported_edges": 52,
+    "only_smss": [],
+    "only_schedule": [],
+    "status": "MATCH",
+    "alias_normalizations": [
+      "이수→총신대입구(이수)"
+    ]
+  }
+}

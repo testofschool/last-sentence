@@ -2,25 +2,25 @@
   "schema": "last-sentence/replay-v1",
   "provenance": "recorded-observations",
   "notice": "Recorded Seoul station-arrival observations with a known replay clock. Story scheduling against that clock is a demonstration, not a model/ETA accuracy result or a door-open measurement.",
-  "trace_path": "web/replay/trace_2026-10-30.jsonl",
-  "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+  "trace_path": "web/replay/trace_2026-10-30_all_lines.jsonl",
+  "trace_sha256": "5c5bd96c331ca0ae0bd1f5b7d48d6d83dfc95840925a220e7ec31bc5746ca9d0",
   "replay_window_max_stations": 5,
   "window_selection": "First observed window of the longest contiguous chain per train identity; partial observed route, not a complete journey.",
   "partial": false,
   "recording_complete": true,
-  "polls": 120,
-  "observations": 600,
+  "polls": 360,
+  "observations": 1800,
   "gaps": 0,
   "timing_uncertainty": {
     "provider_timestamp": "recptnDt for trainSttus=1",
-    "poll_interval_s": 20.0,
+    "poll_interval_s": 20,
     "provider_lag_s": "unmeasured",
     "door_open_offset_s": "unmeasured",
     "continuity": "Adjacent known station pairs only; no interpolated or skipped stations; 10–600 seconds per observed segment."
   },
   "rejected": {
     "gaps": 0,
-    "non_arrival": 236,
+    "non_arrival": 774,
     "missing_fields": 0,
     "stale": 0,
     "synthetic": 0,
@@ -30,7 +30,7 @@
   },
   "journeys": [
     {
-      "id": "recorded-3142-1",
+      "id": "recorded-line2-3142-1",
       "line": "2호선",
       "trainNo": "3142",
       "source": "seoul-sample",
@@ -64,12 +64,96 @@
       "recorded_end_epoch_s": 1793322670.0,
       "partial_route": true,
       "train_identity": "2호선|0|2026-10-30|3142",
+      "recording_complete": true,
+      "partial": false,
       "total_observed_station_count": 20,
       "replay_window_station_count": 5,
       "window_limited": true
     },
     {
-      "id": "recorded-2153-2",
+      "id": "recorded-line5-5073-2",
+      "line": "5호선",
+      "trainNo": "5073",
+      "source": "seoul-sample",
+      "arrival_event": "station-arrival-proxy",
+      "eta_s": 455.0,
+      "clock_kind": "known-recorded-timeline-not-forecast",
+      "forecast_s": null,
+      "stations": [
+        {
+          "name": "영등포구청",
+          "offset_s": 0.0
+        },
+        {
+          "name": "영등포시장",
+          "offset_s": 109.0
+        },
+        {
+          "name": "신길",
+          "offset_s": 219.0
+        },
+        {
+          "name": "여의도",
+          "offset_s": 343.0
+        },
+        {
+          "name": "여의나루",
+          "offset_s": 455.0
+        }
+      ],
+      "recorded_start_epoch_s": 1793324899.0,
+      "recorded_end_epoch_s": 1793325354.0,
+      "partial_route": true,
+      "train_identity": "5호선|1|2026-10-30|5073",
+      "recording_complete": true,
+      "partial": false,
+      "total_observed_station_count": 21,
+      "replay_window_station_count": 5,
+      "window_limited": true
+    },
+    {
+      "id": "recorded-line7-7147-3",
+      "line": "7호선",
+      "trainNo": "7147",
+      "source": "seoul-sample",
+      "arrival_event": "station-arrival-proxy",
+      "eta_s": 548.0,
+      "clock_kind": "known-recorded-timeline-not-forecast",
+      "forecast_s": null,
+      "stations": [
+        {
+          "name": "총신대입구(이수)",
+          "offset_s": 0.0
+        },
+        {
+          "name": "남성",
+          "offset_s": 134.0
+        },
+        {
+          "name": "숭실대입구",
+          "offset_s": 318.0
+        },
+        {
+          "name": "상도",
+          "offset_s": 425.0
+        },
+        {
+          "name": "장승배기",
+          "offset_s": 548.0
+        }
+      ],
+      "recorded_start_epoch_s": 1793324927.0,
+      "recorded_end_epoch_s": 1793325475.0,
+      "partial_route": true,
+      "train_identity": "7호선|1|2026-10-30|7147",
+      "recording_complete": true,
+      "partial": false,
+      "total_observed_station_count": 17,
+      "replay_window_station_count": 5,
+      "window_limited": true
+    },
+    {
+      "id": "recorded-line2-2153-4",
       "line": "2호선",
       "trainNo": "2153",
       "source": "seoul-sample",
@@ -103,12 +187,96 @@
       "recorded_end_epoch_s": 1793323001.0,
       "partial_route": true,
       "train_identity": "2호선|1|2026-10-30|2153",
+      "recording_complete": true,
+      "partial": false,
       "total_observed_station_count": 17,
       "replay_window_station_count": 5,
       "window_limited": true
     },
     {
-      "id": "recorded-2149-3",
+      "id": "recorded-line5-5589-5",
+      "line": "5호선",
+      "trainNo": "5589",
+      "source": "seoul-sample",
+      "arrival_event": "station-arrival-proxy",
+      "eta_s": 429.0,
+      "clock_kind": "known-recorded-timeline-not-forecast",
+      "forecast_s": null,
+      "stations": [
+        {
+          "name": "신정",
+          "offset_s": 0.0
+        },
+        {
+          "name": "목동",
+          "offset_s": 103.0
+        },
+        {
+          "name": "오목교",
+          "offset_s": 213.0
+        },
+        {
+          "name": "양평",
+          "offset_s": 327.0
+        },
+        {
+          "name": "영등포구청",
+          "offset_s": 429.0
+        }
+      ],
+      "recorded_start_epoch_s": 1793324910.0,
+      "recorded_end_epoch_s": 1793325339.0,
+      "partial_route": true,
+      "train_identity": "5호선|1|2026-10-30|5589",
+      "recording_complete": true,
+      "partial": false,
+      "total_observed_station_count": 21,
+      "replay_window_station_count": 5,
+      "window_limited": true
+    },
+    {
+      "id": "recorded-line7-7138-6",
+      "line": "7호선",
+      "trainNo": "7138",
+      "source": "seoul-sample",
+      "arrival_event": "station-arrival-proxy",
+      "eta_s": 596.0,
+      "clock_kind": "known-recorded-timeline-not-forecast",
+      "forecast_s": null,
+      "stations": [
+        {
+          "name": "온수",
+          "offset_s": 0.0
+        },
+        {
+          "name": "천왕",
+          "offset_s": 168.0
+        },
+        {
+          "name": "광명사거리",
+          "offset_s": 319.0
+        },
+        {
+          "name": "철산",
+          "offset_s": 455.0
+        },
+        {
+          "name": "가산디지털단지",
+          "offset_s": 596.0
+        }
+      ],
+      "recorded_start_epoch_s": 1793325052.0,
+      "recorded_end_epoch_s": 1793325648.0,
+      "partial_route": true,
+      "train_identity": "7호선|0|2026-10-30|7138",
+      "recording_complete": true,
+      "partial": false,
+      "total_observed_station_count": 17,
+      "replay_window_station_count": 5,
+      "window_limited": true
+    },
+    {
+      "id": "recorded-line2-2149-7",
       "line": "2호선",
       "trainNo": "2149",
       "source": "seoul-sample",
@@ -142,85 +310,91 @@
       "recorded_end_epoch_s": 1793322670.0,
       "partial_route": true,
       "train_identity": "2호선|1|2026-10-30|2149",
+      "recording_complete": true,
+      "partial": false,
       "total_observed_station_count": 15,
       "replay_window_station_count": 5,
       "window_limited": true
     },
     {
-      "id": "recorded-2148-4",
-      "line": "2호선",
-      "trainNo": "2148",
+      "id": "recorded-line5-5071-8",
+      "line": "5호선",
+      "trainNo": "5071",
       "source": "seoul-sample",
       "arrival_event": "station-arrival-proxy",
-      "eta_s": 566.0,
+      "eta_s": 446.0,
       "clock_kind": "known-recorded-timeline-not-forecast",
       "forecast_s": null,
       "stations": [
         {
-          "name": "당산",
+          "name": "공덕",
           "offset_s": 0.0
         },
         {
-          "name": "합정",
-          "offset_s": 169.0
+          "name": "애오개",
+          "offset_s": 125.0
         },
         {
-          "name": "홍대입구",
-          "offset_s": 292.0
+          "name": "충정로",
+          "offset_s": 230.0
         },
         {
-          "name": "신촌",
-          "offset_s": 457.0
+          "name": "서대문",
+          "offset_s": 322.0
         },
         {
-          "name": "이대",
-          "offset_s": 566.0
+          "name": "광화문",
+          "offset_s": 446.0
         }
       ],
-      "recorded_start_epoch_s": 1793323107.0,
-      "recorded_end_epoch_s": 1793323673.0,
+      "recorded_start_epoch_s": 1793324868.0,
+      "recorded_end_epoch_s": 1793325314.0,
       "partial_route": true,
-      "train_identity": "2호선|0|2026-10-30|2148",
-      "total_observed_station_count": 11,
+      "train_identity": "5호선|1|2026-10-30|5071",
+      "recording_complete": true,
+      "partial": false,
+      "total_observed_station_count": 20,
       "replay_window_station_count": 5,
       "window_limited": true
     },
     {
-      "id": "recorded-2128-5",
-      "line": "2호선",
-      "trainNo": "2128",
+      "id": "recorded-line7-7140-9",
+      "line": "7호선",
+      "trainNo": "7140",
       "source": "seoul-sample",
       "arrival_event": "station-arrival-proxy",
-      "eta_s": 384.0,
+      "eta_s": 539.0,
       "clock_kind": "known-recorded-timeline-not-forecast",
       "forecast_s": null,
       "stations": [
         {
-          "name": "시청",
+          "name": "천왕",
           "offset_s": 0.0
         },
         {
-          "name": "을지로입구",
-          "offset_s": 97.0
+          "name": "광명사거리",
+          "offset_s": 147.0
         },
         {
-          "name": "을지로3가",
-          "offset_s": 191.0
+          "name": "철산",
+          "offset_s": 285.0
         },
         {
-          "name": "을지로4가",
-          "offset_s": 275.0
+          "name": "가산디지털단지",
+          "offset_s": 431.0
         },
         {
-          "name": "동대문역사문화공원",
-          "offset_s": 384.0
+          "name": "남구로",
+          "offset_s": 539.0
         }
       ],
-      "recorded_start_epoch_s": 1793322113.0,
-      "recorded_end_epoch_s": 1793322497.0,
+      "recorded_start_epoch_s": 1793325564.0,
+      "recorded_end_epoch_s": 1793326103.0,
       "partial_route": true,
-      "train_identity": "2호선|0|2026-10-30|2128",
-      "total_observed_station_count": 10,
+      "train_identity": "7호선|0|2026-10-30|7140",
+      "recording_complete": true,
+      "partial": false,
+      "total_observed_station_count": 14,
       "replay_window_station_count": 5,
       "window_limited": true
     }

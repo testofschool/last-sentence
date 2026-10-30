@@ -17,7 +17,7 @@
     </header>
 
     <main>
-      <div class="intro-row"><div><p class="eyebrow">A SMALL STORY FOR THE WAY HOME</p><h1>Every journey deserves<br>a good ending<span class="accent">.</span></h1></div><p class="intro-copy">A story that follows your train.<br>The last sentence is your cue to step out.</p></div>
+      <div class="intro-row"><div><p class="eyebrow">A SMALL STORY FOR THE WAY HOME</p><h1>Every journey deserves<br>a good ending<span class="accent">.</span></h1></div><p class="intro-copy">A story that follows your train. <br>The last sentence is your cue to step out.</p></div>
 
       <section class="journey-controls" aria-label="Choose your journey">
         <div class="mode-switch" role="group" aria-label="Journey mode"><button id="replay-mode" class="selected" aria-pressed="true">Replay<span class="small-pill">DEMO</span></button><button id="live-mode" aria-pressed="false"><span class="live-dot"></span> Live</button></div>
@@ -25,7 +25,7 @@
         <div class="language-switch" role="group" aria-label="Story language"><button id="lang-en" class="selected" aria-pressed="true">EN</button><button id="lang-ko" aria-pressed="false">한국어</button></div>
       </section>
 
-      <div class="source-controls" aria-label="Replay source"><label for="source-select">SOURCE<select id="source-select"><option value="fixture">Authored timing fixture</option><option value="recorded" disabled>Recorded train observations (unavailable)</option></select></label><label for="journey-select">JOURNEY<select id="journey-select"></select></label><p id="source-description">Synthetic timing · authored story · no model calls</p></div>
+      <div class="source-controls" aria-label="Replay source"><label for="source-select">SOURCE<select id="source-select"><option value="fixture">Authored timing fixture</option><option value="recorded" disabled>Recorded train observations (unavailable)</option></select></label><label for="journey-select">JOURNEY<select id="journey-select"></select></label><label for="boarding-select">BOARDING AT<select id="boarding-select"></select></label><p id="source-description">Synthetic timing · authored story · no model calls</p></div>
       <div id="notice" class="notice" role="status" hidden></div>
       <section id="live-panel" class="live-panel" aria-labelledby="live-panel-heading" hidden><div><p class="eyebrow">EXPERIMENTAL LIVE CONNECTION</p><h2 id="live-panel-heading">Connect a train, then a story.</h2><p id="live-status">Checking the configured service…</p><p id="live-forecast" class="live-forecast">An actual station-arrival observation is required before a forecast.</p></div><div class="live-actions"><label for="train-select">Your actual train and direction<select id="train-select" disabled><option>No live positions loaded</option></select></label><label for="live-exit-select">Your exit<select id="live-exit-select" disabled><option>Choose an anchored train first</option></select></label><div class="live-buttons"><button id="refresh-live" class="secondary-button">Refresh positions</button><button id="live-start" class="primary-button" disabled>Start live story</button><button id="live-stop" class="secondary-button" hidden>Stop story</button></div></div><p class="live-disclosure" id="live-disclosure">Live starts only after a fresh, verified arrival anchor and a validated route ETA. A connected story uses billable model calls. Wall-clock time continues during generation; station observations are not door sensors. Real live inference and arrival accuracy remain unmeasured.</p></section>
 

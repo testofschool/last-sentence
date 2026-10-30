@@ -70,6 +70,9 @@ def test_synthetic_matrix_contains_nine_distinct_rows_and_zero_model_calls():
 def test_conservative_cost_plan_refuses_over_cap():
     prices = {LIGHTNING: (.06, .24), SUPER: (.30, .90), ULTRA: (1, 3)}
     assert cost_plan(prices, 30)["allowed"] is False
+    full = cost_plan(prices, 30, max_completions=2048)
+    assert full["allowed"] is True
+    assert full["worst_case_usd"] == pytest.approx(2.60596288)
     assert cost_plan(prices, 17)["allowed"] is False
     assert cost_plan(prices, 17, max_completions=2048)["allowed"] is True
     assert cost_plan(prices, 5)["allowed"] is True

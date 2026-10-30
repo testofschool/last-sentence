@@ -1,0 +1,1801 @@
+{
+  "schema": "last-sentence/scheduled-adjacency-v1",
+  "source_url": "https://data.seoul.go.kr/dataList/OA-22522/L/1/datasetView.do",
+  "source_filename": "서울교통공사_도시철도열차운행시각표(250930).csv",
+  "source_snapshot_date": "2025-09-30",
+  "downloaded_at": "2026-10-30T01:53:00.459002+00:00",
+  "source_bytes": 44740932,
+  "source_sha256": "46b6d9e2c2e1e23632fa72208a3ca5dc6aeba9013c403ee6f52747fec2b9a9e2",
+  "method": "Consecutive normal-service scheduled stops grouped by line/day/direction/train/origin/terminus; arrival time or origin departure; gaps >900 seconds rejected; pairs need >=2 scheduled occurrences, singleton candidates retained separately.",
+  "limits": "Dated scheduled-stop corroboration only. Not current service, complete topology, actual train movement or ETA training observations. Operators may omit stops outside their scope. Names retain this source's date.",
+  "lines": {
+    "2호선": {
+      "scheduled_rows": 76788,
+      "stations": [
+        {
+          "code": "0200",
+          "name": "까치산"
+        },
+        {
+          "code": "0201",
+          "name": "시청"
+        },
+        {
+          "code": "0202",
+          "name": "을지로입구"
+        },
+        {
+          "code": "0203",
+          "name": "을지로3가"
+        },
+        {
+          "code": "0204",
+          "name": "을지로4가"
+        },
+        {
+          "code": "0205",
+          "name": "동대문역사문화공원"
+        },
+        {
+          "code": "0206",
+          "name": "신당"
+        },
+        {
+          "code": "0207",
+          "name": "상왕십리"
+        },
+        {
+          "code": "0208",
+          "name": "왕십리"
+        },
+        {
+          "code": "0209",
+          "name": "한양대"
+        },
+        {
+          "code": "0210",
+          "name": "뚝섬"
+        },
+        {
+          "code": "0211",
+          "name": "성수"
+        },
+        {
+          "code": "0212",
+          "name": "건대입구"
+        },
+        {
+          "code": "0213",
+          "name": "구의"
+        },
+        {
+          "code": "0214",
+          "name": "강변"
+        },
+        {
+          "code": "0215",
+          "name": "잠실나루"
+        },
+        {
+          "code": "0216",
+          "name": "잠실"
+        },
+        {
+          "code": "0217",
+          "name": "잠실새내"
+        },
+        {
+          "code": "0218",
+          "name": "종합운동장"
+        },
+        {
+          "code": "0219",
+          "name": "삼성"
+        },
+        {
+          "code": "0220",
+          "name": "선릉"
+        },
+        {
+          "code": "0221",
+          "name": "역삼"
+        },
+        {
+          "code": "0222",
+          "name": "강남"
+        },
+        {
+          "code": "0223",
+          "name": "교대"
+        },
+        {
+          "code": "0224",
+          "name": "서초"
+        },
+        {
+          "code": "0225",
+          "name": "방배"
+        },
+        {
+          "code": "0226",
+          "name": "사당"
+        },
+        {
+          "code": "0227",
+          "name": "낙성대"
+        },
+        {
+          "code": "0228",
+          "name": "서울대입구"
+        },
+        {
+          "code": "0229",
+          "name": "봉천"
+        },
+        {
+          "code": "0230",
+          "name": "신림"
+        },
+        {
+          "code": "0231",
+          "name": "신대방"
+        },
+        {
+          "code": "0232",
+          "name": "구로디지털단지"
+        },
+        {
+          "code": "0233",
+          "name": "대림"
+        },
+        {
+          "code": "0234",
+          "name": "신도림"
+        },
+        {
+          "code": "0235",
+          "name": "문래"
+        },
+        {
+          "code": "0236",
+          "name": "영등포구청"
+        },
+        {
+          "code": "0237",
+          "name": "당산"
+        },
+        {
+          "code": "0238",
+          "name": "합정"
+        },
+        {
+          "code": "0239",
+          "name": "홍대입구"
+        },
+        {
+          "code": "0240",
+          "name": "신촌"
+        },
+        {
+          "code": "0241",
+          "name": "이대"
+        },
+        {
+          "code": "0242",
+          "name": "아현"
+        },
+        {
+          "code": "0243",
+          "name": "충정로"
+        },
+        {
+          "code": "0244",
+          "name": "용답"
+        },
+        {
+          "code": "0245",
+          "name": "신답"
+        },
+        {
+          "code": "0246",
+          "name": "신설동"
+        },
+        {
+          "code": "0247",
+          "name": "도림천"
+        },
+        {
+          "code": "0248",
+          "name": "양천구청"
+        },
+        {
+          "code": "0249",
+          "name": "신정네거리"
+        },
+        {
+          "code": "0250",
+          "name": "용두"
+        }
+      ],
+      "edges": [
+        {
+          "stations": [
+            "강남",
+            "교대"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "강남",
+            "역삼"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "강변",
+            "구의"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "강변",
+            "잠실나루"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "건대입구",
+            "구의"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "건대입구",
+            "성수"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "교대",
+            "서초"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "구로디지털단지",
+            "대림"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "구로디지털단지",
+            "신대방"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "까치산",
+            "신정네거리"
+          ],
+          "scheduled_occurrences": 854
+        },
+        {
+          "stations": [
+            "낙성대",
+            "사당"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "낙성대",
+            "서울대입구"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "당산",
+            "영등포구청"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "당산",
+            "합정"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "대림",
+            "신도림"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "도림천",
+            "신도림"
+          ],
+          "scheduled_occurrences": 850
+        },
+        {
+          "stations": [
+            "도림천",
+            "양천구청"
+          ],
+          "scheduled_occurrences": 854
+        },
+        {
+          "stations": [
+            "동대문역사문화공원",
+            "신당"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "동대문역사문화공원",
+            "을지로4가"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "뚝섬",
+            "성수"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "뚝섬",
+            "한양대"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "문래",
+            "신도림"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "문래",
+            "영등포구청"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "방배",
+            "사당"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "방배",
+            "서초"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "봉천",
+            "서울대입구"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "봉천",
+            "신림"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "삼성",
+            "선릉"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "삼성",
+            "종합운동장"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "상왕십리",
+            "신당"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "상왕십리",
+            "왕십리"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "선릉",
+            "역삼"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "성수",
+            "용답"
+          ],
+          "scheduled_occurrences": 850
+        },
+        {
+          "stations": [
+            "시청",
+            "을지로입구"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "시청",
+            "충정로"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "신답",
+            "용답"
+          ],
+          "scheduled_occurrences": 850
+        },
+        {
+          "stations": [
+            "신답",
+            "용두"
+          ],
+          "scheduled_occurrences": 850
+        },
+        {
+          "stations": [
+            "신대방",
+            "신림"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "신설동",
+            "용두"
+          ],
+          "scheduled_occurrences": 850
+        },
+        {
+          "stations": [
+            "신정네거리",
+            "양천구청"
+          ],
+          "scheduled_occurrences": 854
+        },
+        {
+          "stations": [
+            "신촌",
+            "이대"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "신촌",
+            "홍대입구"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "아현",
+            "이대"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "아현",
+            "충정로"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "왕십리",
+            "한양대"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "을지로3가",
+            "을지로4가"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "을지로3가",
+            "을지로입구"
+          ],
+          "scheduled_occurrences": 1542
+        },
+        {
+          "stations": [
+            "잠실",
+            "잠실나루"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "잠실",
+            "잠실새내"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "잠실새내",
+            "종합운동장"
+          ],
+          "scheduled_occurrences": 1554
+        },
+        {
+          "stations": [
+            "합정",
+            "홍대입구"
+          ],
+          "scheduled_occurrences": 1542
+        }
+      ],
+      "unconfirmed_singleton_pairs": [],
+      "rejected_gaps_or_duplicates": 0
+    },
+    "5호선": {
+      "scheduled_rows": 63642,
+      "stations": [
+        {
+          "code": "2511",
+          "name": "방화"
+        },
+        {
+          "code": "2512",
+          "name": "개화산"
+        },
+        {
+          "code": "2513",
+          "name": "김포공항"
+        },
+        {
+          "code": "2514",
+          "name": "송정"
+        },
+        {
+          "code": "2515",
+          "name": "마곡"
+        },
+        {
+          "code": "2516",
+          "name": "발산"
+        },
+        {
+          "code": "2517",
+          "name": "우장산"
+        },
+        {
+          "code": "2518",
+          "name": "화곡"
+        },
+        {
+          "code": "2519",
+          "name": "까치산"
+        },
+        {
+          "code": "2520",
+          "name": "신정"
+        },
+        {
+          "code": "2521",
+          "name": "목동"
+        },
+        {
+          "code": "2522",
+          "name": "오목교"
+        },
+        {
+          "code": "2523",
+          "name": "양평"
+        },
+        {
+          "code": "2524",
+          "name": "영등포구청"
+        },
+        {
+          "code": "2525",
+          "name": "영등포시장"
+        },
+        {
+          "code": "2526",
+          "name": "신길"
+        },
+        {
+          "code": "2527",
+          "name": "여의도"
+        },
+        {
+          "code": "2528",
+          "name": "여의나루"
+        },
+        {
+          "code": "2529",
+          "name": "마포"
+        },
+        {
+          "code": "2530",
+          "name": "공덕"
+        },
+        {
+          "code": "2531",
+          "name": "애오개"
+        },
+        {
+          "code": "2532",
+          "name": "충정로"
+        },
+        {
+          "code": "2533",
+          "name": "서대문"
+        },
+        {
+          "code": "2534",
+          "name": "광화문"
+        },
+        {
+          "code": "2535",
+          "name": "종로3가"
+        },
+        {
+          "code": "2536",
+          "name": "을지로4가"
+        },
+        {
+          "code": "2537",
+          "name": "동대문역사문화공원"
+        },
+        {
+          "code": "2538",
+          "name": "청구"
+        },
+        {
+          "code": "2539",
+          "name": "신금호"
+        },
+        {
+          "code": "2540",
+          "name": "행당"
+        },
+        {
+          "code": "2541",
+          "name": "왕십리"
+        },
+        {
+          "code": "2542",
+          "name": "마장"
+        },
+        {
+          "code": "2543",
+          "name": "답십리"
+        },
+        {
+          "code": "2544",
+          "name": "장한평"
+        },
+        {
+          "code": "2545",
+          "name": "군자"
+        },
+        {
+          "code": "2546",
+          "name": "아차산"
+        },
+        {
+          "code": "2547",
+          "name": "광나루"
+        },
+        {
+          "code": "2548",
+          "name": "천호"
+        },
+        {
+          "code": "2549",
+          "name": "강동"
+        },
+        {
+          "code": "2550",
+          "name": "길동"
+        },
+        {
+          "code": "2551",
+          "name": "굽은다리"
+        },
+        {
+          "code": "2552",
+          "name": "명일"
+        },
+        {
+          "code": "2553",
+          "name": "고덕"
+        },
+        {
+          "code": "2554",
+          "name": "상일동"
+        },
+        {
+          "code": "2555",
+          "name": "둔촌동"
+        },
+        {
+          "code": "2556",
+          "name": "올림픽공원"
+        },
+        {
+          "code": "2557",
+          "name": "방이"
+        },
+        {
+          "code": "2558",
+          "name": "오금"
+        },
+        {
+          "code": "2559",
+          "name": "개롱"
+        },
+        {
+          "code": "2560",
+          "name": "거여"
+        },
+        {
+          "code": "2561",
+          "name": "마천"
+        },
+        {
+          "code": "2562",
+          "name": "강일"
+        },
+        {
+          "code": "2563",
+          "name": "미사"
+        },
+        {
+          "code": "2564",
+          "name": "하남풍산"
+        },
+        {
+          "code": "2565",
+          "name": "하남시청"
+        },
+        {
+          "code": "2566",
+          "name": "하남검단산"
+        }
+      ],
+      "edges": [
+        {
+          "stations": [
+            "강동",
+            "길동"
+          ],
+          "scheduled_occurrences": 692
+        },
+        {
+          "stations": [
+            "강동",
+            "둔촌동"
+          ],
+          "scheduled_occurrences": 694
+        },
+        {
+          "stations": [
+            "강동",
+            "천호"
+          ],
+          "scheduled_occurrences": 1333
+        },
+        {
+          "stations": [
+            "강일",
+            "미사"
+          ],
+          "scheduled_occurrences": 648
+        },
+        {
+          "stations": [
+            "강일",
+            "상일동"
+          ],
+          "scheduled_occurrences": 648
+        },
+        {
+          "stations": [
+            "개롱",
+            "거여"
+          ],
+          "scheduled_occurrences": 695
+        },
+        {
+          "stations": [
+            "개롱",
+            "오금"
+          ],
+          "scheduled_occurrences": 695
+        },
+        {
+          "stations": [
+            "개화산",
+            "김포공항"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "개화산",
+            "방화"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "거여",
+            "마천"
+          ],
+          "scheduled_occurrences": 695
+        },
+        {
+          "stations": [
+            "고덕",
+            "명일"
+          ],
+          "scheduled_occurrences": 692
+        },
+        {
+          "stations": [
+            "고덕",
+            "상일동"
+          ],
+          "scheduled_occurrences": 692
+        },
+        {
+          "stations": [
+            "공덕",
+            "마포"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "공덕",
+            "애오개"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "광나루",
+            "아차산"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "광나루",
+            "천호"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "광화문",
+            "서대문"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "광화문",
+            "종로3가"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "군자",
+            "아차산"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "군자",
+            "장한평"
+          ],
+          "scheduled_occurrences": 1336
+        },
+        {
+          "stations": [
+            "굽은다리",
+            "길동"
+          ],
+          "scheduled_occurrences": 692
+        },
+        {
+          "stations": [
+            "굽은다리",
+            "명일"
+          ],
+          "scheduled_occurrences": 692
+        },
+        {
+          "stations": [
+            "김포공항",
+            "송정"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "까치산",
+            "신정"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "까치산",
+            "화곡"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "답십리",
+            "마장"
+          ],
+          "scheduled_occurrences": 1336
+        },
+        {
+          "stations": [
+            "답십리",
+            "장한평"
+          ],
+          "scheduled_occurrences": 1336
+        },
+        {
+          "stations": [
+            "동대문역사문화공원",
+            "을지로4가"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "동대문역사문화공원",
+            "청구"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "둔촌동",
+            "올림픽공원"
+          ],
+          "scheduled_occurrences": 695
+        },
+        {
+          "stations": [
+            "마곡",
+            "발산"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "마곡",
+            "송정"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "마장",
+            "왕십리"
+          ],
+          "scheduled_occurrences": 1336
+        },
+        {
+          "stations": [
+            "마포",
+            "여의나루"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "목동",
+            "신정"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "목동",
+            "오목교"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "미사",
+            "하남풍산"
+          ],
+          "scheduled_occurrences": 648
+        },
+        {
+          "stations": [
+            "발산",
+            "우장산"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "방이",
+            "오금"
+          ],
+          "scheduled_occurrences": 695
+        },
+        {
+          "stations": [
+            "방이",
+            "올림픽공원"
+          ],
+          "scheduled_occurrences": 695
+        },
+        {
+          "stations": [
+            "서대문",
+            "충정로"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "신금호",
+            "청구"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "신금호",
+            "행당"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "신길",
+            "여의도"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "신길",
+            "영등포시장"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "애오개",
+            "충정로"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "양평",
+            "영등포구청"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "양평",
+            "오목교"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "여의나루",
+            "여의도"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "영등포구청",
+            "영등포시장"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "왕십리",
+            "행당"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "우장산",
+            "화곡"
+          ],
+          "scheduled_occurrences": 1327
+        },
+        {
+          "stations": [
+            "을지로4가",
+            "종로3가"
+          ],
+          "scheduled_occurrences": 1334
+        },
+        {
+          "stations": [
+            "하남검단산",
+            "하남시청"
+          ],
+          "scheduled_occurrences": 649
+        },
+        {
+          "stations": [
+            "하남시청",
+            "하남풍산"
+          ],
+          "scheduled_occurrences": 649
+        }
+      ],
+      "unconfirmed_singleton_pairs": [
+        {
+          "stations": [
+            "둔촌동",
+            "천호"
+          ],
+          "scheduled_occurrences": 1
+        },
+        {
+          "stations": [
+            "상일동",
+            "하남풍산"
+          ],
+          "scheduled_occurrences": 1
+        }
+      ],
+      "rejected_gaps_or_duplicates": 0
+    },
+    "7호선": {
+      "scheduled_rows": 63068,
+      "stations": [
+        {
+          "code": "2711",
+          "name": "장암"
+        },
+        {
+          "code": "2712",
+          "name": "도봉산"
+        },
+        {
+          "code": "2713",
+          "name": "수락산"
+        },
+        {
+          "code": "2714",
+          "name": "마들"
+        },
+        {
+          "code": "2715",
+          "name": "노원"
+        },
+        {
+          "code": "2716",
+          "name": "중계"
+        },
+        {
+          "code": "2717",
+          "name": "하계"
+        },
+        {
+          "code": "2718",
+          "name": "공릉"
+        },
+        {
+          "code": "2719",
+          "name": "태릉입구"
+        },
+        {
+          "code": "2720",
+          "name": "먹골"
+        },
+        {
+          "code": "2721",
+          "name": "중화"
+        },
+        {
+          "code": "2722",
+          "name": "상봉"
+        },
+        {
+          "code": "2723",
+          "name": "면목"
+        },
+        {
+          "code": "2724",
+          "name": "사가정"
+        },
+        {
+          "code": "2725",
+          "name": "용마산"
+        },
+        {
+          "code": "2726",
+          "name": "중곡"
+        },
+        {
+          "code": "2727",
+          "name": "군자"
+        },
+        {
+          "code": "2728",
+          "name": "어린이대공원"
+        },
+        {
+          "code": "2729",
+          "name": "건대입구"
+        },
+        {
+          "code": "2730",
+          "name": "자양"
+        },
+        {
+          "code": "2731",
+          "name": "청담"
+        },
+        {
+          "code": "2732",
+          "name": "강남구청"
+        },
+        {
+          "code": "2733",
+          "name": "학동"
+        },
+        {
+          "code": "2734",
+          "name": "논현"
+        },
+        {
+          "code": "2735",
+          "name": "반포"
+        },
+        {
+          "code": "2736",
+          "name": "고속터미널"
+        },
+        {
+          "code": "2737",
+          "name": "내방"
+        },
+        {
+          "code": "2738",
+          "name": "이수"
+        },
+        {
+          "code": "2739",
+          "name": "남성"
+        },
+        {
+          "code": "2740",
+          "name": "숭실대입구"
+        },
+        {
+          "code": "2741",
+          "name": "상도"
+        },
+        {
+          "code": "2742",
+          "name": "장승배기"
+        },
+        {
+          "code": "2743",
+          "name": "신대방삼거리"
+        },
+        {
+          "code": "2744",
+          "name": "보라매"
+        },
+        {
+          "code": "2745",
+          "name": "신풍"
+        },
+        {
+          "code": "2746",
+          "name": "대림"
+        },
+        {
+          "code": "2747",
+          "name": "남구로"
+        },
+        {
+          "code": "2748",
+          "name": "가산디지털단지"
+        },
+        {
+          "code": "2749",
+          "name": "철산"
+        },
+        {
+          "code": "2750",
+          "name": "광명사거리"
+        },
+        {
+          "code": "2751",
+          "name": "천왕"
+        },
+        {
+          "code": "2752",
+          "name": "온수"
+        },
+        {
+          "code": "3753",
+          "name": "까치울"
+        },
+        {
+          "code": "3754",
+          "name": "부천종합운동장"
+        },
+        {
+          "code": "3755",
+          "name": "춘의"
+        },
+        {
+          "code": "3756",
+          "name": "신중동"
+        },
+        {
+          "code": "3757",
+          "name": "부천시청"
+        },
+        {
+          "code": "3758",
+          "name": "상동"
+        },
+        {
+          "code": "3759",
+          "name": "삼산체육관"
+        },
+        {
+          "code": "3760",
+          "name": "굴포천"
+        },
+        {
+          "code": "3761",
+          "name": "부평구청"
+        },
+        {
+          "code": "3762",
+          "name": "산곡"
+        },
+        {
+          "code": "3763",
+          "name": "석남"
+        }
+      ],
+      "edges": [
+        {
+          "stations": [
+            "가산디지털단지",
+            "남구로"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "가산디지털단지",
+            "철산"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "강남구청",
+            "청담"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "강남구청",
+            "학동"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "건대입구",
+            "어린이대공원"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "건대입구",
+            "자양"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "고속터미널",
+            "내방"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "고속터미널",
+            "반포"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "공릉",
+            "태릉입구"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "공릉",
+            "하계"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "광명사거리",
+            "천왕"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "광명사거리",
+            "철산"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "군자",
+            "어린이대공원"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "군자",
+            "중곡"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "굴포천",
+            "부평구청"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "굴포천",
+            "삼산체육관"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "까치울",
+            "부천종합운동장"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "까치울",
+            "온수"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "남구로",
+            "대림"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "남성",
+            "숭실대입구"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "남성",
+            "이수"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "내방",
+            "이수"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "노원",
+            "마들"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "노원",
+            "중계"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "논현",
+            "반포"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "논현",
+            "학동"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "대림",
+            "신풍"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "도봉산",
+            "수락산"
+          ],
+          "scheduled_occurrences": 1313
+        },
+        {
+          "stations": [
+            "도봉산",
+            "장암"
+          ],
+          "scheduled_occurrences": 618
+        },
+        {
+          "stations": [
+            "마들",
+            "수락산"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "먹골",
+            "중화"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "먹골",
+            "태릉입구"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "면목",
+            "사가정"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "면목",
+            "상봉"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "보라매",
+            "신대방삼거리"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "보라매",
+            "신풍"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "부천시청",
+            "상동"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "부천시청",
+            "신중동"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "부천종합운동장",
+            "춘의"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "부평구청",
+            "산곡"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "사가정",
+            "용마산"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "산곡",
+            "석남"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "삼산체육관",
+            "상동"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "상도",
+            "숭실대입구"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "상도",
+            "장승배기"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "상봉",
+            "중화"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "신대방삼거리",
+            "장승배기"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "신중동",
+            "춘의"
+          ],
+          "scheduled_occurrences": 764
+        },
+        {
+          "stations": [
+            "온수",
+            "천왕"
+          ],
+          "scheduled_occurrences": 1314
+        },
+        {
+          "stations": [
+            "용마산",
+            "중곡"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "자양",
+            "청담"
+          ],
+          "scheduled_occurrences": 1318
+        },
+        {
+          "stations": [
+            "중계",
+            "하계"
+          ],
+          "scheduled_occurrences": 1314
+        }
+      ],
+      "unconfirmed_singleton_pairs": [],
+      "rejected_gaps_or_duplicates": 0
+    }
+  }
+}

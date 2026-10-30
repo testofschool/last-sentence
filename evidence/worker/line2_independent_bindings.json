@@ -1,0 +1,75 @@
+{
+  "checked_at": "2026-10-30T02:17:36.106018+00:00",
+  "source_url": "https://data.seoul.go.kr/dataList/openApiView.do?infId=OA-12764&srvType=A",
+  "official_service": "realtimeStationArrival",
+  "published_key": "SAMPLE",
+  "scope": "Independent station-name/ID corroboration only; these responses are not ETA training or arrival observations. No private credential, inference or Tavily request.",
+  "checks": [
+    {
+      "requested_station": "봉천",
+      "expected_fixed_map_id": "1002000229",
+      "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/%EB%B4%89%EC%B2%9C",
+      "transport": "http-public-sample",
+      "attempts": 1,
+      "http_status": 200,
+      "response_sha256": "547e4bb6bcb74975a547318a13d7461efb3279e353da79a3b1a942cb84637737",
+      "upstream_code": null,
+      "returned_station_bindings": [],
+      "response_rows": 0,
+      "independent_binding_corroborated": false,
+      "reason": "no_exact_requested_station_line2_binding_returned",
+      "elapsed_s": 0.085
+    },
+    {
+      "requested_station": "신림",
+      "expected_fixed_map_id": "1002000230",
+      "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/%EC%8B%A0%EB%A6%BC",
+      "transport": "http-public-sample",
+      "attempts": 1,
+      "http_status": 200,
+      "response_sha256": "547e4bb6bcb74975a547318a13d7461efb3279e353da79a3b1a942cb84637737",
+      "upstream_code": null,
+      "returned_station_bindings": [],
+      "response_rows": 0,
+      "independent_binding_corroborated": false,
+      "reason": "no_exact_requested_station_line2_binding_returned",
+      "elapsed_s": 0.017
+    },
+    {
+      "requested_station": "신대방",
+      "expected_fixed_map_id": "1002000231",
+      "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/%EC%8B%A0%EB%8C%80%EB%B0%A9",
+      "transport": "http-public-sample",
+      "attempts": 1,
+      "http_status": 200,
+      "response_sha256": "547e4bb6bcb74975a547318a13d7461efb3279e353da79a3b1a942cb84637737",
+      "upstream_code": null,
+      "returned_station_bindings": [],
+      "response_rows": 0,
+      "independent_binding_corroborated": false,
+      "reason": "no_exact_requested_station_line2_binding_returned",
+      "elapsed_s": 0.019
+    }
+  ],
+  "outbound_public_attempt_count": 4,
+  "all_three_corroborated": false,
+  "official_index_range_diagnostic": {
+    "checked_at": "2026-10-30T02:17:57.891542+00:00",
+    "requested_station": "봉천",
+    "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/1/5/%EB%B4%89%EC%B2%9C",
+    "http_status": 200,
+    "response_sha256": "547e4bb6bcb74975a547318a13d7461efb3279e353da79a3b1a942cb84637737",
+    "top_level_keys": [
+      "status",
+      "code",
+      "message",
+      "link",
+      "developerMessage",
+      "total"
+    ],
+    "response_rows": 0,
+    "notice": "The official page shows0/5 in its sample URL but1–5 in its sample-index note; this checks1/5 without adding ETA observations.",
+    "nested_result_or_errorMessage": null,
+    "alternate_status_fields_not_retained": true
+  }
+}

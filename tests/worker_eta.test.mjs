@@ -62,7 +62,7 @@ test('public sample HTTPS fallback reserves both attempts and never transmits a 
   const store = cache();
   const deps = { etaBundle: bundle(), cache: store, now: () => NOW, fetch: async url => {
     seen.push(url); if (url.startsWith('https:')) throw Error('Mock HTTPS unavailable');
-    return Response.json({ errorMessage: { code: 'INFO-000' }, realtimePositionList: [{ trainNo: '1234', statnNm: '시청', recptnDt: anchor().recptnDt, trainSttus: '1', updnLine: '0', statnTnm: '성수종착', statnTid: '1002000211', directAt: '0', lstcarAt: '0' }] });
+    return Response.json({ errorMessage: { code: 'INFO-000' }, realtimePositionList: [{ trainNo: '1234', statnNm: '시청', statnId:'1002000201',recptnDt: anchor().recptnDt, trainSttus: '1', updnLine: '0', statnTnm: '성수종착', statnTid: '1002000211', directAt: '0', lstcarAt: '0' }] });
   } };
   const sampleEnv = env({ LIMITS: { getByName: () => ({ reserve: async (kind, amount, ceiling) => { reserved.push({ kind, amount, ceiling }); return { allowed: true }; } }) } });
   const response = await handleRequest(request('/api/position?line=2%ED%98%B8%EC%84%A0'), sampleEnv, deps);
@@ -116,4 +116,9 @@ test('an arrival with a terminal suffix is canonicalized only when its station I
   const raw = { trainNo: '1234', statnNm: '성수종착', statnId: '1002000211', recptnDt: anchor().recptnDt, trainSttus: '1', updnLine: '0', statnTnm: '성수종착', statnTid: '1002000211' };
   const verified = verifiedArrival(raw, '2호선', 'https', { now: () => NOW }); assert.equal(verified.station, '성수'); assert.equal(verified.terminus.station, '성수');
   assert.equal(verifiedArrival({ ...raw, statnId: '1002000234' }, '2호선', 'https', { now: () => NOW }), null);
+});
+test('a known arrival name still requires its exact canonical realtime station ID',()=>{
+  const raw={trainNo:'1234',statnNm:'시청',statnId:'1002000201',recptnDt:anchor().recptnDt,trainSttus:'1',updnLine:'0',statnTnm:'성수종착',statnTid:'1002000211'};
+  assert.equal(verifiedArrival(raw,'2호선','https',{now:()=>NOW}).station_id,'1002000201');
+  for(const statnId of [undefined,null,'','1002000211','1005000201','0201'])assert.equal(verifiedArrival({...raw,statnId},'2호선','https',{now:()=>NOW}),null);
 });

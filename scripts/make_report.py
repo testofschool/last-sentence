@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Assemble a local-run report from saved evidence. Does not run external actions."""
 import datetime as dt
-import hashlib
 import html
 import json
 from pathlib import Path
@@ -20,9 +19,12 @@ def cell(value):
 def main():
     pre = read("evidence/preflight.json", {})
     verification = read("evidence/verification.json", {})
-    meta = read("web/replay/trace_2026-10-30.meta.json", {})
+    recordings = [json.loads(p.read_text()) for p in sorted((ROOT/"web/replay").glob("*.meta.json"))
+                  if json.loads(p.read_text()).get("line") in ("2호선", "5호선", "7호선")]
     manifest = read("web/replay/recorded-manifest.json", {})
     eta = read("evidence/eta_evaluation.json", {})
+    eta_lines = [(line, read(f"evidence/eta_bundle{suffix}.json", {}))
+                 for line, suffix in (("2호선", ""), ("5호선", "_5"), ("7호선", "_7"))]
     full = read("evidence/cost-plan-full.json", {})
     small = read("evidence/cost-plan-default-cap.json", {})
     quality = read("evidence/trace_quality.json", {})
@@ -32,9 +34,19 @@ def main():
     clone = read(".local/clone-check.json", {})
     clone_text = "PASS_LOCAL_ONLY" if clone.get("status") == "PASS" else "NOT_RUN"
     integrity_text = "PASS_LOCAL_CHECKS — checksum manifest generated" if (ROOT/"SHA256SUMS.txt").exists() and local_ok else "PENDING until recording finishes and final verification runs"
-    error = eta.get("median_relative_error")
-    error_text = f"{error:.4%}" if error is not None else "UNAVAILABLE"
-    eta_gate = "PASS" if eta.get("gate_lte_15_percent") is True else "FAIL" if eta.get("gate_lte_15_percent") is False else "UNAVAILABLE"
+    recording_text = "; ".join(f"{r['line']}: {'complete' if r.get('complete') else 'active/partial'}, {r.get('polls',0)} polls, {r.get('observations',0)} observations, {r.get('gaps',0)} gaps" for r in recordings)
+    eta_text = []
+    for line, bundle in eta_lines:
+        evaluation = bundle.get("evaluation", {})
+        median = evaluation.get("median_relative_error")
+        error = f"{median:.4%}" if isinstance(median, (int, float)) else "UNAVAILABLE"
+        gate = "PASS" if evaluation.get("gate_lte_15_percent") is True else "FAIL" if evaluation.get("gate_lte_15_percent") is False else "UNAVAILABLE"
+        eta_text.append(f"{line}: n={evaluation.get('n',0)}, median {error}, ≤15% gate {gate}, recording_complete={bundle.get('recording_complete',False)}")
+    speech = read("evidence/browser_speech.json", {})
+    speech_text = " Authored 1× browser-speech QA: " + speech.get("status", "UNRUN") + "." if speech else ""
+    responsive = read("evidence/responsive-390-review.json", {})
+    if responsive:
+        speech_text += " 390px desktop-iframe layout passed after fixing selector truncation; actual-phone review remains unrun."
     stamp = dt.datetime.now(ZoneInfo("Asia/Seoul")).isoformat(timespec="seconds")
     lines = ["# Last Sentence · execution report", "", f"Updated {stamp}.", "",
              "**Disposition: HOLD.** Local code, replay and deployment packaging are implemented; actual Nebius/Tavily runtime use, prospective live narration, observed model-backed speech timing and public release remain unverified. This report is not a submission receipt or a claim of contest eligibility.", "",
@@ -55,13 +67,13 @@ def main():
         lines.append(f'| {c["id"]} | {cell(c["expected"])} | {cell(observed)} | {status} |')
     lines += ["", "P7 checks the supported-language section, not incidental mentions of Korean in training-data descriptions. It does not establish that other models cannot generate Korean. P12 found the termination banner in page HTML while a separately queried sample response was fresh. Saved sources and hashes are in `evidence/preflight.json`; full downloaded pages are retained locally and ignored by Git.", "",
               "## §2 Track status", "", "| Track | Status and concrete evidence |", "| --- | --- |",
-              f"| T1 recording | {'40-minute planned run completed' if meta.get('complete') else 'Partial recording'}; {meta.get('polls',0)} polls, {meta.get('observations',0)} observations, {meta.get('gaps',0)} gaps; `{meta.get('started_at','?')}` to `{meta.get('finished_at',meta.get('last_poll_at','?'))}` |",
-              f"| T1 ETA | Held-out train identities; {eta.get('n',0)} eligible 3–10-segment windows; median relative error {error_text}; registered ≤15% gate **{eta_gate}**. Station-arrival proxy only. |",
-              f"| T1 data quality | Receipt timestamp age: median {ages.get('p50','?')} s / p95 {ages.get('p95','?')} s across repeated poll records. This is not network delay or a door-opening offset. Overlapping forecast windows are not independent journeys. |",
+              f"| T1 recording | {recording_text}. Individual raw files and completion metadata are retained; the combined snapshot is separate. |",
+              f"| T1 ETA | {'; '.join(eta_text)}. Whole-train-held-out 3–10-segment windows; station-arrival proxy only. Each line needs its own completed-recording gate. |",
+              f"| T1 data quality | Line-2 receipt timestamp age: median {ages.get('p50','?')} s / p95 {ages.get('p95','?')} s across repeated poll records. This is not network delay or a door-opening offset. Overlapping forecast windows are not independent journeys. |",
               f"| T1 replay data | {len(manifest.get('journeys',[]))} contiguous recorded journey segments; known future replay clock, not an ETA forecast. Three separate synthetic fixtures. |",
-              "| T2 Worker | Implemented tools, fallback, Writer validation, receipts, atomic quotas and authenticated observed ETA. Actual public SAMPLE position → verified arrival/terminus → 3-stop ETA passed in local workerd; `/api/plan` correctly refused the missing Nebius key. Model behavior remains mock-tested only. See `evidence/worker/runtime_frozen_eta.json`. H2/H4 parked: inference and deployment unrun. |",
-              "| T3 app | Recorded/fixture source and train selection, language, replay controls, optional sequential TTS, receipts and explicit connected generation. Prepared Live controller selects actual train/direction/forward exit, keeps wall time during requests and swaps rewritten text at a sentence boundary. Desktop keyless flows checked; connected/Live paths use mocked tests until vendor keys and field validation. |",
-              "| T4 comparison | 0 real inference runs. Nine explicitly synthetic policy rows only. Guarded model-backed timing-simulation executor implemented with mock HTTP tests; it requires explicit execution/cost flags, protected session credentials, fresh pricing and Worker capacity checks. Full plan refused. Real browser timing is imported separately. |",
+              "| T2 Worker | Implemented tools, fallback, Writer validation, receipts, atomic quotas and authenticated observed ETA. Actual public SAMPLE position → exact station-ID/arrival-v2 anchor → verified terminus → 3-stop ETA passed for all three lines in local workerd. Every `/api/plan` correctly refused the missing Nebius key; completion/search deltas were zero. See `evidence/worker/runtime_all_lines.json`. Model behavior remains mock-tested; inference and deployment unrun. |",
+              "| T3 app | Recorded/fixture source, train/boarding/exit selection, language, replay controls, optional sequential TTS, receipts and explicit connected generation. Replay and Live retain speech/clock progress during requests and apply affected-scene edits at a sentence boundary. Live selects an actual train/direction/forward terminus. Desktop keyless flows checked; model paths remain mock-tested until vendor keys and field validation." + speech_text + " |",
+              f"| T4 comparison | 0 real inference runs. Nine explicitly synthetic policy rows only. Guarded model-backed timing-simulation executor implemented with mock HTTP tests; it requires explicit execution/cost flags, protected session credentials, fresh pricing and Worker capacity checks. Full 30×3 + pair bound ${full.get('worst_case_usd','?')}, allowed={full.get('allowed',False)} with configured completion cap {full.get('configured_completion_cap','?')}; not executed. Real browser timing is imported separately. |",
               "| T5 documents | README, LIMITATIONS, FEEDBACK, PRIOR_ART, RESULTS, DATA, API, RUNBOOK and VIDEO_SCRIPT present. Feedback and video remain local drafts. |", "",
               "## §3 Acceptance A1–A7", "", "| Gate | Result |", "| --- | --- |",
               f"| A1 local tests | {'PASS' if local_ok else 'See evidence/verification.json'}; exact commands/counts below. This code-test result does not override the separate ETA quality gate. |",
@@ -75,9 +87,8 @@ def main():
         summary = "\n".join(c.get("stdout", "").strip().splitlines()[-10:])
         lines += ["```text", " ".join(c["command"]), summary, f"exit_code={c['exit_code']}", "```", ""]
     lines += ["## §4 Cost", "", "Actual model calls: **0**. Actual Tavily calls: **0**. Actual model/search API spend from this run: **$0**. Public position/API documentation requests are separate from model inference.", "",
-              f"- Full 30×3 + language pair: bound ${full.get('worst_case_usd','?')}, {full.get('max_total_completions','?')} completions; refused.",
-              f"- Default-cap alternative 5×3 + language pair: bound ${small.get('worst_case_usd','?')}, {small.get('max_total_completions','?')} completions; planning only.",
-              "- 17×3 + language pair: $2.89791392 / 811 completions; requires an explicitly raised call-count configuration, available reservation capacity and separate authorization. It remains unrun.",
+              f"- Full 30×3 + language pair: bound ${full.get('worst_case_usd','?')}, {full.get('max_total_completions','?')} completions; planned input envelope {full.get('max_input_tokens_per_completion','?')} and explicit completion ceiling {full.get('configured_completion_cap','?')}. Allowed by those guards: {full.get('allowed',False)}. Execution unrun.",
+              f"- Optional default-cap diagnostic 5×3 + language pair: bound ${small.get('worst_case_usd','?')}, {small.get('max_total_completions','?')} completions; planning only. This does not replace the original balanced full comparison.",
               "- The Worker keeps a ≤$3 inference reservation ceiling and independently limits completions/searches. Tavily credit pricing is not established by the model catalog. Bounds and provider-usage estimates are not invoices or an account-wide spending guarantee.", "",
               "## §5 Changes from the supplied plan", "",
               "- Created a new isolated local repository; public GitHub and Cloudflare actions were not inferred from the attachment.",
@@ -86,13 +97,16 @@ def main():
               "- `scripts/build.mjs`, `scripts/serve.mjs`, `scripts/verify.py` and `scripts/make_report.py` provide local preview, complete static app/doc packaging and reproducible local checks. No global tool installation or automatic login occurred.",
               "- `tests/player.test.mjs`, `tests/connected_flow.test.mjs` and local workerd tests exercise UI timing, cancellation, cost retention and atomic quotas without vendor inference.",
               "- `scripts/model_simulation.py` adds an explicitly guarded inference executor to `run_matrix.py`. Its speech clock uses fixed characters/second plus measured HTTP latency, and is always labeled model-backed timing simulation. It never claims actual browser TTS. Real audio experiments remain additional work after keys are available. Connected replay uses a known event clock; Live keeps wall time and an observed arrival proxy.",
+              "- Full line-5 and line-7 graphs were checked against official SMSS maps and a separate dated public timetable. One-off missing-stop jumps were retained as unconfirmed and excluded from adjacency. Each line has a separate frozen bundle and quality gate; topology is not empirical coverage. See `evidence/topology/crosscheck.json`.",
               "- The registered ETA gate is reported as measured, including failure or insufficient data. The handoff's earlier percentages, example +4 s, install count and unverified competitive claims are not presented as new results.",
               "- Full downloaded third-party pages, node_modules, build output, credentials and temporary clone artifacts are excluded from version control. Compact source/pricing/verification evidence is retained.", "",
               "## §6 Human gates", "",
               "1. H2/H3: Nebius/Tavily keys are not yet available (confirmed by the user). The public SAMPLE path and completed ETA gate now work; real model calls, voice timing and field use remain unverified. A private Seoul key path additionally requires HTTPS reachability.",
               "2. H4: after reviewing this local build, explicitly authorize any real inference experiment and its total spending limit, then separately approve public source/deployment. No such external operation was performed here.",
               "3. H1/H5/H6: Devpost draft/registration state is unknown; phone review, public YouTube video and submission are unrun. These remain manual human actions. The official deadline was checked as October 31, 2026, 02:00 KST. A keyless replay alone does not meet the required runtime Nebius use.", "",
-              "Primary rule source: https://nebiusglobalaihackathon.devpost.com/rules. Reproduction and resumption steps are in `docs/RUNBOOK.md` and `docs/API.md`.", ""]
+              "Primary rule source: https://nebiusglobalaihackathon.devpost.com/rules. Reproduction and resumption steps are in `docs/RUNBOOK.md` and `docs/API.md`.", "",
+              "## §7 Full-scope completion audit", "",
+              "`evidence/completion_audit.json` inventories the original numbered tracks, P1–P12, A1–A7 and human gates separately. The objective remains incomplete: a local code pass, actual provider records, a passed proxy ETA gate and a bounded plan do not substitute for authenticated runtime results, actual model-backed speech, independently observed doors, public acceptance checks or submission.", ""]
     (ROOT/"REPORT.md").write_text("\n".join(lines))
     print(ROOT/"REPORT.md")
 

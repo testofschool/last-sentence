@@ -1,0 +1,10 @@
+# Prepared local profile for the full 30-journey × 3-policy + language-pair experiment.
+# No calls are enabled by this example. Explicit cost acknowledgment and real
+# server credentials are still required before authorized execution.
+ENABLE_LIVE=false
+LIVE_MAX_COMPLETIONS=2048
+LIVE_BUDGET_USD=3.00
+LIVE_ACCESS_TOKEN=
+NEBIUS_API_KEY=
+TAVILY_API_KEY=
+SEOUL_RT_KEY=SAMPLE

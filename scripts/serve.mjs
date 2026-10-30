@@ -8,6 +8,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const web = resolve(root, 'web');
 const port = Number(process.env.PORT || 4188);
 const mime = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.css':'text/css; charset=utf-8', '.json':'application/json; charset=utf-8', '.jsonl':'application/x-ndjson; charset=utf-8', '.md':'text/plain; charset=utf-8', '.svg':'image/svg+xml' };
+const etaAssets={'/replay/eta-bundle.json':'eta_bundle.json','/replay/eta-bundle-5.json':'eta_bundle_5.json','/replay/eta-bundle-7.json':'eta_bundle_7.json'};
 const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://127.0.0.1:${port}`);
@@ -22,8 +23,8 @@ const server = createServer(async (req, res) => {
       const request = new Request(url, {method:req.method,headers:req.headers,
         ...(req.method !== 'GET' && req.method !== 'HEAD' ? {body:Buffer.concat(chunks)} : {})});
       const env = {ASSETS:{async fetch(assetRequest){
-        if (new URL(assetRequest.url).pathname !== '/replay/eta-bundle.json') return new Response('Not found',{status:404});
-        try {return new Response(await readFile(resolve(root,'evidence/eta_bundle.json')), {headers:{'content-type':'application/json'}});}
+        const source=etaAssets[new URL(assetRequest.url).pathname];if(!source)return new Response('Not found',{status:404});
+        try {return new Response(await readFile(resolve(root,'evidence',source)), {headers:{'content-type':'application/json'}});}
         catch {return new Response('Not found',{status:404});}
       }}};
       const response = await handleRequest(request, env);
@@ -33,8 +34,8 @@ const server = createServer(async (req, res) => {
     }
     if (!['GET','HEAD'].includes(req.method)) { res.writeHead(405).end(); return; }
     const pathname = decodeURIComponent(url.pathname);
-    if (pathname === '/replay/eta-bundle.json') {
-      const body = await readFile(resolve(root, 'evidence/eta_bundle.json'));
+    if (Object.hasOwn(etaAssets,pathname)) {
+      const body = await readFile(resolve(root,'evidence',etaAssets[pathname]));
       res.writeHead(200, {'Content-Type':mime['.json'],'Cache-Control':'no-store'}).end(req.method === 'HEAD' ? '' : body);
       return;
     }

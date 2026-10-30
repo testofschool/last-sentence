@@ -1,0 +1,1201 @@
+{
+  "schema": "last-sentence/eta-bundle-v1",
+  "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+  "prepared_at": "2026-10-30T02:30:04.163394+00:00",
+  "recording_complete": true,
+  "model": {
+    "schema": "last-sentence/eta-v1",
+    "source": "recorded-station-arrival-proxy",
+    "segments": {
+      "5호선|공덕|애오개": {
+        "median_s": 126.0,
+        "sd_s": 4.123105625617661,
+        "n": 4,
+        "trains": 4
+      },
+      "5호선|애오개|충정로": {
+        "median_s": 105.0,
+        "sd_s": 1.920286436967152,
+        "n": 4,
+        "trains": 4
+      },
+      "5호선|충정로|서대문": {
+        "median_s": 95.5,
+        "sd_s": 3.0413812651491097,
+        "n": 4,
+        "trains": 4
+      },
+      "5호선|서대문|광화문": {
+        "median_s": 123.0,
+        "sd_s": 2.6246692913372702,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|광화문|종로3가": {
+        "median_s": 125.0,
+        "sd_s": 2.6246692913372702,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|종로3가|을지로4가": {
+        "median_s": 136.0,
+        "sd_s": 5.0990195135927845,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|을지로4가|동대문역사문화공원": {
+        "median_s": 129.0,
+        "sd_s": 3.0912061651652345,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|동대문역사문화공원|청구": {
+        "median_s": 113.0,
+        "sd_s": 1.699673171197595,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|청구|신금호": {
+        "median_s": 121.0,
+        "sd_s": 4.0276819911981905,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|신금호|행당": {
+        "median_s": 108.0,
+        "sd_s": 4.0276819911981905,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|행당|왕십리": {
+        "median_s": 104.0,
+        "sd_s": 1.0,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|왕십리|마장": {
+        "median_s": 99.5,
+        "sd_s": 1.5,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|마장|답십리": {
+        "median_s": 133.0,
+        "sd_s": 3.0,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|답십리|장한평": {
+        "median_s": 131.5,
+        "sd_s": 1.5,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|영등포구청|영등포시장": {
+        "median_s": 111.0,
+        "sd_s": 14.165686240583852,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|영등포시장|신길": {
+        "median_s": 114.0,
+        "sd_s": 2.494438257849294,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|신길|여의도": {
+        "median_s": 116.0,
+        "sd_s": 4.0276819911981905,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|여의도|여의나루": {
+        "median_s": 115.0,
+        "sd_s": 2.449489742783178,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|여의나루|마포": {
+        "median_s": 152.0,
+        "sd_s": 2.8674417556808756,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|마포|공덕": {
+        "median_s": 104.0,
+        "sd_s": 4.546060565661952,
+        "n": 3,
+        "trains": 3
+      },
+      "5호선|신정|목동": {
+        "median_s": 102.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|목동|오목교": {
+        "median_s": 111.5,
+        "sd_s": 1.5,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|오목교|양평": {
+        "median_s": 114.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      },
+      "5호선|양평|영등포구청": {
+        "median_s": 101.5,
+        "sd_s": 0.5,
+        "n": 2,
+        "trains": 2
+      }
+    },
+    "line_medians_s": {
+      "5호선": 116.0
+    },
+    "segment_observations": 97,
+    "usable_segments": 24,
+    "rejected": {
+      "gaps": 0,
+      "non_arrival": 260,
+      "missing_fields": 0,
+      "stale": 0,
+      "synthetic": 0,
+      "continuity_gaps": 0,
+      "source_breaks": 0,
+      "direction_breaks": 0
+    }
+  },
+  "evaluation": {
+    "method": "leave-one-train-identity-out",
+    "station_horizons": [
+      3,
+      10
+    ],
+    "n": 556,
+    "train_identities": 5,
+    "median_relative_error": 0.01961533273928108,
+    "gate_lte_15_percent": true,
+    "status": "measured",
+    "excluded_predictions": 0,
+    "arrival_event": "station-arrival-proxy",
+    "rejected": {
+      "gaps": 0,
+      "non_arrival": 260,
+      "missing_fields": 0,
+      "stale": 0,
+      "synthetic": 0,
+      "continuity_gaps": 0,
+      "source_breaks": 0,
+      "direction_breaks": 0
+    }
+  },
+  "notice": "Experimental estimate from station-arrival proxy observations. Held-out windows overlap; a passed median-error gate is not a confidence interval or a guarantee of ±30-second narration.",
+  "line": "5호선",
+  "topology_sha256": "04c3e2853220dd945243bb3b62278f3c673f322a3e17e1620d13f0ff5331b1fa",
+  "topology": {
+    "schema": "last-sentence/topology-v1",
+    "line": "5호선",
+    "paths": [
+      [
+        "방화",
+        "개화산",
+        "김포공항",
+        "송정",
+        "마곡",
+        "발산",
+        "우장산",
+        "화곡",
+        "까치산",
+        "신정",
+        "목동",
+        "오목교",
+        "양평",
+        "영등포구청",
+        "영등포시장",
+        "신길",
+        "여의도",
+        "여의나루",
+        "마포",
+        "공덕",
+        "애오개",
+        "충정로",
+        "서대문",
+        "광화문",
+        "종로3가",
+        "을지로4가",
+        "동대문역사문화공원",
+        "청구",
+        "신금호",
+        "행당",
+        "왕십리",
+        "마장",
+        "답십리",
+        "장한평",
+        "군자",
+        "아차산",
+        "광나루",
+        "천호",
+        "강동",
+        "길동",
+        "굽은다리",
+        "명일",
+        "고덕",
+        "상일동",
+        "강일",
+        "미사",
+        "하남풍산",
+        "하남시청",
+        "하남검단산"
+      ],
+      [
+        "방화",
+        "개화산",
+        "김포공항",
+        "송정",
+        "마곡",
+        "발산",
+        "우장산",
+        "화곡",
+        "까치산",
+        "신정",
+        "목동",
+        "오목교",
+        "양평",
+        "영등포구청",
+        "영등포시장",
+        "신길",
+        "여의도",
+        "여의나루",
+        "마포",
+        "공덕",
+        "애오개",
+        "충정로",
+        "서대문",
+        "광화문",
+        "종로3가",
+        "을지로4가",
+        "동대문역사문화공원",
+        "청구",
+        "신금호",
+        "행당",
+        "왕십리",
+        "마장",
+        "답십리",
+        "장한평",
+        "군자",
+        "아차산",
+        "광나루",
+        "천호",
+        "강동",
+        "둔촌동",
+        "올림픽공원",
+        "방이",
+        "오금",
+        "개롱",
+        "거여",
+        "마천"
+      ]
+    ],
+    "direction_steps": {
+      "0": -1,
+      "1": 1
+    },
+    "stations": {
+      "방화": {
+        "smss_station_code": "2511",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "방화"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": [
+          "1005000510"
+        ]
+      },
+      "개화산": {
+        "smss_station_code": "2512",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "개화산"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "김포공항": {
+        "smss_station_code": "2513",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "김포공항"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "송정": {
+        "smss_station_code": "2514",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "송정"
+        ],
+        "observed_api_station_ids": [
+          "1005000513"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "마곡": {
+        "smss_station_code": "2515",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "마곡"
+        ],
+        "observed_api_station_ids": [
+          "1005000514"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "발산": {
+        "smss_station_code": "2516",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "발산"
+        ],
+        "observed_api_station_ids": [
+          "1005000515"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "우장산": {
+        "smss_station_code": "2517",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "우장산"
+        ],
+        "observed_api_station_ids": [
+          "1005000516"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "화곡": {
+        "smss_station_code": "2518",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "화곡"
+        ],
+        "observed_api_station_ids": [
+          "1005000517"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "까치산": {
+        "smss_station_code": "2519",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "까치산"
+        ],
+        "observed_api_station_ids": [
+          "1005000518"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "신정": {
+        "smss_station_code": "2520",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "신정",
+          "신정(은행정)"
+        ],
+        "observed_api_station_ids": [
+          "1005000519"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "목동": {
+        "smss_station_code": "2521",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "목동"
+        ],
+        "observed_api_station_ids": [
+          "1005000520"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "오목교": {
+        "smss_station_code": "2522",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "오목교",
+          "오목교(목동운동장앞)"
+        ],
+        "observed_api_station_ids": [
+          "1005000521"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "양평": {
+        "smss_station_code": "2523",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "양평"
+        ],
+        "observed_api_station_ids": [
+          "1005000522"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "영등포구청": {
+        "smss_station_code": "2524",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "영등포구청"
+        ],
+        "observed_api_station_ids": [
+          "1005000523"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "영등포시장": {
+        "smss_station_code": "2525",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "영등포시장"
+        ],
+        "observed_api_station_ids": [
+          "1005000524"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "신길": {
+        "smss_station_code": "2526",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "신길"
+        ],
+        "observed_api_station_ids": [
+          "1005000525"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "여의도": {
+        "smss_station_code": "2527",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "여의도"
+        ],
+        "observed_api_station_ids": [
+          "1005000526"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "여의나루": {
+        "smss_station_code": "2528",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "여의나루"
+        ],
+        "observed_api_station_ids": [
+          "1005000527"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "마포": {
+        "smss_station_code": "2529",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "마포"
+        ],
+        "observed_api_station_ids": [
+          "1005000528"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "공덕": {
+        "smss_station_code": "2530",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "공덕"
+        ],
+        "observed_api_station_ids": [
+          "1005000529"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "애오개": {
+        "smss_station_code": "2531",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "애오개"
+        ],
+        "observed_api_station_ids": [
+          "1005000530"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "충정로": {
+        "smss_station_code": "2532",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "충정로"
+        ],
+        "observed_api_station_ids": [
+          "1005000531"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "서대문": {
+        "smss_station_code": "2533",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "서대문"
+        ],
+        "observed_api_station_ids": [
+          "1005000532"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "광화문": {
+        "smss_station_code": "2534",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "광화문"
+        ],
+        "observed_api_station_ids": [
+          "1005000533"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "종로3가": {
+        "smss_station_code": "2535",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "종로3가"
+        ],
+        "observed_api_station_ids": [
+          "1005000534"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "을지로4가": {
+        "smss_station_code": "2536",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "을지로4가"
+        ],
+        "observed_api_station_ids": [
+          "1005000535"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "동대문역사문화공원": {
+        "smss_station_code": "2537",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "동대문역사문화공원"
+        ],
+        "observed_api_station_ids": [
+          "1005000536"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "청구": {
+        "smss_station_code": "2538",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "청구"
+        ],
+        "observed_api_station_ids": [
+          "1005000537"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "신금호": {
+        "smss_station_code": "2539",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "신금호"
+        ],
+        "observed_api_station_ids": [
+          "1005000538"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "행당": {
+        "smss_station_code": "2540",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "행당"
+        ],
+        "observed_api_station_ids": [
+          "1005000539"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "왕십리": {
+        "smss_station_code": "2541",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "왕십리"
+        ],
+        "observed_api_station_ids": [
+          "1005000540"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "마장": {
+        "smss_station_code": "2542",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "마장"
+        ],
+        "observed_api_station_ids": [
+          "1005000541"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "답십리": {
+        "smss_station_code": "2543",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "답십리"
+        ],
+        "observed_api_station_ids": [
+          "1005000542"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "장한평": {
+        "smss_station_code": "2544",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "장한평"
+        ],
+        "observed_api_station_ids": [
+          "1005000543"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "군자": {
+        "smss_station_code": "2545",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "군자",
+          "군자(능동)"
+        ],
+        "observed_api_station_ids": [
+          "1005000544"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "아차산": {
+        "smss_station_code": "2546",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "아차산",
+          "아차산(어린이대공원후문)"
+        ],
+        "observed_api_station_ids": [
+          "1005000545"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "광나루": {
+        "smss_station_code": "2547",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "광나루",
+          "광나루(장신대)"
+        ],
+        "observed_api_station_ids": [
+          "1005000546"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "천호": {
+        "smss_station_code": "2548",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "천호",
+          "천호(풍납토성)"
+        ],
+        "observed_api_station_ids": [
+          "1005000547"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "강동": {
+        "smss_station_code": "2549",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "강동"
+        ],
+        "observed_api_station_ids": [
+          "1005000548"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "길동": {
+        "smss_station_code": "2550",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "길동"
+        ],
+        "observed_api_station_ids": [
+          "1005000549"
+        ],
+        "observed_api_terminal_ids": []
+      },
+      "굽은다리": {
+        "smss_station_code": "2551",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "굽은다리"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "명일": {
+        "smss_station_code": "2552",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "명일"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "고덕": {
+        "smss_station_code": "2553",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "고덕"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "상일동": {
+        "smss_station_code": "2554",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "상일동"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "강일": {
+        "smss_station_code": "2562",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "강일"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "미사": {
+        "smss_station_code": "2563",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "미사"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "하남풍산": {
+        "smss_station_code": "2564",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "하남풍산"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "하남시청": {
+        "smss_station_code": "2565",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "하남시청"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "하남검단산": {
+        "smss_station_code": "2566",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "하남검단산"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": [
+          "1005000558"
+        ]
+      },
+      "둔촌동": {
+        "smss_station_code": "2555",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "둔촌동"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "올림픽공원": {
+        "smss_station_code": "2556",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "올림픽공원"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "방이": {
+        "smss_station_code": "2557",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "방이"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "오금": {
+        "smss_station_code": "2558",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "오금"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "개롱": {
+        "smss_station_code": "2559",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "개롱"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "거여": {
+        "smss_station_code": "2560",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "거여"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": []
+      },
+      "마천": {
+        "smss_station_code": "2561",
+        "code_namespace": "SeoulMetro-SMSS",
+        "aliases": [
+          "마천"
+        ],
+        "observed_api_station_ids": [],
+        "observed_api_terminal_ids": [
+          "1005080555"
+        ]
+      }
+    },
+    "edges": [
+      [
+        "강동",
+        "길동"
+      ],
+      [
+        "강동",
+        "둔촌동"
+      ],
+      [
+        "강일",
+        "미사"
+      ],
+      [
+        "개롱",
+        "거여"
+      ],
+      [
+        "개화산",
+        "김포공항"
+      ],
+      [
+        "거여",
+        "마천"
+      ],
+      [
+        "고덕",
+        "상일동"
+      ],
+      [
+        "공덕",
+        "애오개"
+      ],
+      [
+        "광나루",
+        "천호"
+      ],
+      [
+        "광화문",
+        "종로3가"
+      ],
+      [
+        "군자",
+        "아차산"
+      ],
+      [
+        "굽은다리",
+        "명일"
+      ],
+      [
+        "길동",
+        "굽은다리"
+      ],
+      [
+        "김포공항",
+        "송정"
+      ],
+      [
+        "까치산",
+        "신정"
+      ],
+      [
+        "답십리",
+        "장한평"
+      ],
+      [
+        "동대문역사문화공원",
+        "청구"
+      ],
+      [
+        "둔촌동",
+        "올림픽공원"
+      ],
+      [
+        "마곡",
+        "발산"
+      ],
+      [
+        "마장",
+        "답십리"
+      ],
+      [
+        "마포",
+        "공덕"
+      ],
+      [
+        "명일",
+        "고덕"
+      ],
+      [
+        "목동",
+        "오목교"
+      ],
+      [
+        "미사",
+        "하남풍산"
+      ],
+      [
+        "발산",
+        "우장산"
+      ],
+      [
+        "방이",
+        "오금"
+      ],
+      [
+        "방화",
+        "개화산"
+      ],
+      [
+        "상일동",
+        "강일"
+      ],
+      [
+        "서대문",
+        "광화문"
+      ],
+      [
+        "송정",
+        "마곡"
+      ],
+      [
+        "신금호",
+        "행당"
+      ],
+      [
+        "신길",
+        "여의도"
+      ],
+      [
+        "신정",
+        "목동"
+      ],
+      [
+        "아차산",
+        "광나루"
+      ],
+      [
+        "애오개",
+        "충정로"
+      ],
+      [
+        "양평",
+        "영등포구청"
+      ],
+      [
+        "여의나루",
+        "마포"
+      ],
+      [
+        "여의도",
+        "여의나루"
+      ],
+      [
+        "영등포구청",
+        "영등포시장"
+      ],
+      [
+        "영등포시장",
+        "신길"
+      ],
+      [
+        "오금",
+        "개롱"
+      ],
+      [
+        "오목교",
+        "양평"
+      ],
+      [
+        "올림픽공원",
+        "방이"
+      ],
+      [
+        "왕십리",
+        "마장"
+      ],
+      [
+        "우장산",
+        "화곡"
+      ],
+      [
+        "을지로4가",
+        "동대문역사문화공원"
+      ],
+      [
+        "장한평",
+        "군자"
+      ],
+      [
+        "종로3가",
+        "을지로4가"
+      ],
+      [
+        "천호",
+        "강동"
+      ],
+      [
+        "청구",
+        "신금호"
+      ],
+      [
+        "충정로",
+        "서대문"
+      ],
+      [
+        "하남시청",
+        "하남검단산"
+      ],
+      [
+        "하남풍산",
+        "하남시청"
+      ],
+      [
+        "행당",
+        "왕십리"
+      ],
+      [
+        "화곡",
+        "까치산"
+      ]
+    ],
+    "branch_junction": "강동",
+    "scope": "Official displayed physical topology; verify live service/terminus separately.",
+    "direction_confirmation": {
+      "confirmed": true,
+      "source": "recorded-adjacent-station-transitions",
+      "transitions": 97,
+      "counts": {
+        "api_direction_0_path_step_-1": 19,
+        "api_direction_1_path_step_1": 78
+      },
+      "inconsistent_pairs": 0,
+      "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+      "checked_at": "2026-10-30T02:30:04.047668+00:00"
+    },
+    "sources": [
+      {
+        "url": "https://smss.seoulmetro.co.kr/traininfo/traininfoUserView.do",
+        "saved_path": ".local/topology/smss.html",
+        "sha256": "7d899bc47f1b9ec4f69e076d1a4e41662f0ddb4f05b4133c84262a690459ec30",
+        "bytes": 22140,
+        "local_only": true
+      },
+      {
+        "url": "https://smss.seoulmetro.co.kr/css/traininfo_user_v2.css",
+        "saved_path": ".local/topology/smss_map.css",
+        "sha256": "fe087a6e90db44f066dda737df88779ac354f3d675ea46f9f12551953ce24532",
+        "bytes": 192004,
+        "local_only": true
+      },
+      {
+        "url": "https://smss.seoulmetro.co.kr/images/train/user/normal/line5_v4.png",
+        "saved_path": ".local/topology/line5_official.png",
+        "sha256": "8dc1088e7a5b1f436ebbbd68193d1f57bdd4b0d0bac6fb20577bcfd442afe47b",
+        "bytes": 951072,
+        "local_only": true
+      },
+      {
+        "url": "https://smss.seoulmetro.co.kr/traininfo/traininfoUserMap.do",
+        "saved_path": ".local/topology/smss_line5.html",
+        "sha256": "a1db74963d9f9c9a94217d846128deb35913f47f2d45a0abe5eef7a08f8c29ab",
+        "bytes": 34101,
+        "local_only": true,
+        "method": "POST",
+        "form": {
+          "line": "5",
+          "isCb": "N"
+        }
+      },
+      {
+        "url": "https://smss.seoulmetro.co.kr/images/train/user/normal/line7_v4.png",
+        "saved_path": ".local/topology/line7_official.png",
+        "sha256": "a3c27eae7a6d78f8a4321c1671be6631a3e074417121be61b1858994a0ab8428",
+        "bytes": 936812,
+        "local_only": true
+      },
+      {
+        "url": "https://smss.seoulmetro.co.kr/traininfo/traininfoUserMap.do",
+        "saved_path": ".local/topology/smss_line7.html",
+        "sha256": "4b90450091ed894e0af1ddc0c45ab0bf7912c8bf4657f86e00fed1df3c586c55",
+        "bytes": 30352,
+        "local_only": true,
+        "method": "POST",
+        "form": {
+          "line": "7",
+          "isCb": "N"
+        }
+      },
+      {
+        "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimePosition/0/5/5%ED%98%B8%EC%84%A0",
+        "saved_path": "evidence/topology/line5_api_full_sample.json",
+        "sha256": "5c5a563b144c4942c2263db405551d51515c30e3c0a48ad39bc2581b33fbd1b4",
+        "bytes": 2082
+      },
+      {
+        "url": "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimePosition/0/5/7%ED%98%B8%EC%84%A0",
+        "saved_path": "evidence/topology/line7_api_full_sample.json",
+        "sha256": "70303a832f70e82306ef4cf8c9bed46a6f4e198f3ffc2af5f3b5c7e74bf210c8",
+        "bytes": 2038
+      }
+    ]
+  }
+}

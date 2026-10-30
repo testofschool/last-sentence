@@ -1,0 +1,44 @@
+{
+  "schema": "last-sentence/final-data-check-v1",
+  "verified_at": "2026-10-30T02:31:25.041333+00:00",
+  "method": "Independently recomputed each evaluation from its final raw bytes and matched the frozen bundle exactly; checked direction, manifest and matrix hashes.",
+  "lines": [
+    {
+      "line": "2호선",
+      "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+      "polls": 120,
+      "observations": 600,
+      "gaps": 0,
+      "windows": 338,
+      "median_relative_error": 0.04955196136866458,
+      "proxy_gate_lte_15_percent": true
+    },
+    {
+      "line": "5호선",
+      "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+      "polls": 120,
+      "observations": 600,
+      "gaps": 0,
+      "windows": 556,
+      "median_relative_error": 0.01961533273928108,
+      "proxy_gate_lte_15_percent": true
+    },
+    {
+      "line": "7호선",
+      "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+      "polls": 120,
+      "observations": 600,
+      "gaps": 0,
+      "windows": 279,
+      "median_relative_error": 0.047619047619047616,
+      "proxy_gate_lte_15_percent": true
+    }
+  ],
+  "combined_trace_sha256": "5c5bd96c331ca0ae0bd1f5b7d48d6d83dfc95840925a220e7ec31bc5746ca9d0",
+  "selected_windows_per_line": {
+    "2호선": 10,
+    "5호선": 10,
+    "7호선": 10
+  },
+  "notice": "Overlapping whole-train-held-out receipt-time-proxy windows, not independent trips, model-backed speech or door-opening measurements."
+}

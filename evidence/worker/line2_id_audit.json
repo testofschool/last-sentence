@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-30T02:15:27.288941+00:00",
+  "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+  "scope": "Exact canonical names in the frozen line2 trace; terminal-suffix aliases and branch stations excluded.",
+  "mapped_loop_station_count": 43,
+  "observed_name_id_pair_count": 40,
+  "observations_checked": 577,
+  "mismatches": [],
+  "unobserved_mapped_stations": [
+    "봉천",
+    "신림",
+    "신대방"
+  ],
+  "notice": "The fixed map is not evidence that every mapped station was observed. No network calls made."
+}

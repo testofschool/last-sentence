@@ -10,8 +10,9 @@ import statistics
 from run_matrix import policy_coverage
 
 
-def observed_eta_section(eta, quality):
-    lines = ["## Observed ETA proxy validation", "",
+def observed_eta_section(eta, quality, line=None):
+    title="## Observed ETA proxy validation"+(f" · {line}" if line else "")
+    lines = [title, "",
              "This section describes recorded station-arrival ETA validation. "
              "It is separate from the story-policy comparison above and does not measure "
              "Nemotron story generation, browser speech timing, or model-backed story landing accuracy.", ""]
@@ -71,7 +72,7 @@ def observed_eta_section(eta, quality):
     return lines
 
 
-def render(matrix, output, eta_evaluation=None, trace_quality=None):
+def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidence=None):
     rows = matrix.get("rows", [])
     measured = matrix.get("mode") == "recorded-browser-measurements"
     model_simulated = matrix.get("mode") == "model-backed-timing-simulation"
@@ -115,43 +116,61 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None):
               "Text comes from protected Worker model calls; speech duration is estimated from a fixed Unicode-character rate. "
               "Measured HTTP latency advances the simulation clock, and revisions take effect at sentence boundaries. "
               "Forecasts fit only other train identities. Only observed station timestamps reach the controller; final arrival is withheld for scoring. "
+              "Offline request pacing and public-price audit waits count in real session runtime but are excluded from this speech simulation. "
               "This is not browser speech, forward-in-time ETA, semantic story-quality, or door-open validation." if model_simulated else
               "The arrival event is the provider's station-arrival status. Polling and provider latency are not removed. "
-              "Browser speech-end timestamps reflect the recorded browser session, and must not be generalized to all devices.", "",
+              "Browser speech-end timestamps reflect the imported browser session. Historical replay retains its explicit uninterrupted 1× playback-origin mapping; "
+              "known-clock replay audio does not establish prospective ETA or door-open accuracy and must not be generalized to all devices.", "",
               "A numerical comparison with the earlier handoff's simulation is unavailable: its uncertainty model and data were not reproduced here.", ""]
-    lines += observed_eta_section(eta_evaluation, trace_quality)
+    lines += observed_eta_section(eta_evaluation, trace_quality,"2호선")
+    for evidence in line_evidence or []:
+        if evidence.get("eta") is not None or evidence.get("quality") is not None:
+            lines += observed_eta_section(evidence.get("eta"),evidence.get("quality"),evidence["line"])
     if model_simulated:
+        lines += [f"Offline pacing: `{matrix.get('pacing',{}).get('rpm',45)} RPM / {matrix.get('pacing',{}).get('tpm',300000)} TPM`, "
+                  f"waited `{matrix.get('pacing',{}).get('wait_s',0):.3f} s`, "
+                  f"real runtime ceiling `{matrix.get('max_execution_seconds',7200)} s`. "
+                  "Pacing reserves worst-case completion groups/input+output tokens and assumes no competing account traffic. "
+                  "These artificial experiment waits are excluded from simulated speech timing. Provider failures remain failures.", ""]
         lines += ["## Model execution failures", "", "```json", json.dumps(matrix.get("failures", []), ensure_ascii=False, indent=2), "```", "",
                   "All attempted calls, including failures and unknown usage/cost, are retained in the source matrix's `attempts` array. "
                   "An aborted run with incomplete receipts is never reported as zero spend.", ""]
     lines += [
               "## Five largest absolute errors", "",
-              "Rows retained verbatim from this matrix, including failures:", "", "```json",
+              "Largest errors among completed scored rows, retained verbatim. Unscored execution failures have no invented landing error; "
+              "they remain in the separate failures/attempts records and model-failure section when applicable:", "", "```json",
               json.dumps(sorted(rows, key=lambda r: abs(r["landing_error_s"]), reverse=True)[:5], ensure_ascii=False, indent=2),
               "```", "", "## Reproduce", "", "```sh",
-              "python3 scripts/run_matrix.py --mode plan --journeys 5 --out evidence/cost-plan-default-cap.json",
+              "python3 scripts/run_matrix.py --mode plan --journeys 30 --max-completions 2048 --out evidence/cost-plan-full.json",
               "python3 scripts/run_matrix.py --mode simulation --out evidence/simulation-matrix.json",
               "python3 scripts/make_results.py evidence/simulation-matrix.json", "```", "",
               "Planning uses the saved live model catalog and includes all Conductor fallback attempts. "
               "Both the dollar ceiling and the default 300 lifetime completion ceiling are checked; "
               "5 journeys × 3 policies plus 2 language runs have a conservative 295-completion bound. "
-              "A 17-journey plan requires an explicitly configured Worker ceiling of at least 811 completions "
-              "and the same $3 guard. The guarded runner inspects authorized Worker status for remaining "
+              "The full 30-journey plan plus language pair requires 1,370 maximum completions and an explicitly configured "
+              "Worker ceiling of 2,048; its 16,384-token input envelope is enforced before every completion. "
+              "At the checked prices its bound is $2.60596288, within the same $3 guard. This is planning, not execution. "
+              "The guarded runner inspects authorized Worker status for remaining "
               "capacity before beginning and before every inference dispatch. A denied plan exits with code 2 and makes no requests. "
               "Default modes make no inference requests. `--mode model-simulation` requires `--execute`, "
               "`--ack-cost 3`, a protected session-token file, a price snapshot checked within one hour, and an inference-ready Worker. "
+              "The full experiment defaults to a real-runtime ceiling of 7,200 seconds (`--max-runtime-s`, maximum 7,200). "
+              "Conservative 45RPM/300000TPM offline pacing counts in that runtime but is excluded from simulated speech time. "
+              "Public prices are revalidated after one hour; changed/unavailable rates stop further dispatch without raising the acknowledged cost bound. "
+              "Each inference request also supplies acknowledged rates to a Worker advertising expected-pricing support; "
+              "the Worker checks a fresh public catalog before each completion attempt and refuses a changed rate before reservation/provider dispatch. "
               "For actual timing results, instrument browser speech-end events and import them with "
               "`run_matrix.py --mode measured --measurements FILE --trace RECORDED.jsonl`. "
               "The importer requires matching trace SHA-256, actual arrival records, complete usage/cost/latency receipts, "
               "and a total cost no higher than $3.00. Character-count speech estimates are rejected as measured audio.", ""]
     lines += ["Model-backed timing simulation example (requires separately authorized execution and configured credentials):", "", "```sh",
-              "python3 scripts/run_matrix.py --mode model-simulation --journeys 5 \\",
-              "  --trace web/replay/trace_2026-10-30.jsonl --catalog evidence/preflight/prices.json \\",
+              "python3 scripts/run_matrix.py --mode model-simulation --journeys 30 --max-completions 2048 \\",
+              "  --trace web/replay/trace_2026-10-30_all_lines.jsonl --catalog evidence/model-prices.json \\",
               "  --worker-url https://YOUR-WORKER.example --session-key-file ~/.last_sentence_session \\",
-              "  --execute --ack-cost 3 --out evidence/model-simulation-run.json", "```", "",
+              "  --execute --ack-cost 3 --max-runtime-s 7200 --out evidence/model-simulation-run.json", "```", "",
               "Refresh the public price snapshot first with `python3 -I scripts/preflight.py`. "
               "This command was not executed in the keyless build. It writes real call receipts alongside simulated timing; "
-              "the output is never accepted as measured browser/audio landing performance.", ""]
+              "the output is never accepted as measured browser/audio landing performance. A fresh public catalog check is not atomic with provider billing.", ""]
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text("\n".join(lines), encoding="utf-8")
@@ -187,10 +206,18 @@ def main():
     parser.add_argument("--out", type=Path, default=Path("docs/RESULTS.md"))
     parser.add_argument("--eta-evaluation", type=Path, default=Path("evidence/eta_evaluation.json"))
     parser.add_argument("--trace-quality", type=Path, default=Path("evidence/trace_quality.json"))
+    for number in (5,7):
+        parser.add_argument(f"--eta-evaluation-{number}",type=Path,default=Path(f"evidence/eta_evaluation_{number}.json"))
+        parser.add_argument(f"--trace-quality-{number}",type=Path,default=Path(f"evidence/trace_quality_{number}.json"))
     args = parser.parse_args()
     eta = json.loads(args.eta_evaluation.read_text()) if args.eta_evaluation.is_file() else None
     quality = json.loads(args.trace_quality.read_text()) if args.trace_quality.is_file() else None
-    render(json.loads(args.matrix.read_text()), args.out, eta, quality)
+    line_evidence=[]
+    for number in (5,7):
+        eta_path=getattr(args,f"eta_evaluation_{number}");quality_path=getattr(args,f"trace_quality_{number}")
+        line_evidence.append({"line":f"{number}호선","eta":json.loads(eta_path.read_text()) if eta_path.is_file() else None,
+                              "quality":json.loads(quality_path.read_text()) if quality_path.is_file() else None})
+    render(json.loads(args.matrix.read_text()), args.out, eta, quality,line_evidence)
     print(args.out)
 
 

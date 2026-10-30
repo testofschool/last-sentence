@@ -1,0 +1,524 @@
+{
+  "schema": "last-sentence/prompt-envelope-v1",
+  "evidence_kind": "controlled-boundary-payloads-with-mocked-provider",
+  "checked_at": "2026-10-30T02:03:20.126Z",
+  "actual_provider_requests": 0,
+  "max_input_token_bound": 16384,
+  "framing_allowance": 4096,
+  "prompt_limits": {
+    "framing_tokens": 4096,
+    "tools_per_round": 3,
+    "total_distinct_tools": 3,
+    "scene_ops": 4,
+    "operation_reason_chars": 96,
+    "tool_arguments_bytes": 4096,
+    "tool_turn_content_bytes": 256,
+    "no_tool_content_bytes": 2048
+  },
+  "maximum_observed_input_bound": 15898,
+  "all_boundary_cases_accepted": true,
+  "passed": true,
+  "cases": [
+    {
+      "pattern": "four-byte Unicode",
+      "case": "all-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 2,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9331,
+          "input_bound": 13427
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "split-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9620,
+          "input_bound": 13716
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9721,
+          "input_bound": 13817
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "json-fallback",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 6393,
+          "input_bound": 10489
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 7706,
+          "input_bound": 11802
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "live-split-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3914,
+          "input_bound": 8010
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9309,
+          "input_bound": 13405
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 10579,
+          "input_bound": 14675
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "live-split-tools-5",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3938,
+          "input_bound": 8034
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9333,
+          "input_bound": 13429
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 10561,
+          "input_bound": 14657
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "live-split-tools-7",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3946,
+          "input_bound": 8042
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9341,
+          "input_bound": 13437
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 10631,
+          "input_bound": 14727
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "writer-en",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 1,
+      "requests": [
+        {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "serialized_utf8_bytes": 3629,
+          "input_bound": 7725
+        }
+      ]
+    },
+    {
+      "pattern": "four-byte Unicode",
+      "case": "writer-ko",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 1,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "serialized_utf8_bytes": 3628,
+          "input_bound": 7724
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "all-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 2,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9587,
+          "input_bound": 13683
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "split-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9876,
+          "input_bound": 13972
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 10233,
+          "input_bound": 14329
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "json-fallback",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 8441,
+          "input_bound": 12537
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11802,
+          "input_bound": 15898
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "live-split-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3914,
+          "input_bound": 8010
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9565,
+          "input_bound": 13661
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11091,
+          "input_bound": 15187
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "live-split-tools-5",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3938,
+          "input_bound": 8034
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9589,
+          "input_bound": 13685
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11073,
+          "input_bound": 15169
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "live-split-tools-7",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3946,
+          "input_bound": 8042
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9597,
+          "input_bound": 13693
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11143,
+          "input_bound": 15239
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "writer-en",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 1,
+      "requests": [
+        {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "serialized_utf8_bytes": 3629,
+          "input_bound": 7725
+        }
+      ]
+    },
+    {
+      "pattern": "JSON backslash escaping",
+      "case": "writer-ko",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 1,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "serialized_utf8_bytes": 3628,
+          "input_bound": 7724
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "all-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 2,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9587,
+          "input_bound": 13683
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "split-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9876,
+          "input_bound": 13972
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 10233,
+          "input_bound": 14329
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "json-fallback",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 4225,
+          "input_bound": 8321
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 8441,
+          "input_bound": 12537
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11802,
+          "input_bound": 15898
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "live-split-tools",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3914,
+          "input_bound": 8010
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9565,
+          "input_bound": 13661
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11091,
+          "input_bound": 15187
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "live-split-tools-5",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3938,
+          "input_bound": 8034
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9589,
+          "input_bound": 13685
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11073,
+          "input_bound": 15169
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "live-split-tools-7",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 3,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 3946,
+          "input_bound": 8042
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 9597,
+          "input_bound": 13693
+        },
+        {
+          "model": "nvidia/Nemotron-3_5-Lightning",
+          "serialized_utf8_bytes": 11143,
+          "input_bound": 15239
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "writer-en",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 1,
+      "requests": [
+        {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "serialized_utf8_bytes": 3629,
+          "input_bound": 7725
+        }
+      ]
+    },
+    {
+      "pattern": "JSON quote escaping",
+      "case": "writer-ko",
+      "status": 200,
+      "error": null,
+      "completion_dispatches_mocked": 1,
+      "requests": [
+        {
+          "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "serialized_utf8_bytes": 3628,
+          "input_bound": 7724
+        }
+      ]
+    }
+  ]
+}

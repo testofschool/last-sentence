@@ -38,17 +38,27 @@ def hashes():
     for folder in ("docs", "web", "scripts", "worker/src", "tests"):
         paths += [p for p in (ROOT/folder).rglob("*") if p.is_file() and "__pycache__" not in p.parts]
     paths += [p for p in (ROOT/"evidence").rglob("*") if p.is_file() and p.suffix in (".json", ".png") and p.name != "verification.json"]
+    paths += [ROOT / name for name in ("README.md", "LICENSE", "REPORT.md", ".gitignore", "package.json",
+              "worker/package.json", "worker/package-lock.json", "worker/wrangler.jsonc", "worker/worker-configuration.d.ts",
+              "worker/.gitignore", "worker/.dev.vars.example", "worker/.dev.vars.matrix.example")
+              if (ROOT / name).is_file()]
     lines = [hashlib.sha256(p.read_bytes()).hexdigest() + "  " + str(p.relative_to(ROOT)) for p in sorted(paths)]
     (ROOT/"SHA256SUMS.txt").write_text("\n".join(lines)+"\n")
     return len(lines)
 
 def main():
-    recording = ROOT / "web/replay/trace_2026-10-30.meta.json"
-    if recording.exists():
-        data = json.loads(recording.read_text())
-        if not data.get("finished_at"):
-            print("Trace recording is still active. Stop or finish it before final verification.", file=sys.stderr)
-            return 2
+    active = []
+    for p in sorted((ROOT / "web/replay").glob("*.meta.json")):
+        data = json.loads(p.read_text())
+        # A concatenated snapshot has source completion times, not its own
+        # recorder process or fabricated finish timestamp.
+        sources = data.get("recordings") if data.get("line") == "combined" else None
+        finished = all(r.get("metadata", {}).get("finished_at") for r in sources) if sources else data.get("finished_at")
+        if not finished:
+            active.append(str(p.relative_to(ROOT)))
+    if active:
+        print("Trace recording is still active. Finish it before final verification: " + ", ".join(active), file=sys.stderr)
+        return 2
     commands = [[sys.executable, "-m", "pytest", "-q", "tests"],
                 ["node", "--test", *[str(p.relative_to(ROOT)) for p in sorted((ROOT/"tests").glob("*.test.mjs"))]],
                 ["git", "diff", "--check"], ["git", "diff", "--cached", "--check"]]

@@ -36,6 +36,7 @@ async function call(path, body, env = {}, deps = { fetch: () => { throw Error('N
 test('keyless status and position never call providers or invent model use', async () => {
   const status = await call('/api/status');
   assert.equal(status.status, 200); assert.equal(status.body.inference_enabled, false);
+  assert.equal(status.body.expected_pricing_supported,true);
   assert.equal(status.body.mode, 'replay-only'); assert.equal(status.body.model, null);
   const pos = await call('/api/position?line=2%ED%98%B8%EC%84%A0');
   assert.equal(pos.status, 200); assert.equal(pos.body.mode, 'replay-forced'); assert.deepEqual(pos.body.positions, []);
@@ -106,10 +107,10 @@ test('two no-tool attempts fall back to JSON and count every completion', async 
   const result = await call('/api/plan', planBody, environment(), deps);
   assert.equal(result.status, 200); assert.equal(result.body.tool_calls_supported, false); assert.equal(result.body.required_tools_completed, false); assert.equal(result.body.calls.length, 3); assert.equal(result.body.usage.total_tokens, 360);
 });
-test('oversized echoed tool context cannot exceed the preregistered 32768-token input envelope', async () => {
+test('oversized echoed tool context is rejected without truncation before another completion', async () => {
   const deps = mockFetch([{ role: 'assistant', content: 'x'.repeat(33000), tool_calls: [{ id: 'eta', type: 'function', function: { name: 'eta_to_station', arguments: '{}' } }] }]);
   const result = await call('/api/plan', planBody, environment(), deps);
-  assert.equal(result.status, 502); assert.equal(result.body.error, 'input_token_bound_exceeded');
+  assert.equal(result.status, 502); assert.equal(result.body.error, 'model_message_too_large');
   assert.equal(deps.seen.filter(v => v.url.endsWith('/chat/completions')).length, 1);
   assert.equal(deps.seen.filter(v => v.url.endsWith('/models_info')).length, 1);
   assert.equal(result.body.calls.length, 1); assert.ok(result.body.cost_usd > 0);
@@ -130,6 +131,34 @@ test('unknown model pricing fails closed before quota or completion', async () =
   const deps = { fetch: async () => Response.json([]) };
   const result = await call('/api/plan', planBody, environment(), deps);
   assert.equal(result.status, 503); assert.equal(result.body.error, 'pricing_unavailable');
+});
+test('acknowledged pricing bypasses cached rates and refuses drift before reservation or dispatch', async () => {
+  let reserved=0,completions=0,catalogs=0;
+  const env=environment({LIMITS:{getByName:()=>({reserve:async()=>{reserved++;return {allowed:true};}})}});
+  const deps={cache:{match:async()=>{throw Error('Fresh pricing must not read cache');},put:async()=>{}},fetch:async (url,init)=>{
+    if(url.endsWith('/models_info')){assert.equal(init.cache,'no-store');catalogs++;return Response.json([{model_id:MODELS.conductor,input_price_per_million_tokens:.2,output_price_per_million_tokens:.3}]);}
+    completions++;throw Error('No completion may be dispatched');
+  }};
+  const result=await call('/api/plan',{...planBody,expected_pricing:{model:MODELS.conductor,input_price_per_million_tokens:.1,output_price_per_million_tokens:.3}},env,deps);
+  assert.equal(result.status,409);assert.equal(result.body.error,'pricing_changed');assert.equal(catalogs,1);assert.equal(reserved,0);assert.equal(completions,0);assert.equal(result.body.cost_usd,0);
+});
+test('pricing is checked again before a tool retry and preserves earlier attempted-call cost', async () => {
+  let catalogs=0,completions=0,reserved=0;
+  const env=environment({LIMITS:{getByName:()=>({reserve:async()=>{reserved++;return {allowed:true};}})}});
+  const deps={fetch:async url=>{
+    if(url.endsWith('/models_info'))return Response.json([{model_id:MODELS.conductor,input_price_per_million_tokens:++catalogs===1?.1:.2,output_price_per_million_tokens:.3}]);
+    completions++;return Response.json({usage,choices:[{message:{content:'Call tools next.'}}]});
+  }};
+  const result=await call('/api/plan',{...planBody,expected_pricing:{model:MODELS.conductor,input_price_per_million_tokens:.1,output_price_per_million_tokens:.3}},env,deps);
+  assert.equal(result.status,409);assert.equal(catalogs,2);assert.equal(completions,1);assert.equal(reserved,1);assert.equal(result.body.calls.length,1);assert.ok(result.body.cost_usd>0);assert.equal(result.body.calls[0].pricing.fresh_for_dispatch,true);
+});
+test('Writer validates acknowledged model/rate types and omits the assertion from its prompt', async () => {
+  const expected={model:MODELS.en,input_price_per_million_tokens:.1,output_price_per_million_tokens:.3};
+  const body={lang:'en',exit_station:'성수',budget_chars:100,is_last_scene:true,expected_pricing:expected};
+  for(const assertion of [{...expected,model:MODELS.ko},{...expected,input_price_per_million_tokens:null},{...expected,output_price_per_million_tokens:'0.3'}]){
+    const deps=mockFetch();const result=await call('/api/write',{...body,expected_pricing:assertion},environment(),deps);assert.equal(result.status,400);assert.equal(result.body.error,'invalid_expected_pricing');assert.equal(deps.seen.length,0);
+  }
+  const deps=mockFetch([{content:'Walk toward 성수'}]);const result=await call('/api/write',body,environment(),deps);assert.equal(result.status,200);assert.equal(result.body.calls[0].pricing.acknowledged,true);assert.ok(!deps.seen.find(v=>v.url.endsWith('/chat/completions')).init.body.includes('expected_pricing'));
 });
 test('null, missing, empty, or textual catalog prices cannot silently become free inference', async () => {
   for (const price of [null, undefined, '', '0.1']) {

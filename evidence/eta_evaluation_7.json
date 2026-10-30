@@ -1,0 +1,26 @@
+{
+  "method": "leave-one-train-identity-out",
+  "station_horizons": [
+    3,
+    10
+  ],
+  "n": 279,
+  "train_identities": 9,
+  "median_relative_error": 0.047619047619047616,
+  "gate_lte_15_percent": true,
+  "status": "measured",
+  "excluded_predictions": 0,
+  "arrival_event": "station-arrival-proxy",
+  "rejected": {
+    "gaps": 0,
+    "non_arrival": 278,
+    "missing_fields": 0,
+    "stale": 0,
+    "synthetic": 0,
+    "continuity_gaps": 0,
+    "source_breaks": 0,
+    "direction_breaks": 0
+  },
+  "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+  "prepared_at": "2026-10-30T02:30:04.263352+00:00"
+}

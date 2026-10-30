@@ -25,25 +25,35 @@ def build(trace_path, max_journeys=5, max_stations=5):
     ranked = sorted(chains, key=lambda c: (-len(c), c[0]["t"], c[0]["identity"]))
     selected = []
     identities = set()
+    by_line = {}
     for chain in ranked:
         if chain[0]["identity"] in identities:
             continue
-        selected.append(chain)
+        by_line.setdefault(chain[0]["line"],[]).append(chain)
         identities.add(chain[0]["identity"])
-        if len(selected) >= max_journeys:
-            break
+    while len(selected)<max_journeys and any(by_line.values()):
+        for line in sorted(by_line):
+            if by_line[line] and len(selected)<max_journeys:
+                selected.append(by_line[line].pop(0))
+    per_line_meta = {}
+    for recording in metadata.get("recordings",[]):
+        for line in recording.get("lines",[]):
+            per_line_meta[line]=recording
     for i, full_chain in enumerate(selected, 1):
         chain = full_chain[:max_stations]
         identity = chain[0]["identity"]
         train_no = identity.rsplit("|", 1)[-1]
         duration = chain[-1]["t"] - chain[0]["t"]
-        journeys.append({"id": f"recorded-{train_no}-{i}", "line": chain[0]["line"], "trainNo": train_no,
+        line = chain[0]["line"]
+        recording_complete = per_line_meta.get(line,{}).get("recording_complete",metadata.get("complete",False))
+        journeys.append({"id": f"recorded-line{line.removesuffix('호선')}-{train_no}-{i}", "line": line, "trainNo": train_no,
                          "source": chain[0]["source"],
                          "arrival_event": "station-arrival-proxy", "eta_s": duration,
                          "clock_kind": "known-recorded-timeline-not-forecast", "forecast_s": None,
                          "stations": [{"name": event["station"], "offset_s": event["t"] - chain[0]["t"]} for event in chain],
                          "recorded_start_epoch_s": chain[0]["t"], "recorded_end_epoch_s": chain[-1]["t"],
                          "partial_route": True, "train_identity": identity,
+                         "recording_complete":recording_complete,"partial":not recording_complete,
                          "total_observed_station_count": len(full_chain), "replay_window_station_count": len(chain),
                          "window_limited": len(chain) < len(full_chain)})
     return {"schema": "last-sentence/replay-v1", "provenance": "recorded-observations",

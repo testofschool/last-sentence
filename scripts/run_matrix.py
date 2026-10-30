@@ -6,19 +6,22 @@ can call a protected Worker after cost and credential gates; its speech timing
 remains simulated. Measured rows require actual browser speech-end events.
 """
 import argparse
+import datetime as dt
 import hashlib
 import json
 import math
 from pathlib import Path
 import statistics
+import time
 
 from contracts import sentence_replay
-from eta_model import load_trace, timestamp
+from eta_model import KST, arrivals, canonical_station, load_trace, timestamp
 
 POLICIES = ("fixed_clip", "single_fit", "sentence_replan")
 LIGHTNING = "nvidia/Nemotron-3_5-Lightning"
 SUPER = "nvidia/nemotron-3-super-120b-a12b"
 ULTRA = "nvidia/Nemotron-3-Ultra-550b-a55b"
+MAX_INPUT_TOKENS = 16384
 
 
 def policy_coverage(rows):
@@ -30,7 +33,7 @@ def policy_coverage(rows):
     return {"journeys": total, "complete_paired_journeys": paired, "unpaired_journeys": total - paired,
             "rows_by_policy": {p: sum(row["policy"] == p for row in rows) for p in POLICIES},
             "comparison_basis": "fully-paired" if total and paired == total else "mixed-paired-and-unpaired" if paired else "unpaired-only",
-            "pairing_definition": "All three policies for the same frozen journey id; measured import also verifies matching train, line, exit station and observed arrival."}
+            "pairing_definition": "All three policies for the same frozen journey id; measured import also verifies train, line, exit/arrival and replay origin/direction when present."}
 
 
 def prices_from_catalog(path):
@@ -64,10 +67,10 @@ def prices_from_catalog(path):
     return prices
 
 
-def cost_plan(prices, journeys=30, cap=3.0, max_input_tokens=32768, stations=12, max_completions=300):
+def cost_plan(prices, journeys=30, cap=3.0, max_input_tokens=MAX_INPUT_TOKENS, stations=12, max_completions=300):
     """Conservative bounded request plan including all Conductor retries.
 
-    A 32,768 input-token envelope must be enforced by the eventual runner. Three
+    A 16,384 input-token envelope is enforced by the Worker and runner. Three
     completions per plan include two tool attempts and one JSON fallback.
     """
     if journeys < 1 or not 0 < cap <= 3 or max_input_tokens < 1 or stations < 1 or not 1 <= max_completions <= 2048:
@@ -131,7 +134,70 @@ def synthetic_matrix(manifest):
             "notice": "Three authored journey fixtures, not 30 observed journeys. No model, Tavily, or browser speech measurements. Does not establish real-world accuracy."}
 
 
-def measured_import(measurements, trace_path, cap=3.0):
+def explicit_wall_time(value,label):
+    if not isinstance(value,str):
+        raise ValueError(label+' must be an explicit timezone-bearing wall-clock timestamp')
+    try:
+        parsed=dt.datetime.fromisoformat(value.replace('Z','+00:00'))
+    except ValueError as exc:
+        raise ValueError('invalid '+label) from exc
+    if parsed.tzinfo is None:
+        raise ValueError(label+' must include its timezone')
+    return parsed.timestamp()
+
+
+def replay_clock_mapping(row,mapping,observed_directional,chains,now):
+    if not isinstance(mapping,dict) or mapping.get('kind')!='historical-replay-1x':
+        raise ValueError('unsupported historical replay clock mapping')
+    if mapping.get('source')!='recorded-observations':
+        raise ValueError('replay clock source must be recorded observations')
+    controller=row.get('controller_provenance')
+    if not isinstance(controller,dict) or controller.get('policy')!=row['policy']:
+        raise ValueError('historical replay requires matching controller-policy provenance')
+    speed=mapping.get('speed')
+    if isinstance(speed,bool) or not isinstance(speed,(int,float)) or speed!=1:
+        raise ValueError('historical replay measurements require speed=1')
+    if mapping.get('uninterrupted') is not True or mapping.get('paused') is not False or mapping.get('seeked') is not False:
+        raise ValueError('historical replay measurement was interrupted, paused or seeked')
+    direction=str(mapping.get('direction'))
+    if direction not in ('0','1'):
+        raise ValueError('replay origin requires the recorded train direction')
+    station=mapping.get('recorded_origin_station')
+    if not isinstance(station,str) or not station.strip():
+        raise ValueError('recorded_origin_station must name a raw observed boarding station')
+    origin=timestamp(mapping.get('recorded_origin_at'))
+    arrival=timestamp(row['arrival_at'])
+    playback=explicit_wall_time(mapping.get('playback_origin_at'),'playback_origin_at')
+    speech_end=explicit_wall_time(row['speech_end_at'],'speech_end_at')
+    if origin>=arrival or origin>now or arrival>now or playback>now or playback>speech_end or speech_end>now:
+        raise ValueError('invalid or future replay/recorded origin or speech-end timestamp')
+    origin_key=(row['line'],str(row['trainNo']),direction,station,origin)
+    arrival_key=(row['line'],str(row['trainNo']),direction,row['exit_station'],arrival)
+    if origin_key not in observed_directional or arrival_key not in observed_directional:
+        raise ValueError('replay origin/arrival does not match the same raw train, line, direction and station')
+    canonical_origin=canonical_station(row['line'],station,True)
+    canonical_exit=canonical_station(row['line'],row['exit_station'],True)
+    matched=False
+    for chain in chains:
+        identity=chain[0]['identity'].split('|')
+        if identity[0]!=row['line'] or identity[1]!=direction or identity[-1]!=str(row['trainNo']):
+            continue
+        first=next((i for i,event in enumerate(chain) if event['station']==canonical_origin and event['t']==origin),None)
+        last=next((i for i,event in enumerate(chain) if event['station']==canonical_exit and event['t']==arrival),None)
+        if first is not None and last is not None and first<last:
+            matched=True;break
+    if not matched:
+        raise ValueError('replay origin and exit do not form one contiguous recorded train window')
+    recorded_interval=arrival-origin
+    measured_elapsed=speech_end-playback
+    retained={**mapping,'recorded_interval_s':recorded_interval,'measured_speech_elapsed_s':measured_elapsed,
+        'mapped_arrival_wall_at':dt.datetime.fromtimestamp(playback+recorded_interval,KST).isoformat(),
+        'origin_source_validated':True,'contiguous_window_validated':True,
+        'notice':'Actual imported browser speech-end elapsed time against a known historical receipt-time replay interval. Does not establish prospective ETA or door-open accuracy.'}
+    return measured_elapsed-recorded_interval,retained,('historical-replay-1x',direction,station,origin)
+
+
+def measured_import(measurements, trace_path, cap=3.0,now=None):
     """Audit externally recorded speech-end/arrival rows and complete receipts.
 
     A trace hash binds the arrival evidence. Every final arrival must appear as
@@ -146,10 +212,15 @@ def measured_import(measurements, trace_path, cap=3.0):
         raise ValueError("measurement trace hash does not match")
     if measurements.get("speech_clock") != "browser-speech-end-event":
         raise ValueError("measured mode requires actual browser speech-end events")
-    observed = set()
-    for row in load_trace(trace_path):
+    now=time.time() if now is None else now
+    trace_rows=load_trace(trace_path)
+    chains,_=arrivals(trace_rows)
+    observed = set();observed_directional=set()
+    for row in trace_rows:
         if row.get("source") in ("seoul-api", "seoul-sample") and str(row.get("trainSttus")) == "1" and row.get("recptnDt"):
             observed.add((row.get("line"), str(row["trainNo"]), row["statnNm"], timestamp(row["recptnDt"])))
+            if str(row.get('updnLine')) in ('0','1'):
+                observed_directional.add((row.get('line'),str(row['trainNo']),str(row['updnLine']),row['statnNm'],timestamp(row['recptnDt'])))
     out = []
     costs = []
     seen = set()
@@ -168,6 +239,14 @@ def measured_import(measurements, trace_path, cap=3.0):
         context = (row["line"], str(row["trainNo"]), row["exit_station"], arrival)
         if context not in observed:
             raise ValueError("arrival does not match a recorded station-arrival observation")
+        if row.get('clock_mapping') is not None:
+            landing_error,mapping,mapping_context=replay_clock_mapping(row,row['clock_mapping'],observed_directional,chains,now)
+            evidence_kind='historical-replay-browser-speech-vs-arrival-proxy'
+        else:
+            landing_error=timestamp(row['speech_end_at'])-arrival
+            mapping=None;mapping_context=('shared-live-wall-clock',)
+            evidence_kind='recorded-browser-speech-end-vs-arrival-proxy'
+        context=context+mapping_context
         if row["id"] in journey_context and journey_context[row["id"]] != context:
             raise ValueError("conflicting context for the same frozen journey id")
         journey_context[row["id"]] = context
@@ -218,8 +297,10 @@ def measured_import(measurements, trace_path, cap=3.0):
         latency.sort()
         out.append({"id": row["id"], "line": row["line"], "trainNo": str(row["trainNo"]),
                     "exit_station": row["exit_station"], "arrival_at": row["arrival_at"], "policy": row["policy"],
-                    "landing_error_s": timestamp(row["speech_end_at"]) - arrival,
-                    "evidence_kind": "recorded-browser-speech-end-vs-arrival-proxy", "cost_usd": cost,
+                    "speech_end_at":row['speech_end_at'],"landing_error_s":landing_error,
+                    "measurement_clock":mapping_context[0],"clock_mapping":mapping,
+                    "controller_provenance":row.get('controller_provenance'),
+                    "evidence_kind":evidence_kind,"cost_usd": cost,
                     "tokens": tokens, "conductor_calls": sum(r["model"] == LIGHTNING for r in calls),
                     "writer_calls": sum(r["model"] in (SUPER, ULTRA) for r in calls),
                     "p50_latency_ms": statistics.median(latency), "p95_latency_ms": latency[math.ceil(len(latency) * .95) - 1],
@@ -233,7 +314,8 @@ def measured_import(measurements, trace_path, cap=3.0):
     return {"schema": "last-sentence/matrix-v1", "mode": "recorded-browser-measurements",
             "trace_sha256": trace_hash, "rows": out, "measured_inference_runs": len(out),
             "actual_api_cost_usd": total, "cap_usd": cap, "coverage": policy_coverage(out),
-            "notice": "Station-arrival proxy only; door-open timing remains unmeasured. Imported receipts provide arithmetic/provenance checks, not semantic model-output validation or provider billing verification."}
+            "measurement_clocks":sorted(set(row['measurement_clock'] for row in out)),
+            "notice": "Imported browser speech-end measurements against station-arrival receipt-time proxies. Historical replay uses an explicit uninterrupted 1× playback-origin mapping; a known-clock audio replay does not establish prospective ETA or door-open accuracy. Receipts provide arithmetic/provenance checks, not semantic model-output validation or provider billing verification."}
 
 
 def main():
@@ -253,6 +335,7 @@ def main():
     p.add_argument("--session-key-file", type=Path)
     p.add_argument("--window-segments", type=int, default=4)
     p.add_argument("--speech-rate-cps", type=float, default=4.51)
+    p.add_argument("--max-runtime-s",type=float,default=7200,help="Real experiment runtime including offline pacing, maximum 7200 seconds")
     args = p.parse_args()
     try:
         if args.mode == "plan":
@@ -268,13 +351,14 @@ def main():
                 p.error("model-simulation requires --trace, --worker-url and --session-key-file; no requests sent")
             result = execute(args.trace, args.catalog, args.out, args.worker_url, args.session_key_file,
                 args.journeys, args.cap_usd, args.max_completions, args.execute, args.ack_cost,
-                args.window_segments, args.speech_rate_cps)
+                args.window_segments, args.speech_rate_cps,max_runtime_s=args.max_runtime_s)
         else:
             if not args.measurements or not args.trace:
                 p.error("measured mode requires --measurements and --trace; no model calls were made")
             result = measured_import(json.loads(args.measurements.read_text()), args.trace, args.cap_usd)
-        args.out.parent.mkdir(parents=True, exist_ok=True)
-        args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        if args.mode!='model-simulation':
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.mode == "model-simulation":
             print(json.dumps({key:result.get(key) for key in ("status", "completed_simulation_runs", "inference_dispatch_attempts", "actual_api_cost_usd", "failures")}, ensure_ascii=False, indent=2))
             if result["status"] != "complete":

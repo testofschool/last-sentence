@@ -1,0 +1,27 @@
+{
+  "journeys": 30,
+  "policy_runs": 90,
+  "language_pair_runs": 2,
+  "max_input_tokens_per_completion": 16384,
+  "max_conductor_output_tokens": 400,
+  "max_writer_output_tokens": 1200,
+  "max_conductor_calls": 1152,
+  "max_writer_calls": 218,
+  "worst_case_usd": 2.60596288,
+  "cap_usd": 3,
+  "max_total_completions": 1370,
+  "configured_completion_cap": 300,
+  "required_worker_live_max_completions": 1370,
+  "allowed_cost": true,
+  "allowed_completions": false,
+  "allowed": false,
+  "pricing_source": "saved-live-catalog",
+  "runner_enforcement_required": "Reject requests above the input envelope; reserve worst-case cost before each call. Includes all fallback attempts. No calls made by this script.",
+  "secrets_present": {
+    "nebius": false,
+    "tavily": false,
+    "seoul_rt": false
+  },
+  "inference_execution": "not performed in plan mode; guarded model-simulation requires explicit execution/cost flags and credentials; measured speech is imported separately",
+  "runtime_gate": "The guarded executor inspects authorized Worker status and requires remaining completion capacity >= the planned maximum and available USD >= worst_case_usd; saved planning does not reserve capacity."
+}

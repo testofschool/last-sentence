@@ -45,7 +45,7 @@ test('the actual Worker entrypoint calls native fetch with its required global r
     serviceBindings: { ASSETS: async () => Response.json(etaFixture) },
     outboundService: async request => {
       outbound++; assert.equal(new URL(request.url).hostname, 'swopenapi.seoul.go.kr'); assert.match(request.url, /\/sample\//u);
-      return Response.json({ errorMessage: { code: 'INFO-000' }, realtimePositionList: [{ trainNo: '1234', statnNm: '시청', updnLine: '0', trainSttus: '1', recptnDt: new Date().toISOString(), statnTnm: '성수종착', statnTid: '1002000211' }] });
+      return Response.json({ errorMessage: { code: 'INFO-000' }, realtimePositionList: [{ trainNo: '1234', statnNm: '시청',statnId:'1002000201',updnLine: '0', trainSttus: '1', recptnDt: new Date().toISOString(), statnTnm: '성수종착', statnTid: '1002000211' }] });
     },
   }));
   try {
@@ -58,4 +58,25 @@ test('the actual Worker entrypoint calls native fetch with its required global r
     const eta = await (await mf.dispatchFetch('http://localhost/api/eta?line=2%ED%98%B8%EC%84%A0&trainNo=1234&direction=0&to=%EC%9D%84%EC%A7%80%EB%A1%9C4%EA%B0%80')).json();
     assert.equal(eta.eta_available, true); assert.equal(eta.anchor.verified, true); assert.equal(eta.anchor.terminus.station, '성수'); assert.equal(eta.stations_left, 3); assert.ok(eta.remaining_s <= 360 && eta.remaining_s > 350); assert.equal(outbound, 1);
   } finally { await mf.dispose(); }
+});
+
+test('actual workerd supports fresh acknowledged-price checks and blocks drift before a completion', {skip:!Miniflare&&'Run npm ci --prefix worker for the local workerd integration test'},async()=>{
+  const {build}=require('esbuild');const {fileURLToPath}=await import('node:url');
+  const built=await build({entryPoints:[fileURLToPath(new URL('../worker/src/index.js',import.meta.url))],bundle:true,write:false,format:'esm',platform:'browser',external:['cloudflare:workers','node:crypto']});
+  let catalogs=0,completions=0;
+  const mf=new Miniflare(convertV4MiniflareOptions({modules:true,compatibilityDate:'2026-10-30',compatibilityFlags:['nodejs_compat'],script:built.outputFiles[0].text,
+    durableObjects:{LIMITS:{className:'UsageLimits',useSQLite:true}},bindings:{ENABLE_LIVE:'true',LIVE_ACCESS_TOKEN:'mock-session',NEBIUS_API_KEY:'mock-key-no-external-network'},
+    outboundService:async request=>{
+      if(request.url==='https://tokenfactory.nebius.com/api/public/models_info'){
+        catalogs++;assert.equal(request.headers.get('cache-control'),'no-cache');
+        return Response.json([{model_id:'nvidia/nemotron-3-super-120b-a12b',input_price_per_million_tokens:.2,output_price_per_million_tokens:.3}]);
+      }
+      completions++;throw Error('No provider completion may be dispatched');
+    }}));
+  try{
+    const headers={authorization:'Bearer mock-session','content-type':'application/json'};
+    const response=await mf.dispatchFetch('http://localhost/api/write',{method:'POST',headers,body:JSON.stringify({lang:'en',exit_station:'성수',budget_chars:100,is_last_scene:true,expected_pricing:{model:'nvidia/nemotron-3-super-120b-a12b',input_price_per_million_tokens:.1,output_price_per_million_tokens:.3}})});
+    const result=await response.json();assert.equal(response.status,409);assert.equal(result.error,'pricing_changed');assert.equal(catalogs,1);assert.equal(completions,0);
+    const status=await(await mf.dispatchFetch('http://localhost/api/status',{headers})).json();assert.equal(status.limits.completion_calls_used,0);assert.equal(status.limits.reserved_usd,0);assert.equal(status.expected_pricing_supported,true);
+  }finally{await mf.dispose();}
 });
