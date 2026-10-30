@@ -46,7 +46,7 @@ def main():
     item("T1.3", "Character budget from remaining seconds, 4.51 cps and 20-second margin", "LOCAL_CODE_TESTED",
          ["scripts/contracts.py", "tests/test_budget.py"])
     item("T2.4a", "Position proxy, 15-second cache, atomic 950-attempt/day replay fallback", "LOCAL_RUNTIME_AND_MOCK_TESTED",
-         ["worker/src/core.js", "worker/src/limits.js", "tests/worker_quota.test.mjs", "evidence/worker/runtime_all_lines.json"], "Deployed behavior is unrun.")
+         ["worker/src/core.js", "worker/src/limits.js", "tests/worker_quota.test.mjs", "evidence/worker/runtime_all_lines_receipts_v2.json"], "Deployed behavior is unrun.")
     item("T2.4b", "Lightning tool loop, bounded fallback, authoritative ETA/budget and visible plan", "UNRUN_REAL_MODEL",
          ["worker/src/core.js", "tests/worker.test.mjs"], "Observe genuine tool calls, fallback support, usage and latency with a Nebius key.")
     item("T2.4c", "Super English / Ultra Korean Writer, sentence limits and destination ending", "UNRUN_REAL_MODEL",
@@ -54,7 +54,8 @@ def main():
     item("T2.4d", "One Tavily lookup per story with source URL and station-only fallback", "UNRUN_REAL_SEARCH",
          ["worker/src/core.js", "tests/worker.test.mjs"], "Run an authorized actual lookup after a Tavily key exists.")
     item("T2.4e", "Visible actual model, usage, cost and latency receipts, including failures", "LOCAL_CODE_TESTED_REAL_RECEIPTS_UNRUN",
-         ["web/app.js", "worker/src/core.js", "tests/connected_flow.test.mjs"])
+         ["web/app.js", "worker/src/core.js", "scripts/contracts.py", "tests/connected_flow.test.mjs"],
+         "Receipt-v2 requires exact requested/provider-reported model identity. Writer failures retain bounded line-based validation counters; actual provider replies remain unrun.")
     item("T2.5", "Public Worker and static app deployment", "UNRUN_PUBLIC_AUTHORIZATION",
          ["worker/wrangler.jsonc", "scripts/build.mjs", "docs/API.md"], "Review and authorize the prepared public release; configure credentials before external execution.")
     item("T3.6", "2/5/7 recorded source, train/boarding/exit selection, EN/KO, speed, timeline/logs/receipts/TTS", "LOCAL_IMPLEMENTATION",
@@ -82,7 +83,7 @@ def main():
     item("T5.12", "Published limitations including language policy, voices, sample/cap, coverage and banner", "LOCAL_DOCUMENT_PUBLICATION_UNRUN",
          ["docs/LIMITATIONS.md"], "Update data-coverage statements after recording and publish only with authorized release. No geolocation dependency or door sensor is invented.")
     item("T5.13", "Measured onboarding, tools/reasoning, rate headers, 3-sentence language samples and compliance", "UNMEASURED_VENDOR_KEYS_ABSENT",
-         ["docs/FEEDBACK.md"], "Actual vendor responses and an observed key-to-first-reply interval are required. Mock text is not feedback evidence.")
+         ["docs/FEEDBACK.md", "scripts/collect_feedback.py", "evidence/feedback-plan.json"], "Controlled same-Korean-scene Super/Ultra collector is prepared but unexecuted. Actual vendor responses and an explicit observed-readiness marker are required for the measured interval; local file mtime and mock text are not feedback evidence.")
     for check in read("evidence/preflight.json", {}).get("checks", []):
         if check["id"] != "P11":
             item(check["id"], check["expected"], check["status"], ["evidence/preflight.json"], check["observed"])

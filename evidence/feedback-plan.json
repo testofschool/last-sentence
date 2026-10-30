@@ -1,0 +1,51 @@
+{
+  "schema": "last-sentence/korean-feedback-plan-v1",
+  "evidence_kind": "plan-only-no-inference",
+  "created_at": "2026-10-30T02:52:24.901473+00:00",
+  "expires_at": "2026-10-30T02:57:24.901473+00:00",
+  "catalog": {
+    "source_url": "https://tokenfactory.nebius.com/api/public/models_info",
+    "fetched_at": "2026-10-30T02:52:24.901436+00:00",
+    "canonical_json_sha256": "fad09ca057e30fb623883202546a953121366d21c197466ab20258dd3280e70a"
+  },
+  "prices": {
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "input_price_per_million_tokens": 0.3,
+      "output_price_per_million_tokens": 0.9
+    },
+    "nvidia/Nemotron-3-Ultra-550b-a55b": {
+      "input_price_per_million_tokens": 1.0,
+      "output_price_per_million_tokens": 3.0
+    }
+  },
+  "worker_url": null,
+  "common_request": {
+    "purpose": "feedback-korean-compare",
+    "lang": "ko",
+    "sentence_count": 3,
+    "budget_chars": 120,
+    "scene": "서울 지하철 빈 좌석에서 노란 봉투를 발견한 사람이 봉투 속 손그림 지도를 펼치는 장면입니다. 인물과 장소를 늘리지 말고 이 장면만 짧은 한국어 이야기로 쓰세요."
+  },
+  "common_request_sha256": "bde448c43d5203f3e317c3e4f1452a0cbda4b2f0089a45e76fc4e2c12eab8305",
+  "model_order": [
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/Nemotron-3-Ultra-550b-a55b"
+  ],
+  "limits": {
+    "max_input_tokens_per_completion": 16384,
+    "max_output_tokens_per_completion": 180,
+    "completion_attempts": 2,
+    "sentence_count": 3,
+    "sentence_cap": 40,
+    "budget_chars": 120,
+    "maximum_local_ack_cap_usd": 0.05
+  },
+  "cost_bound_by_model_usd": {
+    "nvidia/nemotron-3-super-120b-a12b": 0.0050772,
+    "nvidia/Nemotron-3-Ultra-550b-a55b": 0.016924
+  },
+  "worst_case_usd": 0.0220012,
+  "allowed_under_small_cap": true,
+  "inference_calls_made": 0,
+  "korean_quality": "UNMEASURED-human-review-required"
+}

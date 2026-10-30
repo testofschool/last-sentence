@@ -7,6 +7,10 @@ import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 const root=fileURLToPath(new URL('../',import.meta.url)),base='http://127.0.0.1:8792';
 if(process.argv[2]!=='--public-sample')throw Error('Explicit --public-sample is required; this makes bounded public read-only requests.');
+const outIndex=process.argv.indexOf('--out'),outputName=outIndex<0?'runtime_all_lines.json':process.argv[outIndex+1];
+if(typeof outputName!=='string'||!/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/u.test(outputName))throw Error('--out must name a JSON file inside evidence/worker');
+const outputPath=resolve(root,'evidence/worker',outputName);let outputExists=false;try{await readFile(outputPath);outputExists=true;}catch(error){if(error.code!=='ENOENT')throw error;}
+if(outputExists)throw Error('Refusing to overwrite existing evidence; choose a fresh --out filename.');
 const lines=['2호선','5호선','7호선'],delay=ms=>new Promise(r=>setTimeout(r,ms));
 const sourceFiles=['worker/src/core.js','worker/src/eta.js','worker/src/topology.js','worker/src/index.js','worker/src/limits.js','worker/src/limits_config.js','worker/wrangler.jsonc'];
 const hashes=async()=>Object.fromEntries(await Promise.all(sourceFiles.map(async path=>[path,createHash('sha256').update(await readFile(resolve(root,path))).digest('hex')])));
@@ -35,6 +39,7 @@ try{
   guard(ready,'Local Worker did not become ready');const before=evidence.status_before.json;
   guard(before.inference_enabled===false&&before.tavily_enabled===false&&before.position_enabled===true,'Keyless guard failed; no position/inference request was sent');
   guard(before.max_input_token_bound===16384&&before.expected_pricing_supported===true&&before.limits.completion_cap===2048&&before.limits.reservation_budget_usd===3,'Runtime contract differs from the acknowledged full-matrix limits');
+  guard(before.receipt_schema==='last-sentence/receipt-v2'&&before.receipt_provenance_supported===true&&before.writer_validation_supported===true&&before.feedback_korean_compare_supported===true,'Runtime lacks the guarded receipt/feedback contract');
   const outcomes=await Promise.allSettled(lines.map(async line=>{
     const row=evidence.lines[line]={quality:before.eta_models[line],polls:[],anchor_checks:[],selected:null};
     for(let attempt=0;attempt<3&&!row.selected;attempt++){
@@ -77,6 +82,6 @@ finally{
   let stopped=true;try{await fetch(base+'/api/status',{signal:AbortSignal.timeout(500)});stopped=false;}catch{}
   evidence.cleanup={completed_at:new Date().toISOString(),local_server_stopped:stopped,owned_temporary_profile_removed:removed,provider_keys_ever_loaded:false};
   if(!stopped||!removed){evidence.runtime_guard_checks_passed=false;process.exitCode=1;}
-  await writeFile(resolve(root,'evidence/worker/runtime_all_lines.json'),JSON.stringify(evidence,null,2)+'\n');
+  await writeFile(outputPath,JSON.stringify(evidence,null,2)+'\n',{flag:'wx'});
   console.log(JSON.stringify({passed:evidence.runtime_guard_checks_passed,eligible_eta_success_count:evidence.eligible_eta_success_count,position_attempts:evidence.outbound_position_attempt_count,inference:evidence.inference_completion_count_delta,search:evidence.search_count_delta,cleanup:evidence.cleanup}));
 }

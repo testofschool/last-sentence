@@ -44,7 +44,7 @@ export async function measureEnvelope() {
         else if(kind.includes('split-tools')&&call===1)message={role:'assistant',content:repeat(pattern,Math.floor(PROMPT_LIMITS.tool_turn_content_bytes/Buffer.byteLength(pattern))),tool_calls:[tool('scene_ops',0)]};
         else if(kind.includes('split-tools')&&call===2)message={role:'assistant',content:repeat(pattern,Math.floor(PROMPT_LIMITS.tool_turn_content_bytes/Buffer.byteLength(pattern))),tool_calls:[tool('eta_to_station',1),tool('budget',2)]};
         else message={content:JSON.stringify({ops,log:'Fit the explicitly bounded remaining story.'})};
-        return Response.json({choices:[{message}],usage:{prompt_tokens:100,completion_tokens:20}});
+        return Response.json({model:body.model,choices:[{message}],usage:{prompt_tokens:100,completion_tokens:20}});
       }};
       let payload, path;
       if(kind.startsWith('writer-')){path='/api/write';payload={lang:kind.endsWith('-ko')?'ko':'en',exit_station:'성수',budget_chars:4000,is_last_scene:true,scene:repeat(pattern,500),fact:{text:repeat(pattern,240),url:'https://example.org/source'}};}

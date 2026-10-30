@@ -1,6 +1,6 @@
 {
   "schema": "last-sentence/completion-audit-v1",
-  "checked_at": "2026-10-30T02:33:50.897105+00:00",
+  "checked_at": "2026-10-30T03:01:57.380026+00:00",
   "objective_status": "INCOMPLETE",
   "scope": "Full attached Last Sentence technical specification, with factual corrections retained. Local prototype and proxy validation do not substitute for vendor execution, physical timing or public acceptance.",
   "authority": "The user's /goal run requested work. Attached instructions supply technical context; they do not independently authorize spending, account changes, messages, public publication or submission. The user confirmed vendor keys do not exist yet.",
@@ -207,7 +207,7 @@
         "worker/src/core.js",
         "worker/src/limits.js",
         "tests/worker_quota.test.mjs",
-        "evidence/worker/runtime_all_lines.json"
+        "evidence/worker/runtime_all_lines_receipts_v2.json"
       ],
       "remaining": "Deployed behavior is unrun."
     },
@@ -248,9 +248,10 @@
       "evidence": [
         "web/app.js",
         "worker/src/core.js",
+        "scripts/contracts.py",
         "tests/connected_flow.test.mjs"
       ],
-      "remaining": null
+      "remaining": "Receipt-v2 requires exact requested/provider-reported model identity. Writer failures retain bounded line-based validation counters; actual provider replies remain unrun."
     },
     {
       "id": "T2.5",
@@ -381,9 +382,11 @@
       "requirement": "Measured onboarding, tools/reasoning, rate headers, 3-sentence language samples and compliance",
       "status": "UNMEASURED_VENDOR_KEYS_ABSENT",
       "evidence": [
-        "docs/FEEDBACK.md"
+        "docs/FEEDBACK.md",
+        "scripts/collect_feedback.py",
+        "evidence/feedback-plan.json"
       ],
-      "remaining": "Actual vendor responses and an observed key-to-first-reply interval are required. Mock text is not feedback evidence."
+      "remaining": "Controlled same-Korean-scene Super/Ultra collector is prepared but unexecuted. Actual vendor responses and an explicit observed-readiness marker are required for the measured interval; local file mtime and mock text are not feedback evidence."
     },
     {
       "id": "P1",

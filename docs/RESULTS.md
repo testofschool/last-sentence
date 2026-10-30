@@ -12,11 +12,18 @@ All policy groups below cover the same journey fixtures or frozen observed journ
 
 The full 30-journey × 3-policy evaluation and EN/KO model pair are **UNRUN**.
 
-| Policy | n | ≤30 s | ≤10 s | Median absolute error | Cost/story | p50 call latency |
-|---|---:|---:|---:|---:|---:|---:|
-| fixed_clip | 3 | 33.3% | 33.3% | 40.0 s | $0.000000 | UNMEASURED |
-| single_fit | 3 | 100.0% | 66.7% | 10.0 s | $0.000000 | UNMEASURED |
-| sentence_replan | 3 | 100.0% | 100.0% | 1.0 s | $0.000000 | UNMEASURED |
+| Policy | n | ≤30 s | ≤10 s | Median absolute error | Cost/story | Median story call p50 | Median story call p95 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| fixed_clip | 3 | 33.3% | 33.3% | 40.0 s | $0.000000 | UNMEASURED | UNMEASURED |
+| single_fit | 3 | 100.0% | 66.7% | 10.0 s | $0.000000 | UNMEASURED | UNMEASURED |
+| sentence_replan | 3 | 100.0% | 100.0% | 1.0 s | $0.000000 | UNMEASURED | UNMEASURED |
+
+Latency summaries are medians of each story's call-latency quantile; they are not pooled call percentiles.
+
+## English / Korean comparison
+
+**UNRUN.** No completed same-journey EN/Super and KO/Ultra pair is recorded. No language results are inferred from fixtures.
+
 
 Positive error means the story ended after the arrival proxy; negative means before it.
 

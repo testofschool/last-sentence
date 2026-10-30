@@ -14,7 +14,7 @@ from pathlib import Path
 import statistics
 import time
 
-from contracts import sentence_replay
+from contracts import sentence_replay, validate_model_identity, validate_writer_validation
 from eta_model import KST, arrivals, canonical_station, load_trace, timestamp
 
 POLICIES = ("fixed_clip", "single_fit", "sentence_replan")
@@ -221,17 +221,29 @@ def measured_import(measurements, trace_path, cap=3.0,now=None):
             observed.add((row.get("line"), str(row["trainNo"]), row["statnNm"], timestamp(row["recptnDt"])))
             if str(row.get('updnLine')) in ('0','1'):
                 observed_directional.add((row.get('line'),str(row['trainNo']),str(row['updnLine']),row['statnNm'],timestamp(row['recptnDt'])))
-    out = []
+    policy_inputs = measurements.get("rows", [])
+    pair_inputs = measurements.get("language_pair", [])
+    if not isinstance(policy_inputs, list) or not isinstance(pair_inputs, list) or len(pair_inputs) > 2:
+        raise ValueError("rows and the optional EN/KO language pair must be lists; at most two language rows")
+    out, language_pair = [], []
     costs = []
     seen = set()
     journey_context = {}
     required = ("id", "trainNo", "line", "exit_station", "policy", "arrival_at", "speech_end_at", "receipts")
-    for row in measurements.get("rows", []):
-        if any(key not in row for key in required) or row["policy"] not in POLICIES:
+    pair_languages, pair_context = set(), None
+    for is_language_pair, row in [(False, row) for row in policy_inputs] + [(True, row) for row in pair_inputs]:
+        if not isinstance(row, dict) or any(key not in row for key in required) or row["policy"] not in POLICIES:
             raise ValueError("invalid measurement row")
         if not isinstance(row["id"], str) or not row["id"].strip():
             raise ValueError("frozen journey id must be a nonempty string")
-        identity = (row["id"], row["policy"])
+        language = row.get("lang")
+        if language is not None and language not in ("en", "ko"):
+            raise ValueError("invalid measurement language")
+        if is_language_pair:
+            if language not in ("en", "ko") or language in pair_languages:
+                raise ValueError("language pair requires distinct explicit en/ko languages")
+            pair_languages.add(language)
+        identity = (is_language_pair, row["id"], row["policy"], language if is_language_pair else None)
         if identity in seen:
             raise ValueError("duplicate journey/policy measurement")
         seen.add(identity)
@@ -250,6 +262,11 @@ def measured_import(measurements, trace_path, cap=3.0,now=None):
         if row["id"] in journey_context and journey_context[row["id"]] != context:
             raise ValueError("conflicting context for the same frozen journey id")
         journey_context[row["id"]] = context
+        if is_language_pair:
+            current_pair_context = (row["id"], row["policy"], context)
+            if pair_context is not None and pair_context != current_pair_context:
+                raise ValueError("EN/KO pair must share one frozen journey, policy and recorded clock context")
+            pair_context = current_pair_context
         receipts = row["receipts"]
         if not isinstance(receipts, list) or not receipts:
             raise ValueError("complete inference receipts required")
@@ -264,6 +281,9 @@ def measured_import(measurements, trace_path, cap=3.0,now=None):
             if nested is not None:
                 if not isinstance(nested, list) or not nested:
                     raise ValueError("empty or invalid nested call receipts")
+                validate_model_identity(receipt, (LIGHTNING, SUPER, ULTRA))
+                for call in nested:
+                    validate_model_identity(call, (LIGHTNING, SUPER, ULTRA), receipt["requested_model"])
                 if any(not isinstance(call, dict) or not isinstance(call.get("cost_usd"), (int, float)) or isinstance(call["cost_usd"], bool) or not math.isfinite(call["cost_usd"]) or call["cost_usd"] < 0 for call in nested):
                     raise ValueError("invalid nested call cost")
                 nested_cost = math.fsum(call.get("cost_usd", float("nan")) for call in nested)
@@ -273,6 +293,7 @@ def measured_import(measurements, trace_path, cap=3.0,now=None):
             else:
                 calls.append(receipt)
         for receipt in calls:
+            validate_model_identity(receipt, (LIGHTNING, SUPER, ULTRA))
             usage = receipt.get("usage")
             if not isinstance(usage, dict) or not all(isinstance(usage.get(k), int) and not isinstance(usage[k], bool) and usage[k] >= 0 for k in ("prompt_tokens", "completion_tokens")):
                 raise ValueError("missing or invalid token usage")
@@ -290,12 +311,31 @@ def measured_import(measurements, trace_path, cap=3.0,now=None):
             expected_cost = (usage["prompt_tokens"] * rates[0] + usage["completion_tokens"] * rates[1]) / 1_000_000
             if not math.isclose(c, expected_cost, rel_tol=1e-9, abs_tol=1e-12):
                 raise ValueError("receipt cost does not match token usage and pricing")
+            estimate = receipt.get("requested_rate_cost_estimate_usd")
+            if (not isinstance(estimate, (int, float)) or isinstance(estimate, bool) or not math.isfinite(estimate)
+                    or estimate < 0 or not math.isclose(estimate, expected_cost, rel_tol=1e-9, abs_tol=1e-12)):
+                raise ValueError("requested-rate estimate does not match token usage and pricing")
             cost += c
             tokens += usage["prompt_tokens"] + usage["completion_tokens"]
             latency.append(ms)
         costs.append(cost)
         latency.sort()
-        out.append({"id": row["id"], "line": row["line"], "trainNo": str(row["trainNo"]),
+        writer_calls = [receipt for receipt in calls if receipt["requested_model"] in (SUPER, ULTRA)]
+        validations = [validate_writer_validation(receipt.get("writer_validation"), expected_language=language)
+                       for receipt in writer_calls]
+        if validations and not any(value["passed"] for value in validations):
+            raise ValueError("measured story requires at least one accepted Writer output")
+        writer_languages = {validation["language"] for validation in validations}
+        if len(writer_languages) > 1:
+            raise ValueError("one measured story cannot mix Writer languages")
+        if language is None and writer_languages:
+            language = next(iter(writer_languages))
+        requested_writers = sorted({receipt["requested_model"] for receipt in writer_calls})
+        reported_writers = sorted({receipt["provider_reported_model"] for receipt in writer_calls})
+        if is_language_pair and requested_writers != ([SUPER] if language == "en" else [ULTRA]):
+            raise ValueError("EN/KO language pair requires the verified Super English and Ultra Korean Writers")
+        destination = language_pair if is_language_pair else out
+        destination.append({"id": row["id"], "line": row["line"], "trainNo": str(row["trainNo"]), "lang":language,
                     "exit_station": row["exit_station"], "arrival_at": row["arrival_at"], "policy": row["policy"],
                     "speech_end_at":row['speech_end_at'],"landing_error_s":landing_error,
                     "measurement_clock":mapping_context[0],"clock_mapping":mapping,
@@ -305,16 +345,20 @@ def measured_import(measurements, trace_path, cap=3.0,now=None):
                     "writer_calls": sum(r["model"] in (SUPER, ULTRA) for r in calls),
                     "p50_latency_ms": statistics.median(latency), "p95_latency_ms": latency[math.ceil(len(latency) * .95) - 1],
                     "tool_calls_supported": row.get("tool_calls_supported"), "tavily_ok": row.get("tavily_ok"),
+                    "writer_models_requested":requested_writers,"writer_models_reported":reported_writers,
+                    "model_identities_verified":True,"writer_validations":validations,
                     "arrival_event": "station-arrival-proxy"})
-    if not out:
+    if not out and not language_pair:
         raise ValueError("no measured rows")
     total = math.fsum(costs)
     if total > cap:
         raise ValueError("recorded receipts exceed the cost cap; comparison not accepted")
     return {"schema": "last-sentence/matrix-v1", "mode": "recorded-browser-measurements",
-            "trace_sha256": trace_hash, "rows": out, "measured_inference_runs": len(out),
+            "trace_sha256": trace_hash, "rows": out, "language_pair":language_pair,
+            "language_pair_status":"complete" if pair_languages == {"en", "ko"} else "partial" if language_pair else "UNRUN",
+            "measured_inference_runs": len(out) + len(language_pair),
             "actual_api_cost_usd": total, "cap_usd": cap, "coverage": policy_coverage(out),
-            "measurement_clocks":sorted(set(row['measurement_clock'] for row in out)),
+            "measurement_clocks":sorted(set(row['measurement_clock'] for row in out + language_pair)),
             "notice": "Imported browser speech-end measurements against station-arrival receipt-time proxies. Historical replay uses an explicit uninterrupted 1× playback-origin mapping; a known-clock audio replay does not establish prospective ETA or door-open accuracy. Receipts provide arithmetic/provenance checks, not semantic model-output validation or provider billing verification."}
 
 

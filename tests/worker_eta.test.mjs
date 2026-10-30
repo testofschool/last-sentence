@@ -88,7 +88,7 @@ test('Conductor executes ETA tool against verified server estimates and ignores 
     if (url.endsWith('/models_info')) return Response.json([{ flavors: [{ model_id: MODELS.conductor, input_price_per_million_tokens: 0.06, output_price_per_million_tokens: 0.24 }] }]);
     assert.ok(url.endsWith('/chat/completions')); const body = JSON.parse(init.body); bodies.push(body); completions++;
     const message = completions === 1 ? { role: 'assistant', tool_calls: ['eta_to_station', 'budget', 'scene_ops'].map((name, i) => ({ id: String(i), type: 'function', function: { name, arguments: name === 'scene_ops' ? '{"ops":[]}' : '{}' } })) } : { content: '{"ops":[],"log":"Use the verified observed estimate."}' };
-    return Response.json({ choices: [{ message }], usage: { prompt_tokens: 100, completion_tokens: 20 } });
+    return Response.json({model:body.model,choices: [{ message }], usage: { prompt_tokens: 100, completion_tokens: 20 } });
   } };
   const response = await handleRequest(request('/api/plan', { current_station: 'fake', exit_station: 'fake', stations_left: 60, remaining_s: 999, eta_source: 'recorded-model', remaining_scenes: [], train_anchor: { line: '2호선', trainNo: '1234', direction: '0', to: '을지로4가' } }), env(), deps);
   const value = await response.json(); assert.equal(response.status, 200); assert.equal(value.plan.remaining_s, 300); assert.equal(value.plan.stations_left, 3); assert.equal(value.plan.budget_chars, budget(300));

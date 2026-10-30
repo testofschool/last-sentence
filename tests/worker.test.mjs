@@ -20,7 +20,7 @@ function mockFetch(messages = [], options = {}) {
     if (url.endsWith('/models_info')) return Response.json([{ status: 'active', flavors: Object.values(MODELS).map(model_id => ({ model_id, input_price_per_million_tokens: 0.1, output_price_per_million_tokens: 0.3 })) }]);
     if (url.endsWith('/chat/completions')) {
       const next = messages.shift(); if (next instanceof Response) return next;
-      return Response.json({ choices: [{ message: next }], ...(options.missingUsage ? {} : { usage }) }, { headers: { 'x-ratelimit-remaining-requests': '58' } });
+      return Response.json({...(options.missingIdentity?{}:{model:options.reportedModel??JSON.parse(init.body).model}),choices: [{ message: next }], ...(options.missingUsage ? {} : { usage }) }, { headers: { 'x-ratelimit-remaining-requests': '58' } });
     }
     if (url.includes('/api/subway/')) return Response.json({ errorMessage: { code: 'INFO-000' }, realtimePositionList: [{ trainNo: '1234', statnNm: '성수', recptnDt: '2026-10-30 10:15:00', trainSttus: '1', secret_field: 'must disappear' }] });
     if (url.endsWith('/search')) return Response.json({ results: [{ url: 'https://official.example/park', content: options.searchContent ?? 'A park beside the station.' }] });
@@ -37,6 +37,8 @@ test('keyless status and position never call providers or invent model use', asy
   const status = await call('/api/status');
   assert.equal(status.status, 200); assert.equal(status.body.inference_enabled, false);
   assert.equal(status.body.expected_pricing_supported,true);
+  assert.equal(status.body.receipt_schema,'last-sentence/receipt-v2');
+  assert.equal(status.body.receipt_provenance_supported,true);assert.equal(status.body.writer_validation_supported,true);assert.equal(status.body.feedback_korean_compare_supported,true);assert.equal(status.body.feedback_probe_limits.max_output_tokens,180);
   assert.equal(status.body.mode, 'replay-only'); assert.equal(status.body.model, null);
   const pos = await call('/api/position?line=2%ED%98%B8%EC%84%A0');
   assert.equal(pos.status, 200); assert.equal(pos.body.mode, 'replay-forced'); assert.deepEqual(pos.body.positions, []);
@@ -147,7 +149,7 @@ test('pricing is checked again before a tool retry and preserves earlier attempt
   const env=environment({LIMITS:{getByName:()=>({reserve:async()=>{reserved++;return {allowed:true};}})}});
   const deps={fetch:async url=>{
     if(url.endsWith('/models_info'))return Response.json([{model_id:MODELS.conductor,input_price_per_million_tokens:++catalogs===1?.1:.2,output_price_per_million_tokens:.3}]);
-    completions++;return Response.json({usage,choices:[{message:{content:'Call tools next.'}}]});
+    completions++;return Response.json({model:MODELS.conductor,usage,choices:[{message:{content:'Call tools next.'}}]});
   }};
   const result=await call('/api/plan',{...planBody,expected_pricing:{model:MODELS.conductor,input_price_per_million_tokens:.1,output_price_per_million_tokens:.3}},env,deps);
   assert.equal(result.status,409);assert.equal(catalogs,2);assert.equal(completions,1);assert.equal(reserved,1);assert.equal(result.body.calls.length,1);assert.ok(result.body.cost_usd>0);assert.equal(result.body.calls[0].pricing.fresh_for_dispatch,true);
@@ -217,4 +219,45 @@ test('invalid schemas and oversized bodies are rejected without inference', asyn
   assert.equal(invalid.status, 400);
   const oversized = await call('/api/write', { scene: 'x'.repeat(25000) }, environment(), deps);
   assert.equal(oversized.status, 413); assert.equal(deps.seen.length, 0);
+});
+
+test('matched receipts distinguish requested and provider-reported identities',async()=>{
+  const result=await call('/api/write',{lang:'en',exit_station:'성수',budget_chars:100,is_last_scene:true},environment(),mockFetch([{content:'Walk toward 성수'}]));
+  assert.equal(result.status,200);assert.equal(result.body.requested_model,MODELS.en);assert.equal(result.body.model,MODELS.en);assert.equal(result.body.provider_reported_model,MODELS.en);assert.equal(result.body.identity_match,true);
+  const receipt=result.body.calls[0];assert.equal(receipt.identity_match,true);assert.equal(receipt.cost_usd,receipt.requested_rate_cost_estimate_usd);assert.equal(receipt.writer_validation.status,'valid');assert.equal(receipt.writer_validation.sentence_count,1);
+});
+test('missing or mismatched provider identity stops the Conductor after one charged attempt',async()=>{
+  for(const options of [{missingIdentity:true},{reportedModel:MODELS.ko},{reportedModel:'nvidia/server-nebius-mock-key'}]){
+    let reservations=0;const env=environment({LIMITS:{getByName:()=>({reserve:async()=>{reservations++;return {allowed:true};}})}}),deps=mockFetch([{content:'Rejected provider output.'}],options);
+    const result=await call('/api/plan',planBody,env,deps);assert.equal(result.status,502);assert.equal(result.body.error,options.missingIdentity?'provider_model_missing':'provider_model_mismatch');assert.equal(reservations,1);assert.equal(deps.seen.filter(v=>v.url.endsWith('/chat/completions')).length,1);assert.equal(result.body.identity_match,false);assert.equal(result.body.cost_usd,null);assert.ok(result.body.requested_rate_cost_estimate_usd>0);assert.equal(result.body.calls[0].usage.prompt_tokens,100);assert.ok(result.body.calls[0].reserved_microusd>0);assert.equal(result.body.calls[0].rate_limit_headers['x-ratelimit-remaining-requests'],'58');assert.ok(!JSON.stringify(result.body).includes('server-nebius-mock-key'));
+  }
+});
+test('rejected Writer output retains bounded line-obedience counts without rejected text',async()=>{
+  const body={lang:'en',exit_station:'성수',budget_chars:120,is_last_scene:true};
+  const result=await call('/api/write',body,environment(),mockFetch([{content:'a'.repeat(91)+'\n'+'b'.repeat(45)}]));
+  assert.equal(result.status,502);assert.ok(result.body.cost_usd>0);const v=result.body.calls[0].writer_validation;
+  assert.equal(v.counting_basis,'trimmed-nonempty-lines/unicode-code-points');assert.equal(v.sentence_count,2);assert.equal(v.sentences_within_cap,1);assert.equal(v.sentences_over_cap,1);assert.equal(v.max_sentence_chars,91);assert.equal(v.total_chars,136);assert.equal(v.scene_budget_ok,false);assert.equal(v.ending_station_ok,false);assert.deepEqual(v.failures,['sentence_cap','scene_budget','station_ending']);assert.equal(v.passed,false);assert.ok(!JSON.stringify(result.body).includes('aaaaa'));
+  for(const [content,n,failure]of[[null,null,'non_text'],['\n   ',0,'empty'],['x\n'.repeat(101),101,'too_many_sentences']]){
+    const rejected=await call('/api/write',body,environment(),mockFetch([{content}]));const summary=rejected.body.calls[0].writer_validation;assert.equal(summary.sentence_count,n);assert.ok(summary.failures.includes(failure));assert.equal(summary.status,'rejected');assert.ok(!('sentences'in rejected.body));
+  }
+  const unidentified=await call('/api/write',body,environment(),mockFetch([{content:'Do not inspect this output.'}],{missingIdentity:true}));const v2=unidentified.body.calls[0].writer_validation;assert.equal(v2.status,'not_inspected');assert.equal(v2.sentence_count,null);assert.equal(v2.scene_budget_ok,null);assert.equal(v2.passed,false);assert.deepEqual(v2.failures,['completion_not_inspected']);assert.equal(unidentified.body.cost_usd,null);
+});
+const probeBody=model=>({purpose:'feedback-korean-compare',lang:'ko',feedback_model:model,sentence_count:3,budget_chars:120,scene:'같은 열차에서 노란 봉투를 발견하는 장면.',expected_pricing:{model,input_price_per_million_tokens:.1,output_price_per_million_tokens:.3}});
+test('the authenticated Korean feedback probe uses identical bounded prompts for Super and Ultra',async()=>{
+  const payloads=[];
+  for(const model of [MODELS.en,MODELS.ko]){
+    const deps=mockFetch([{content:'봉투가 빛났다.\n나는 편지를 폈다.\n열차가 달렸다.'}]);const result=await call('/api/write',probeBody(model),environment(),deps);
+    assert.equal(result.status,200);assert.equal(result.body.sentences.length,3);assert.equal(result.body.identity_match,true);assert.equal(result.body.provider_reported_model,model);assert.equal(result.body.sentence_cap,40);assert.equal(result.body.calls[0].writer_validation.required_sentence_count,3);assert.equal(result.body.calls[0].writer_validation.max_sentence_count,3);assert.equal(result.body.calls[0].writer_validation.purpose,'feedback-korean-compare');
+    const sent=JSON.parse(deps.seen.find(v=>v.url.endsWith('/chat/completions')).init.body);assert.equal(sent.model,model);assert.equal(sent.max_tokens,180);payloads.push(sent.messages);
+  }
+  assert.deepEqual(payloads[0],payloads[1]);
+});
+test('malformed Korean probes never dispatch and failed probe counts remain inspectable',async()=>{
+  const good=probeBody(MODELS.en);
+  for(const changed of [{...good,lang:'en'},{...good,feedback_model:'super'},{...good,sentence_count:2},{...good,budget_chars:121},{...good,expected_pricing:undefined},{...good,scene:undefined},{...good,fact:null},{...good,purpose:undefined}]){
+    const deps=mockFetch();const result=await call('/api/write',changed,environment(),deps);assert.equal(result.status,400);assert.equal(deps.seen.length,0);
+  }
+  for(const content of ['첫 문장.\n둘째 문장.','가'.repeat(41)+'\n둘째.\n셋째.']){
+    const rejected=await call('/api/write',good,environment(),mockFetch([{content}]));assert.equal(rejected.status,502);const v=rejected.body.calls[0].writer_validation;assert.equal(v.purpose,'feedback-korean-compare');assert.equal(v.passed,false);assert.ok(v.failures.includes(content.startsWith('가')?'sentence_cap':'exact_sentence_count'));assert.ok(!('sentences'in rejected.body));assert.ok(rejected.body.cost_usd>0);
+  }
 });

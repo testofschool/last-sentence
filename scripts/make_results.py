@@ -4,10 +4,73 @@ import argparse
 import hashlib
 import html
 import json
+import math
 from pathlib import Path
 import statistics
 
-from run_matrix import policy_coverage
+from run_matrix import SUPER, ULTRA, policy_coverage
+
+
+def table_text(value):
+    return html.escape(str(value), quote=False).replace("|", "\\|").replace("`", "&#96;").replace("\n", " ").replace("\r", " ")
+
+
+def metric(value, suffix="", digits=1):
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value):
+        return "UNMEASURED"
+    return f"{value:.{digits}f}{suffix}"
+
+
+def writer_identity(row):
+    requested = row.get("writer_models_requested", [])
+    reported = row.get("writer_models_reported", [])
+    verified = row.get("model_identities_verified") is True
+    if not requested and not reported:
+        calls = [call for receipt in row.get("receipts", []) for call in receipt.get("calls", [receipt])]
+        writers = [call for call in calls if call.get("requested_model", call.get("model")) in (SUPER, ULTRA)]
+        requested = sorted({call.get("requested_model") for call in writers if isinstance(call.get("requested_model"), str)})
+        reported = sorted({call.get("provider_reported_model") for call in writers if isinstance(call.get("provider_reported_model"), str)})
+        verified = bool(writers) and all(call.get("identity_match") is True and
+            call.get("requested_model") == call.get("provider_reported_model") for call in writers)
+    if not verified or not requested or requested != reported:
+        return "UNVERIFIED"
+    return ", ".join({SUPER: "Super", ULTRA: "Ultra"}.get(model, model) for model in reported)
+
+
+def language_pair_section(matrix):
+    pair = matrix.get("language_pair", [])
+    lines = ["## English / Korean comparison", ""]
+    if not pair:
+        return lines + ["**UNRUN.** No completed same-journey EN/Super and KO/Ultra pair is recorded. No language results are inferred from fixtures.", ""]
+    fields = ("id", "line", "trainNo", "exit_station", "policy")
+    paired = len(pair) == 2 and {row.get("lang") for row in pair} == {"en", "ko"} and all(
+        pair[0].get(field) is not None and pair[0].get(field) == pair[1].get(field) for field in fields)
+    for key in ("arrival_at", "arrival_proxy_s", "speech_clock", "controller_policy"):
+        if any(key in row for row in pair):
+            paired = paired and all(row.get(key) is not None and row.get(key) == pair[0].get(key) for row in pair)
+    if paired:
+        lines += [f"Both rows cover the same frozen journey `{table_text(pair[0]['id'])}` and policy. "
+                  "This is a two-run descriptive comparison, not a language-quality score or independent evidence of door timing.", ""]
+    else:
+        lines += ["**INCOMPLETE_PAIR.** Available rows do not establish one EN and one KO result on the same journey, policy and clock. They must not be described as a paired comparison.", ""]
+    if matrix.get("execution_transport") == "injected-test-transport":
+        lines += ["Injected test transport: the values below are mocked, not actual provider measurements.", ""]
+    if matrix.get("mode") == "model-backed-timing-simulation":
+        lines += ["Speech timing uses the declared character-rate simulation; browser TTS remains unmeasured by this table.", ""]
+    lines += ["| Language | Writer reported with matching identity | Landing error | Cost/story | Tokens | Call p50 | Call p95 |",
+              "|---|---|---:|---:|---:|---:|---:|"]
+    for row in sorted(pair, key=lambda value: str(value.get("lang", ""))):
+        cost = metric(row.get("cost_usd"), digits=6)
+        lines.append(f"| {table_text(row.get('lang', 'unknown'))} | {table_text(writer_identity(row))} | "
+                     f"{metric(row.get('landing_error_s'), ' s')} | {'$'+cost if cost != 'UNMEASURED' else 'UNKNOWN'} | "
+                     f"{metric(row.get('tokens'), digits=0)} | {metric(row.get('p50_latency_ms'), ' ms')} | {metric(row.get('p95_latency_ms'), ' ms')} |")
+    lines += ["", "| Language | Conductor completions | Writer attempts | Tool calls supported | Tavily result |",
+              "|---|---:|---:|---|---|"]
+    for row in sorted(pair, key=lambda value: str(value.get("lang", ""))):
+        flag = lambda value: str(value).lower() if isinstance(value, bool) else "not recorded"
+        lines.append(f"| {table_text(row.get('lang', 'unknown'))} | {metric(row.get('conductor_calls'), digits=0)} | "
+                     f"{metric(row.get('writer_calls'), digits=0)} | {flag(row.get('tool_calls_supported'))} | {flag(row.get('tavily_ok'))} |")
+    return lines + ["", "Writer identities require explicit matching requested/provider-reported IDs in the receipts. Unknown provenance or cost is never converted to an expected model or zero spend. The original matrix retains full receipts and clock provenance.", ""]
 
 
 def observed_eta_section(eta, quality, line=None):
@@ -94,8 +157,8 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidenc
               f"EN/KO pair rows: {len(matrix.get('language_pair', []))}. Failures/attempts remain in the source matrix." if model_simulated else
               "The full 30-journey × 3-policy evaluation and EN/KO model pair are **UNRUN**." if not measured else
               "Coverage below is the set imported from recorded measurements."), "",
-             "| Policy | n | ≤30 s | ≤10 s | Median absolute error | Cost/story | p50 call latency |",
-             "|---|---:|---:|---:|---:|---:|---:|"]
+             "| Policy | n | ≤30 s | ≤10 s | Median absolute error | Cost/story | Median story call p50 | Median story call p95 |",
+             "|---|---:|---:|---:|---:|---:|---:|---:|"]
     for policy in ("fixed_clip", "single_fit", "sentence_replan"):
         group = [r for r in rows if r["policy"] == policy]
         if not group:
@@ -103,9 +166,13 @@ def render(matrix, output, eta_evaluation=None, trace_quality=None, line_evidenc
         errors = [abs(r["landing_error_s"]) for r in group]
         latencies = [r["p50_latency_ms"] for r in group if r["p50_latency_ms"] is not None]
         latency = f"{statistics.median(latencies):.1f} ms" if latencies else "UNMEASURED"
+        p95 = [r.get("p95_latency_ms") for r in group if isinstance(r.get("p95_latency_ms"), (int, float))]
+        tail = metric(statistics.median(p95), " ms") if p95 else "UNMEASURED"
         lines.append(f"| {policy} | {len(group)} | {sum(e <= 30 for e in errors) / len(errors):.1%} | "
                      f"{sum(e <= 10 for e in errors) / len(errors):.1%} | {statistics.median(errors):.1f} s | "
-                     f"${statistics.mean(r['cost_usd'] for r in group):.6f} | {latency} |")
+                     f"${statistics.mean(r['cost_usd'] for r in group):.6f} | {latency} | {tail} |")
+    lines += ["", "Latency summaries are medians of each story's call-latency quantile; they are not pooled call percentiles.", ""]
+    lines += language_pair_section(matrix)
     lines += ["", "Positive error means the story ended after the arrival proxy; negative means before it.", "",
               "![Landing error by policy](landing-error.svg)", "",
               "## Interpretation", "",

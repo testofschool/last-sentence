@@ -9,6 +9,8 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from model_simulation import NoRedirect, WorkerHttp, SimulationError, execute as execute_actual, select_windows, simulate_story
 from run_matrix import LIGHTNING, SUPER, ULTRA
+from receipt_fixtures import model_identity, writer_validation
+from contracts import RECEIPT_SCHEMA
 
 
 class FakeTime:
@@ -56,14 +58,18 @@ class FakeWorker:
     def __call__(self, path, body, timeout):
         self.requests.append((path,body))
         if path == "/api/status":
-            return 200,{"inference_enabled":True,"max_input_token_bound":16384,"expected_pricing_supported":True,"limits":{"reservation_budget_usd":3,"reserved_usd":0,"completion_calls_remaining":0 if self.insufficient else 300}},5
+            return 200,{"inference_enabled":True,"receipt_schema":RECEIPT_SCHEMA,"max_input_token_bound":16384,"expected_pricing_supported":True,
+                        "receipt_provenance_supported":True,"writer_validation_supported":True,
+                        "limits":{"reservation_budget_usd":3,"reserved_usd":0,"completion_calls_remaining":0 if self.insufficient else 300}},5
         model = LIGHTNING if path == "/api/plan" else ULTRA if body["lang"] == "ko" else SUPER
         a,b = {LIGHTNING:(.06,.24),SUPER:(.3,.9),ULTRA:(1,3)}[model]
         usage = {"prompt_tokens":100,"completion_tokens":100}
         cost = (100*a+100*b)/1_000_000
-        call = {"model":model,"usage":None if self.missing_usage else usage,"cost_usd":None if self.missing_usage else cost,
+        call = {**model_identity(model),"usage":None if self.missing_usage else usage,"cost_usd":None if self.missing_usage else cost,
+                "requested_rate_cost_estimate_usd":None if self.missing_usage else cost,
                 "latency_ms":20,"pricing":{"input_price_per_million_tokens":a,"output_price_per_million_tokens":b,'fresh_for_dispatch':True,'acknowledged':True}}
-        response = {"model":model,"usage":usage,"cost_usd":call["cost_usd"],"latency_ms":20,"calls":[call]}
+        response = {**model_identity(model),"usage":usage,"cost_usd":call["cost_usd"],
+                    "requested_rate_cost_estimate_usd":call['requested_rate_cost_estimate_usd'],"latency_ms":20,"calls":[call]}
         if path == "/api/plan":
             target=next((scene['id'] for scene in body['remaining_scenes'] if scene['id']!='exit'),None)
             response.update(plan={"stations_left":body["stations_left"],"remaining_s":body["remaining_s"],"budget_chars":int(max(0,body["remaining_s"]-20)*4.51),
@@ -76,6 +82,7 @@ class FakeWorker:
             else:
                 count=body['budget_chars']//cap
                 response['sentences']=["B"*cap]*count or ["B"*body['budget_chars']]
+            call['writer_validation']=writer_validation(response['sentences'],body['lang'],body['budget_chars'],body['is_last_scene'],body['exit_station'])
         return 200,response,20
 
 
@@ -120,6 +127,89 @@ def test_missing_usage_aborts_and_preserves_unknown_spend_instead_of_zero(tmp_pa
     assert len([path for path,_ in fake.requests if path != "/api/status"]) == 1
     assert result["attempts"][0]["state"] == "failed"
     assert "usage" in result["failures"][0]["reason"]
+
+
+@pytest.mark.parametrize('reported', [None, 'unverified/vendor-model', ULTRA])
+def test_unverified_provider_identity_aborts_without_using_requested_model_as_proof(tmp_path, reported):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker()
+    def wrong_identity(path,body,timeout):
+        code,response,elapsed=fake(path,body,timeout)
+        if path!='/api/status':
+            # Deliberately leave identity_match=true: independent equality is required.
+            response['calls'][0]['provider_reported_model']=reported
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'identity.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=wrong_identity)
+    assert result['status']=='aborted' and result['rows']==[]
+    assert result['actual_api_cost_usd'] is None and result['inference_dispatch_attempts']==1
+    call=result['attempts'][0]['response']['calls'][0]
+    assert call['usage']['prompt_tokens']==100
+    assert call['requested_rate_cost_estimate_usd']>0
+    assert call['provider_reported_model']==reported
+
+
+def test_inconsistent_aggregate_identity_is_rejected_even_with_matched_calls(tmp_path):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker()
+    def mismatched_aggregate(path,body,timeout):
+        code,response,elapsed=fake(path,body,timeout)
+        if path!='/api/status':response['provider_reported_model']=ULTRA
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'aggregate-id.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=mismatched_aggregate)
+    assert result['status']=='aborted' and result['actual_api_cost_usd'] is None
+    assert result['inference_dispatch_attempts']==1
+
+
+@pytest.mark.parametrize('field,value',[('receipt_schema','last-sentence/receipt-v1'),
+    ('receipt_provenance_supported',False),('writer_validation_supported',False)])
+def test_missing_receipt_capability_refuses_before_any_model_dispatch(tmp_path,field,value):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker()
+    def incompatible(path,body,timeout):
+        code,response,elapsed=fake(path,body,timeout)
+        if path=='/api/status':response[field]=value
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'incompatible.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=incompatible)
+    assert result['status']=='aborted' and result['actual_api_cost_usd']==0
+    assert result['inference_dispatch_attempts']==0
+    assert all(path=='/api/status' for path,_ in fake.requests)
+
+
+def test_rejected_writer_keeps_inspected_denominator_and_known_paid_usage(tmp_path):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker()
+    def rejected_writer(path,body,timeout):
+        code,response,elapsed=fake(path,body,timeout)
+        if path=='/api/write':
+            response['calls'][0]['writer_validation']=writer_validation(['X'*91,body['exit_station']],
+                body['lang'],body['budget_chars'],body['is_last_scene'],body['exit_station'])
+            response.pop('sentences')
+            response['error']='writer_constraint_failure';code=502
+        return code,response,elapsed
+    output=tmp_path/'rejected.json'
+    result=execute(trace,catalog,output,'https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=rejected_writer)
+    assert result['status']=='aborted' and result['rows']==[]
+    assert result['actual_api_cost_usd']>0 and result['inference_dispatch_attempts']==1
+    validation=result['attempts'][-1]['response']['calls'][0]['writer_validation']
+    assert validation['sentence_count']==2 and validation['sentences_within_cap']==1
+    assert validation['sentences_over_cap']==1 and validation['passed'] is False
+    assert 'X'*91 not in output.read_text()
+
+
+@pytest.mark.parametrize('mutation',['missing','disagrees_with_text'])
+def test_writer_validation_cannot_be_missing_or_disagree_with_accepted_text(tmp_path,mutation):
+    _,trace,catalog,token=inputs(tmp_path);fake=FakeWorker()
+    def malformed_writer(path,body,timeout):
+        code,response,elapsed=fake(path,body,timeout)
+        if path=='/api/write':
+            if mutation=='missing':response['calls'][0].pop('writer_validation')
+            else:response['sentences'][0]+='X'
+        return code,response,elapsed
+    result=execute(trace,catalog,tmp_path/'bad-validation.json','https://worker.example',token,
+                   journeys=1,execute_flag=True,ack_cost=3,transport=malformed_writer)
+    assert result['status']=='aborted' and result['rows']==[]
+    assert result['actual_api_cost_usd']>0 and result['inference_dispatch_attempts']==1
+    assert 'validation' in result['failures'][0]['reason']
 
 
 def test_insufficient_server_capacity_prevents_paid_dispatch(tmp_path):

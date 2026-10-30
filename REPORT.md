@@ -1,6 +1,6 @@
 # Last Sentence · execution report
 
-Updated 2026-10-30T11:33:50+09:00.
+Updated 2026-10-30T12:01:57+09:00.
 
 **Disposition: HOLD.** Local code, replay and deployment packaging are implemented; actual Nebius/Tavily runtime use, prospective live narration, observed model-backed speech timing and public release remain unverified. This report is not a submission receipt or a claim of contest eligibility.
 
@@ -49,10 +49,10 @@ P7 checks the supported-language section, not incidental mentions of Korean in t
 | T1 ETA | 2호선: n=338, median 4.9552%, ≤15% gate PASS, recording_complete=True; 5호선: n=556, median 1.9615%, ≤15% gate PASS, recording_complete=True; 7호선: n=279, median 4.7619%, ≤15% gate PASS, recording_complete=True. Whole-train-held-out 3–10-segment windows; station-arrival proxy only. Each line needs its own completed-recording gate. |
 | T1 data quality | Line-2 receipt timestamp age: median 50.0 s / p95 97.0 s across repeated poll records. This is not network delay or a door-opening offset. Overlapping forecast windows are not independent journeys. |
 | T1 replay data | 9 contiguous recorded journey segments; known future replay clock, not an ETA forecast. Three separate synthetic fixtures. |
-| T2 Worker | Implemented tools, fallback, Writer validation, receipts, atomic quotas and authenticated observed ETA. Actual public SAMPLE position → exact station-ID/arrival-v2 anchor → verified terminus → 3-stop ETA passed for all three lines in local workerd. Every `/api/plan` correctly refused the missing Nebius key; completion/search deltas were zero. See `evidence/worker/runtime_all_lines.json`. Model behavior remains mock-tested; inference and deployment unrun. |
+| T2 Worker | Implemented tools, fallback, Writer validation, receipts, atomic quotas and authenticated observed ETA. Actual public SAMPLE position → exact station-ID/arrival-v2 anchor → verified terminus → 3-stop ETA passed for all three lines in local workerd. Every `/api/plan` correctly refused the missing Nebius key; completion/search deltas were zero. See `evidence/worker/runtime_all_lines_receipts_v2.json`. Receipt-v2 requires exact requested/provider-reported identity and retains rejected Writer validation counters; actual model behavior remains mock-tested. |
 | T3 app | Recorded/fixture source, train/boarding/exit selection, language, replay controls, optional sequential TTS, receipts and explicit connected generation. Replay and Live retain speech/clock progress during requests and apply affected-scene edits at a sentence boundary. Live selects an actual train/direction/forward terminus. Desktop keyless flows checked; model paths remain mock-tested until vendor keys and field validation. Authored 1× browser-speech QA: PASS_AUTHORED_LOCAL_UI. 390px desktop-iframe layout passed after fixing selector truncation; actual-phone review remains unrun. |
 | T4 comparison | 0 real inference runs. Nine explicitly synthetic policy rows only. Guarded model-backed timing-simulation executor implemented with mock HTTP tests; it requires explicit execution/cost flags, protected session credentials, fresh pricing and Worker capacity checks. Full 30×3 + pair bound $2.60596288, allowed=True with configured completion cap 2048; not executed. Real browser timing is imported separately. |
-| T5 documents | README, LIMITATIONS, FEEDBACK, PRIOR_ART, RESULTS, DATA, API, RUNBOOK and VIDEO_SCRIPT present. Feedback and video remain local drafts. |
+| T5 documents | README, LIMITATIONS, FEEDBACK, PRIOR_ART, RESULTS, DATA, API, RUNBOOK and VIDEO_SCRIPT present. Controlled same-Korean-scene Super/Ultra three-sentence collector prepared with a plan-only default, explicit small-cost acknowledgement, protected session credentials, receipt-v2 checks and no automatic retry. Actual feedback samples/onboarding and video remain unrun. |
 
 ## §3 Acceptance A1–A7
 
@@ -68,24 +68,25 @@ P7 checks the supported-language section, not incidental mentions of Korean in t
 
 ```text
 /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pytest -q tests
-........................................................................ [ 74%]
-.........................                                                [100%]
-97 passed in 0.79s
+........................................................................ [ 45%]
+........................................................................ [ 90%]
+...............                                                          [100%]
+159 passed in 0.69s
 exit_code=0
 ```
 
 ```text
 node --test tests/connected_flow.test.mjs tests/live_flow.test.mjs tests/player.test.mjs tests/prompt_envelope.test.mjs tests/scene_ops.test.mjs tests/worker.test.mjs tests/worker_eta.test.mjs tests/worker_multiline.test.mjs tests/worker_quota.test.mjs
-✔ the actual Worker entrypoint calls native fetch with its required global receiver (282.226583ms)
-✔ actual workerd supports fresh acknowledged-price checks and blocks drift before a completion (147.63875ms)
-ℹ tests 99
+✔ the actual Worker entrypoint calls native fetch with its required global receiver (191.538292ms)
+✔ actual workerd supports fresh acknowledged-price checks and blocks drift before a completion (125.342166ms)
+ℹ tests 104
 ℹ suites 0
-ℹ pass 99
+ℹ pass 104
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 2658.432875
+ℹ duration_ms 1832.298709
 exit_code=0
 ```
 
@@ -107,6 +108,7 @@ Actual model calls: **0**. Actual Tavily calls: **0**. Actual model/search API s
 
 - Full 30×3 + language pair: bound $2.60596288, 1370 completions; planned input envelope 16384 and explicit completion ceiling 2048. Allowed by those guards: True. Execution unrun.
 - Optional default-cap diagnostic 5×3 + language pair: bound $0.58566688, 295 completions; planning only. This does not replace the original balanced full comparison.
+- Separate controlled Korean feedback probe: at its saved catalog prices, two-completion bound $0.0220012; plan-only, zero inference. Its plan expires after five minutes and must be recreated before authorized execution. It shares the Worker's ≤$3 reservation ledger; local acknowledgement cannot exceed $0.05.
 - The Worker keeps a ≤$3 inference reservation ceiling and independently limits completions/searches. Tavily credit pricing is not established by the model catalog. Bounds and provider-usage estimates are not invoices or an account-wide spending guarantee.
 
 ## §5 Changes from the supplied plan
@@ -118,6 +120,7 @@ Actual model calls: **0**. Actual Tavily calls: **0**. Actual model/search API s
 - `tests/player.test.mjs`, `tests/connected_flow.test.mjs` and local workerd tests exercise UI timing, cancellation, cost retention and atomic quotas without vendor inference.
 - `scripts/model_simulation.py` adds an explicitly guarded inference executor to `run_matrix.py`. Its speech clock uses fixed characters/second plus measured HTTP latency, and is always labeled model-backed timing simulation. It never claims actual browser TTS. Real audio experiments remain additional work after keys are available. Connected replay uses a known event clock; Live keeps wall time and an observed arrival proxy.
 - Full line-5 and line-7 graphs were checked against official SMSS maps and a separate dated public timetable. One-off missing-stop jumps were retained as unconfirmed and excluded from adjacency. Each line has a separate frozen bundle and quality gate; topology is not empirical coverage. See `evidence/topology/crosscheck.json`.
+- Receipt-v2 distinguishes requested and provider-reported models, preserves usage and unknown costs on identity failure, and records bounded line-cap counts even for rejected Writer replies. Strict Python consumers refuse older/unverified receipts before attribution. The language-pair renderer keeps paired context, actual identity provenance and per-story p50/p95 summaries explicit; absent pairs remain UNRUN.
 - The registered ETA gate is reported as measured, including failure or insufficient data. The handoff's earlier percentages, example +4 s, install count and unverified competitive claims are not presented as new results.
 - Full downloaded third-party pages, node_modules, build output, credentials and temporary clone artifacts are excluded from version control. Compact source/pricing/verification evidence is retained.
 

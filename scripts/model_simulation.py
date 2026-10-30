@@ -14,7 +14,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from contracts import validate_plan, validate_write
+from contracts import RECEIPT_SCHEMA, validate_model_identity, validate_plan, validate_write, validate_writer_validation
 from eta_model import arrivals, budget, fit, load_trace, predict, timestamp
 from scene_ops import partition, editable_inputs, prepare as prepare_scene_op, apply as apply_scene_patch
 from rate_pacing import MinutePacer, PacingError
@@ -140,10 +140,16 @@ def validate_calls(response, expected_model, maximum):
     calls = response.get("calls")
     if not isinstance(calls, list) or not 1 <= len(calls) <= maximum:
         raise SimulationError("missing or excessive completion receipts")
+    try:
+        validate_model_identity(response, (LIGHTNING, SUPER, ULTRA), expected_model)
+    except ValueError as exc:
+        raise SimulationError(str(exc)) from exc
     total = 0.0
     for call in calls:
-        if not isinstance(call, dict) or call.get("model") != expected_model:
-            raise SimulationError("unexpected model in completion receipts")
+        try:
+            validate_model_identity(call, (LIGHTNING, SUPER, ULTRA), expected_model)
+        except ValueError as exc:
+            raise SimulationError(str(exc)) from exc
         usage, pricing = call.get("usage"), call.get("pricing")
         if not isinstance(usage, dict) or not isinstance(pricing, dict):
             raise SimulationError("missing usage or per-call pricing; actual cost unknown")
@@ -161,10 +167,18 @@ def validate_calls(response, expected_model, maximum):
         expected = (usage["prompt_tokens"] * rates[0] + usage["completion_tokens"] * rates[1]) / 1_000_000
         if not math.isclose(expected, call["cost_usd"], rel_tol=1e-9, abs_tol=1e-12):
             raise SimulationError("receipt cost does not match usage and per-call pricing")
+        estimate = call.get("requested_rate_cost_estimate_usd")
+        if (not isinstance(estimate, (int, float)) or isinstance(estimate, bool)
+                or not math.isfinite(estimate) or estimate < 0 or not math.isclose(estimate, expected, rel_tol=1e-9, abs_tol=1e-12)):
+            raise SimulationError("requested-rate cost estimate does not match verified usage/pricing")
         total += expected
     aggregate = response.get("cost_usd")
     if not isinstance(aggregate, (int, float)) or isinstance(aggregate, bool) or not math.isclose(aggregate, total, rel_tol=1e-9, abs_tol=1e-12):
         raise SimulationError("aggregate cost does not match completion receipts")
+    aggregate_estimate = response.get("requested_rate_cost_estimate_usd")
+    if (not isinstance(aggregate_estimate, (int, float)) or isinstance(aggregate_estimate, bool)
+            or not math.isfinite(aggregate_estimate) or aggregate_estimate < 0 or not math.isclose(aggregate_estimate, total, rel_tol=1e-9, abs_tol=1e-12)):
+        raise SimulationError("aggregate requested-rate estimate does not match completion receipts")
     return calls, total
 
 
@@ -241,10 +255,14 @@ class Session:
         limits = result.get("limits", {})
         if code != 200 or result.get("inference_enabled") is not True:
             raise SimulationError("protected Worker is not inference-ready")
+        if result.get('receipt_schema') != RECEIPT_SCHEMA:
+            raise SimulationError('Worker does not advertise the required receipt-v2 schema')
         if result.get("max_input_token_bound") != self.plan["max_input_tokens_per_completion"]:
             raise SimulationError("Worker input-token envelope does not match the acknowledged cost plan")
         if result.get('expected_pricing_supported') is not True:
             raise SimulationError('Worker does not advertise predispatch acknowledged-price enforcement')
+        if result.get('receipt_provenance_supported') is not True or result.get('writer_validation_supported') is not True:
+            raise SimulationError('Worker does not advertise verified model provenance and Writer validation receipts')
         available = limits.get("reservation_budget_usd")
         reserved = limits.get("reserved_usd")
         remaining = limits.get("completion_calls_remaining")
@@ -290,6 +308,15 @@ class Session:
                 raise SimulationError("actual receipt costs exceeded the local cap; abort")
             if cost > upper + 1e-12 or any((call["pricing"]["input_price_per_million_tokens"], call["pricing"]["output_price_per_million_tokens"]) != self.prices[model] for call in calls):
                 raise SimulationError("Worker pricing differs from the acknowledged snapshot; abort before further dispatch")
+            if path == '/api/write':
+                for call in calls:
+                    try:
+                        validate_writer_validation(call.get('writer_validation'), expected_language=payload['lang'],
+                            expected_budget=payload['budget_chars'], expected_ending=payload['is_last_scene'],
+                            sentences=result.get('sentences') if code == 200 and not result.get('error') else None,
+                            require_passed=code == 200 and not result.get('error'), expected_station=payload['exit_station'])
+                    except ValueError as exc:
+                        raise SimulationError(str(exc)) from exc
             if code != 200 or result.get("error"):
                 raise SimulationError("Worker request failed; attempt and receipts retained")
             return result, (status_elapsed + elapsed) / 1000

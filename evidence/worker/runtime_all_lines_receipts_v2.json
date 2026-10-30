@@ -1,0 +1,1668 @@
+{
+  "checked_at": "2026-10-30T02:57:40.270Z",
+  "runtime": "Wrangler4.156.0 local workerd",
+  "base": "http://127.0.0.1:8792",
+  "profile": {
+    "ENABLE_LIVE": true,
+    "SEOUL_RT_KEY": "published SAMPLE",
+    "session_token": "excluded",
+    "NEBIUS_API_KEY": "empty",
+    "TAVILY_API_KEY": "empty",
+    "completion_cap": 2048,
+    "reservation_budget_usd": 3
+  },
+  "source_sha256": {
+    "worker/src/core.js": "15b17dea584d43206201ba1b4e63288155b003774afbce527f4a3db4f1181455",
+    "worker/src/eta.js": "5ab4cd9add91b96ef65634a79dc39407f40c6bd5c6947c94e3365f785d4a3ed4",
+    "worker/src/topology.js": "511362c5894a2ca31d66681058e5b951be1da4b6486f7f0892392e57b6b00ca8",
+    "worker/src/index.js": "abe88cfdb9c0b297e7a2005e22628d3fbee356fe0db82078a3b0fe6e5ed47c96",
+    "worker/src/limits.js": "de4ce8a359f055c5bcc198cc2c8edd4d0847f4405f256e901c9efc6653bf324b",
+    "worker/src/limits_config.js": "691791d0bee2cd2c3e92bbe4be1bc8a417064af0a7b5f09a6b5c4806a1c250d2",
+    "worker/wrangler.jsonc": "1206cf8d6385748aa9fda6afcb9602e8076f6ace85ed5b6918f393086936f2f1"
+  },
+  "eta_bundle_sha256": {
+    "_2": "021a21990175775f3c86e20e17de6035c5494ba985933510016f912396b0bbff",
+    "_5": "d20cf55aec4ecfd620dd54a8554926bd0fb79c60b3c2b38d4fec6ddc25f30091",
+    "_7": "7e381afcd1f00563f5440ab8b29c6f9c56de9ba2a3a7d6ba9158fb593c711f81"
+  },
+  "lines": {
+    "2호선": {
+      "quality": {
+        "valid": true,
+        "reason": null,
+        "line": "2호선",
+        "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+        "prepared_at": "2026-10-30T01:43:03.173358+00:00",
+        "recording_complete": true,
+        "evaluation": {
+          "n": 338,
+          "train_identities": 9,
+          "median_relative_error": 0.04955196136866458,
+          "station_horizons": [
+            3,
+            10
+          ],
+          "method": "leave-one-train-identity-out"
+        },
+        "topology": {
+          "stations": 43,
+          "edges": 43,
+          "direction_steps": {
+            "0": 1,
+            "1": -1
+          }
+        },
+        "experimental": true
+      },
+      "polls": [
+        {
+          "path": "/api/position?line=2%ED%98%B8%EC%84%A0",
+          "status": 200,
+          "json": {
+            "mode": "live",
+            "positions": [
+              {
+                "subwayId": "1002",
+                "trainNo": "3180",
+                "statnId": "1002000208",
+                "statnNm": "왕십리",
+                "updnLine": "0",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:56:04",
+                "statnTnm": "성수종착",
+                "statnTid": "1002000211",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1002",
+                "trainNo": "3211",
+                "statnId": "1002000234",
+                "statnNm": "신도림",
+                "updnLine": "1",
+                "trainSttus": "2",
+                "recptnDt": "2026-10-30 11:57:18",
+                "statnTnm": "성수종착",
+                "statnTid": "1002000211",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1002",
+                "trainNo": "2193",
+                "statnId": "1002000213",
+                "statnNm": "구의",
+                "updnLine": "1",
+                "trainSttus": "2",
+                "recptnDt": "2026-10-30 11:56:35",
+                "statnTnm": "성수종착",
+                "statnTid": "1002000211",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1002",
+                "trainNo": "2199",
+                "statnId": "1002000218",
+                "statnNm": "종합운동장",
+                "updnLine": "1",
+                "trainSttus": "2",
+                "recptnDt": "2026-10-30 11:57:18",
+                "statnTnm": "성수종착",
+                "statnTid": "1002000211",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1002",
+                "trainNo": "3186",
+                "statnId": "1002000202",
+                "statnNm": "을지로입구",
+                "updnLine": "0",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:56:55",
+                "statnTnm": "성수종착",
+                "statnTid": "1002000211",
+                "directAt": "0",
+                "lstcarAt": "0"
+              }
+            ],
+            "sample_key": true,
+            "transport": "http-public-sample",
+            "transport_fallback": true,
+            "observed_at": "2026-10-30T02:57:44.796Z",
+            "arrival_reference": "station-position-proxy-not-doors-open",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 3456
+          }
+        }
+      ],
+      "anchor_checks": [
+        {
+          "path": "/api/eta?line=2%ED%98%B8%EC%84%A0&trainNo=3180&direction=0",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "왕십리",
+              "station_id": "1002000208",
+              "raw_station": "왕십리",
+              "recptnDt": "2026-10-30 11:56:04",
+              "epoch_s": 1793328964,
+              "trainSttus": "1",
+              "trainNo": "3180",
+              "direction": "0",
+              "line": "2호선",
+              "verified": true,
+              "terminus": {
+                "station": "성수",
+                "id": "1002000211",
+                "raw_name": "성수종착"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.792Z"
+            },
+            "terminus": {
+              "station": "성수",
+              "id": "1002000211",
+              "raw_name": "성수종착"
+            },
+            "stations_to_terminus": 3,
+            "anchor_age_s": 100.806,
+            "generated_at": "2026-10-30T02:57:44.806Z",
+            "valid_until": "2026-10-30T03:01:04.000Z",
+            "eligible_exits": [
+              {
+                "station": "한양대",
+                "stations_left": 1,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "뚝섬",
+                "stations_left": 2,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "성수",
+                "stations_left": 3,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              }
+            ],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 338,
+              "train_identities": 9,
+              "median_relative_error": 0.04955196136866458,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T01:43:03.173358+00:00",
+            "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": false,
+            "reason": "choose_exit",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 2
+          }
+        }
+      ],
+      "selected": {
+        "params": {
+          "line": "2호선",
+          "trainNo": "3180",
+          "direction": "0",
+          "to": "성수"
+        },
+        "forecast": {
+          "path": "/api/eta?line=2%ED%98%B8%EC%84%A0&trainNo=3180&direction=0&to=%EC%84%B1%EC%88%98",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "왕십리",
+              "station_id": "1002000208",
+              "raw_station": "왕십리",
+              "recptnDt": "2026-10-30 11:56:04",
+              "epoch_s": 1793328964,
+              "trainSttus": "1",
+              "trainNo": "3180",
+              "direction": "0",
+              "line": "2호선",
+              "verified": true,
+              "terminus": {
+                "station": "성수",
+                "id": "1002000211",
+                "raw_name": "성수종착"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.792Z"
+            },
+            "terminus": {
+              "station": "성수",
+              "id": "1002000211",
+              "raw_name": "성수종착"
+            },
+            "stations_to_terminus": 3,
+            "anchor_age_s": 100.812,
+            "generated_at": "2026-10-30T02:57:44.812Z",
+            "valid_until": "2026-10-30T03:01:04.000Z",
+            "eligible_exits": [
+              {
+                "station": "한양대",
+                "stations_left": 1,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "뚝섬",
+                "stations_left": 2,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "성수",
+                "stations_left": 3,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              }
+            ],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 338,
+              "train_identities": 9,
+              "median_relative_error": 0.04955196136866458,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T01:43:03.173358+00:00",
+            "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": true,
+            "remaining_s": 299.188,
+            "stations_left": 3,
+            "route": [
+              "왕십리",
+              "한양대",
+              "뚝섬",
+              "성수"
+            ],
+            "fallback_segments": [
+              [
+                "뚝섬",
+                "성수"
+              ]
+            ],
+            "within_evaluated_horizon": true,
+            "arrived": false,
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 1
+          }
+        }
+      },
+      "plan_refusal": {
+        "path": "/api/plan",
+        "status": 503,
+        "json": {
+          "mode": "replay-only",
+          "error": "missing_nebius_key",
+          "message": "Nemotron is unavailable until its server credential is configured",
+          "receipt_schema": "last-sentence/receipt-v2",
+          "model": null,
+          "requested_model": null,
+          "provider_reported_model": null,
+          "identity_match": false,
+          "usage": null,
+          "cost_usd": 0,
+          "requested_rate_cost_estimate_usd": 0,
+          "latency_ms": 1
+        }
+      }
+    },
+    "5호선": {
+      "quality": {
+        "valid": true,
+        "reason": null,
+        "line": "5호선",
+        "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+        "prepared_at": "2026-10-30T02:30:04.163394+00:00",
+        "recording_complete": true,
+        "evaluation": {
+          "n": 556,
+          "train_identities": 5,
+          "median_relative_error": 0.01961533273928108,
+          "station_horizons": [
+            3,
+            10
+          ],
+          "method": "leave-one-train-identity-out"
+        },
+        "topology": {
+          "stations": 56,
+          "edges": 55,
+          "direction_steps": {
+            "0": -1,
+            "1": 1
+          }
+        },
+        "experimental": true
+      },
+      "polls": [
+        {
+          "path": "/api/position?line=5%ED%98%B8%EC%84%A0",
+          "status": 200,
+          "json": {
+            "mode": "live",
+            "positions": [
+              {
+                "subwayId": "1005",
+                "trainNo": "5090",
+                "statnId": "1005000512",
+                "statnNm": "김포공항",
+                "updnLine": "0",
+                "trainSttus": "0",
+                "recptnDt": "2026-10-30 11:56:34",
+                "statnTnm": "방화",
+                "statnTid": "1005000510",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1005",
+                "trainNo": "5591",
+                "statnId": "1005000547",
+                "statnNm": "천호(풍납토성)",
+                "updnLine": "1",
+                "trainSttus": "3",
+                "recptnDt": "2026-10-30 11:55:50",
+                "statnTnm": "마천",
+                "statnTid": "1005080555",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1005",
+                "trainNo": "5589",
+                "statnId": "1005080553",
+                "statnNm": "개롱",
+                "updnLine": "1",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:56:30",
+                "statnTnm": "마천",
+                "statnTid": "1005080555",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1005",
+                "trainNo": "5566",
+                "statnId": "1005000510",
+                "statnNm": "방화",
+                "updnLine": "0",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:56:07",
+                "statnTnm": "방화",
+                "statnTid": "1005000510",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1005",
+                "trainNo": "5568",
+                "statnId": "1005000515",
+                "statnNm": "발산",
+                "updnLine": "0",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:56:44",
+                "statnTnm": "방화",
+                "statnTid": "1005000510",
+                "directAt": "0",
+                "lstcarAt": "0"
+              }
+            ],
+            "sample_key": true,
+            "transport": "http-public-sample",
+            "transport_fallback": true,
+            "observed_at": "2026-10-30T02:57:44.647Z",
+            "arrival_reference": "station-position-proxy-not-doors-open",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 3297
+          }
+        }
+      ],
+      "anchor_checks": [
+        {
+          "path": "/api/eta?line=5%ED%98%B8%EC%84%A0&trainNo=5090&direction=0",
+          "status": 200,
+          "json": {
+            "mode": "eta-unavailable",
+            "eta_available": false,
+            "reason": "verified_arrival_anchor_unavailable",
+            "experimental": true,
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 2
+          }
+        },
+        {
+          "path": "/api/eta?line=5%ED%98%B8%EC%84%A0&trainNo=5591&direction=1",
+          "status": 200,
+          "json": {
+            "mode": "eta-unavailable",
+            "eta_available": false,
+            "reason": "verified_arrival_anchor_unavailable",
+            "experimental": true,
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 3
+          }
+        },
+        {
+          "path": "/api/eta?line=5%ED%98%B8%EC%84%A0&trainNo=5589&direction=1",
+          "status": 200,
+          "json": {
+            "mode": "eta-unavailable",
+            "eta_available": false,
+            "reason": "verified_arrival_anchor_unavailable",
+            "experimental": true,
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 3
+          }
+        },
+        {
+          "path": "/api/eta?line=5%ED%98%B8%EC%84%A0&trainNo=5566&direction=0",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "방화",
+              "station_id": "1005000510",
+              "raw_station": "방화",
+              "recptnDt": "2026-10-30 11:56:07",
+              "epoch_s": 1793328967,
+              "trainSttus": "1",
+              "trainNo": "5566",
+              "direction": "0",
+              "line": "5호선",
+              "verified": true,
+              "terminus": {
+                "station": "방화",
+                "id": "1005000510",
+                "raw_name": "방화"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.640Z"
+            },
+            "terminus": {
+              "station": "방화",
+              "id": "1005000510",
+              "raw_name": "방화"
+            },
+            "stations_to_terminus": 0,
+            "anchor_age_s": 97.682,
+            "generated_at": "2026-10-30T02:57:44.682Z",
+            "valid_until": "2026-10-30T03:01:07.000Z",
+            "eligible_exits": [],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 556,
+              "train_identities": 5,
+              "median_relative_error": 0.01961533273928108,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T02:30:04.163394+00:00",
+            "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": false,
+            "reason": "choose_exit",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 2
+          }
+        },
+        {
+          "path": "/api/eta?line=5%ED%98%B8%EC%84%A0&trainNo=5568&direction=0",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "발산",
+              "station_id": "1005000515",
+              "raw_station": "발산",
+              "recptnDt": "2026-10-30 11:56:44",
+              "epoch_s": 1793329004,
+              "trainSttus": "1",
+              "trainNo": "5568",
+              "direction": "0",
+              "line": "5호선",
+              "verified": true,
+              "terminus": {
+                "station": "방화",
+                "id": "1005000510",
+                "raw_name": "방화"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.644Z"
+            },
+            "terminus": {
+              "station": "방화",
+              "id": "1005000510",
+              "raw_name": "방화"
+            },
+            "stations_to_terminus": 5,
+            "anchor_age_s": 60.693,
+            "generated_at": "2026-10-30T02:57:44.693Z",
+            "valid_until": "2026-10-30T03:01:44.000Z",
+            "eligible_exits": [
+              {
+                "station": "마곡",
+                "stations_left": 1,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "송정",
+                "stations_left": 2,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "김포공항",
+                "stations_left": 3,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "개화산",
+                "stations_left": 4,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "방화",
+                "stations_left": 5,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              }
+            ],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 556,
+              "train_identities": 5,
+              "median_relative_error": 0.01961533273928108,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T02:30:04.163394+00:00",
+            "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": false,
+            "reason": "choose_exit",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 4
+          }
+        }
+      ],
+      "selected": {
+        "params": {
+          "line": "5호선",
+          "trainNo": "5568",
+          "direction": "0",
+          "to": "김포공항"
+        },
+        "forecast": {
+          "path": "/api/eta?line=5%ED%98%B8%EC%84%A0&trainNo=5568&direction=0&to=%EA%B9%80%ED%8F%AC%EA%B3%B5%ED%95%AD",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "발산",
+              "station_id": "1005000515",
+              "raw_station": "발산",
+              "recptnDt": "2026-10-30 11:56:44",
+              "epoch_s": 1793329004,
+              "trainSttus": "1",
+              "trainNo": "5568",
+              "direction": "0",
+              "line": "5호선",
+              "verified": true,
+              "terminus": {
+                "station": "방화",
+                "id": "1005000510",
+                "raw_name": "방화"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.644Z"
+            },
+            "terminus": {
+              "station": "방화",
+              "id": "1005000510",
+              "raw_name": "방화"
+            },
+            "stations_to_terminus": 5,
+            "anchor_age_s": 60.701,
+            "generated_at": "2026-10-30T02:57:44.701Z",
+            "valid_until": "2026-10-30T03:01:44.000Z",
+            "eligible_exits": [
+              {
+                "station": "마곡",
+                "stations_left": 1,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "송정",
+                "stations_left": 2,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "김포공항",
+                "stations_left": 3,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "개화산",
+                "stations_left": 4,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "방화",
+                "stations_left": 5,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              }
+            ],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 556,
+              "train_identities": 5,
+              "median_relative_error": 0.01961533273928108,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T02:30:04.163394+00:00",
+            "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": true,
+            "remaining_s": 287.299,
+            "stations_left": 3,
+            "route": [
+              "발산",
+              "마곡",
+              "송정",
+              "김포공항"
+            ],
+            "fallback_segments": [
+              [
+                "발산",
+                "마곡"
+              ],
+              [
+                "마곡",
+                "송정"
+              ],
+              [
+                "송정",
+                "김포공항"
+              ]
+            ],
+            "within_evaluated_horizon": true,
+            "arrived": false,
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 2
+          }
+        }
+      },
+      "plan_refusal": {
+        "path": "/api/plan",
+        "status": 503,
+        "json": {
+          "mode": "replay-only",
+          "error": "missing_nebius_key",
+          "message": "Nemotron is unavailable until its server credential is configured",
+          "receipt_schema": "last-sentence/receipt-v2",
+          "model": null,
+          "requested_model": null,
+          "provider_reported_model": null,
+          "identity_match": false,
+          "usage": null,
+          "cost_usd": 0,
+          "requested_rate_cost_estimate_usd": 0,
+          "latency_ms": 4
+        }
+      }
+    },
+    "7호선": {
+      "quality": {
+        "valid": true,
+        "reason": null,
+        "line": "7호선",
+        "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+        "prepared_at": "2026-10-30T02:30:04.263352+00:00",
+        "recording_complete": true,
+        "evaluation": {
+          "n": 279,
+          "train_identities": 9,
+          "median_relative_error": 0.047619047619047616,
+          "station_horizons": [
+            3,
+            10
+          ],
+          "method": "leave-one-train-identity-out"
+        },
+        "topology": {
+          "stations": 53,
+          "edges": 52,
+          "direction_steps": {
+            "0": -1,
+            "1": 1
+          }
+        },
+        "experimental": true
+      },
+      "polls": [
+        {
+          "path": "/api/position?line=7%ED%98%B8%EC%84%A0",
+          "status": 200,
+          "json": {
+            "mode": "live",
+            "positions": [
+              {
+                "subwayId": "1007",
+                "trainNo": "7138",
+                "statnId": "1007000719",
+                "statnNm": "중화",
+                "updnLine": "0",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:56:40",
+                "statnTnm": "도봉산",
+                "statnTid": "1007000710",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1007",
+                "trainNo": "7140",
+                "statnId": "1007000722",
+                "statnNm": "사가정",
+                "updnLine": "0",
+                "trainSttus": "0",
+                "recptnDt": "2026-10-30 11:57:02",
+                "statnTnm": "도봉산",
+                "statnTid": "1007000710",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1007",
+                "trainNo": "7130",
+                "statnId": "1007000710",
+                "statnNm": "도봉산",
+                "updnLine": "0",
+                "trainSttus": "1",
+                "recptnDt": "2026-10-30 11:55:08",
+                "statnTnm": "도봉산",
+                "statnTid": "1007000710",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1007",
+                "trainNo": "7132",
+                "statnId": "1007000711",
+                "statnNm": "수락산",
+                "updnLine": "0",
+                "trainSttus": "2",
+                "recptnDt": "2026-10-30 11:56:31",
+                "statnTnm": "도봉산",
+                "statnTid": "1007000710",
+                "directAt": "0",
+                "lstcarAt": "0"
+              },
+              {
+                "subwayId": "1007",
+                "trainNo": "7134",
+                "statnId": "1007000713",
+                "statnNm": "노원",
+                "updnLine": "0",
+                "trainSttus": "0",
+                "recptnDt": "2026-10-30 11:57:05",
+                "statnTnm": "도봉산",
+                "statnTid": "1007000710",
+                "directAt": "0",
+                "lstcarAt": "0"
+              }
+            ],
+            "sample_key": true,
+            "transport": "http-public-sample",
+            "transport_fallback": true,
+            "observed_at": "2026-10-30T02:57:44.789Z",
+            "arrival_reference": "station-position-proxy-not-doors-open",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 3439
+          }
+        }
+      ],
+      "anchor_checks": [
+        {
+          "path": "/api/eta?line=7%ED%98%B8%EC%84%A0&trainNo=7138&direction=0",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "중화",
+              "station_id": "1007000719",
+              "raw_station": "중화",
+              "recptnDt": "2026-10-30 11:56:40",
+              "epoch_s": 1793329000,
+              "trainSttus": "1",
+              "trainNo": "7138",
+              "direction": "0",
+              "line": "7호선",
+              "verified": true,
+              "terminus": {
+                "station": "도봉산",
+                "id": "1007000710",
+                "raw_name": "도봉산"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.784Z"
+            },
+            "terminus": {
+              "station": "도봉산",
+              "id": "1007000710",
+              "raw_name": "도봉산"
+            },
+            "stations_to_terminus": 9,
+            "anchor_age_s": 64.8,
+            "generated_at": "2026-10-30T02:57:44.800Z",
+            "valid_until": "2026-10-30T03:01:40.000Z",
+            "eligible_exits": [
+              {
+                "station": "먹골",
+                "stations_left": 1,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "태릉입구",
+                "stations_left": 2,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "공릉",
+                "stations_left": 3,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "하계",
+                "stations_left": 4,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "중계",
+                "stations_left": 5,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "노원",
+                "stations_left": 6,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "마들",
+                "stations_left": 7,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "수락산",
+                "stations_left": 8,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "도봉산",
+                "stations_left": 9,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              }
+            ],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 279,
+              "train_identities": 9,
+              "median_relative_error": 0.047619047619047616,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T02:30:04.263352+00:00",
+            "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": false,
+            "reason": "choose_exit",
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 1
+          }
+        }
+      ],
+      "selected": {
+        "params": {
+          "line": "7호선",
+          "trainNo": "7138",
+          "direction": "0",
+          "to": "공릉"
+        },
+        "forecast": {
+          "path": "/api/eta?line=7%ED%98%B8%EC%84%A0&trainNo=7138&direction=0&to=%EA%B3%B5%EB%A6%89",
+          "status": 200,
+          "json": {
+            "mode": "experimental-eta",
+            "eta_source": "recorded-model",
+            "anchor": {
+              "station": "중화",
+              "station_id": "1007000719",
+              "raw_station": "중화",
+              "recptnDt": "2026-10-30 11:56:40",
+              "epoch_s": 1793329000,
+              "trainSttus": "1",
+              "trainNo": "7138",
+              "direction": "0",
+              "line": "7호선",
+              "verified": true,
+              "terminus": {
+                "station": "도봉산",
+                "id": "1007000710",
+                "raw_name": "도봉산"
+              },
+              "directAt": "0",
+              "lstcarAt": "0",
+              "transport": "http-public-sample",
+              "cached_at": "2026-10-30T02:57:44.784Z"
+            },
+            "terminus": {
+              "station": "도봉산",
+              "id": "1007000710",
+              "raw_name": "도봉산"
+            },
+            "stations_to_terminus": 9,
+            "anchor_age_s": 64.809,
+            "generated_at": "2026-10-30T02:57:44.809Z",
+            "valid_until": "2026-10-30T03:01:40.000Z",
+            "eligible_exits": [
+              {
+                "station": "먹골",
+                "stations_left": 1,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "태릉입구",
+                "stations_left": 2,
+                "within_evaluated_horizon": false,
+                "horizon_supported": false
+              },
+              {
+                "station": "공릉",
+                "stations_left": 3,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "하계",
+                "stations_left": 4,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "중계",
+                "stations_left": 5,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "노원",
+                "stations_left": 6,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "마들",
+                "stations_left": 7,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "수락산",
+                "stations_left": 8,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              },
+              {
+                "station": "도봉산",
+                "stations_left": 9,
+                "within_evaluated_horizon": true,
+                "horizon_supported": true
+              }
+            ],
+            "arrival_event": "station-arrival-proxy",
+            "evaluation": {
+              "n": 279,
+              "train_identities": 9,
+              "median_relative_error": 0.047619047619047616,
+              "station_horizons": [
+                3,
+                10
+              ],
+              "method": "leave-one-train-identity-out"
+            },
+            "model_prepared_at": "2026-10-30T02:30:04.263352+00:00",
+            "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+            "recording_complete": true,
+            "experimental": true,
+            "uncertainty": {
+              "poll_interval_s": 20,
+              "anchor_timestamp": "provider-final-receipt-time-for-arrival-status",
+              "terminus": "verified-provider-terminus",
+              "provider_lag_s": null,
+              "door_open_offset_s": null
+            },
+            "notice": "Experimental receipt-time proxy estimate. Median-error validation is not a confidence interval or a guarantee of narration landing accuracy.",
+            "eta_available": true,
+            "remaining_s": 319.19100000000003,
+            "stations_left": 3,
+            "route": [
+              "중화",
+              "먹골",
+              "태릉입구",
+              "공릉"
+            ],
+            "fallback_segments": [
+              [
+                "중화",
+                "먹골"
+              ],
+              [
+                "먹골",
+                "태릉입구"
+              ],
+              [
+                "태릉입구",
+                "공릉"
+              ]
+            ],
+            "within_evaluated_horizon": true,
+            "arrived": false,
+            "receipt_schema": "last-sentence/receipt-v2",
+            "model": null,
+            "requested_model": null,
+            "provider_reported_model": null,
+            "identity_match": false,
+            "usage": null,
+            "cost_usd": 0,
+            "requested_rate_cost_estimate_usd": 0,
+            "latency_ms": 2
+          }
+        }
+      },
+      "plan_refusal": {
+        "path": "/api/plan",
+        "status": 503,
+        "json": {
+          "mode": "replay-only",
+          "error": "missing_nebius_key",
+          "message": "Nemotron is unavailable until its server credential is configured",
+          "receipt_schema": "last-sentence/receipt-v2",
+          "model": null,
+          "requested_model": null,
+          "provider_reported_model": null,
+          "identity_match": false,
+          "usage": null,
+          "cost_usd": 0,
+          "requested_rate_cost_estimate_usd": 0,
+          "latency_ms": 2
+        }
+      }
+    }
+  },
+  "status_before": {
+    "path": "/api/status",
+    "status": 200,
+    "json": {
+      "mode": "replay-only",
+      "inference_enabled": false,
+      "position_enabled": true,
+      "tavily_enabled": false,
+      "auth_required": true,
+      "eta_model_configured": true,
+      "eta_model": {
+        "valid": true,
+        "reason": null,
+        "line": "2호선",
+        "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+        "prepared_at": "2026-10-30T01:43:03.173358+00:00",
+        "recording_complete": true,
+        "evaluation": {
+          "n": 338,
+          "train_identities": 9,
+          "median_relative_error": 0.04955196136866458,
+          "station_horizons": [
+            3,
+            10
+          ],
+          "method": "leave-one-train-identity-out"
+        },
+        "topology": {
+          "stations": 43,
+          "edges": 43,
+          "direction_steps": {
+            "0": 1,
+            "1": -1
+          }
+        },
+        "experimental": true
+      },
+      "eta_models": {
+        "2호선": {
+          "valid": true,
+          "reason": null,
+          "line": "2호선",
+          "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+          "prepared_at": "2026-10-30T01:43:03.173358+00:00",
+          "recording_complete": true,
+          "evaluation": {
+            "n": 338,
+            "train_identities": 9,
+            "median_relative_error": 0.04955196136866458,
+            "station_horizons": [
+              3,
+              10
+            ],
+            "method": "leave-one-train-identity-out"
+          },
+          "topology": {
+            "stations": 43,
+            "edges": 43,
+            "direction_steps": {
+              "0": 1,
+              "1": -1
+            }
+          },
+          "experimental": true
+        },
+        "5호선": {
+          "valid": true,
+          "reason": null,
+          "line": "5호선",
+          "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+          "prepared_at": "2026-10-30T02:30:04.163394+00:00",
+          "recording_complete": true,
+          "evaluation": {
+            "n": 556,
+            "train_identities": 5,
+            "median_relative_error": 0.01961533273928108,
+            "station_horizons": [
+              3,
+              10
+            ],
+            "method": "leave-one-train-identity-out"
+          },
+          "topology": {
+            "stations": 56,
+            "edges": 55,
+            "direction_steps": {
+              "0": -1,
+              "1": 1
+            }
+          },
+          "experimental": true
+        },
+        "7호선": {
+          "valid": true,
+          "reason": null,
+          "line": "7호선",
+          "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+          "prepared_at": "2026-10-30T02:30:04.263352+00:00",
+          "recording_complete": true,
+          "evaluation": {
+            "n": 279,
+            "train_identities": 9,
+            "median_relative_error": 0.047619047619047616,
+            "station_horizons": [
+              3,
+              10
+            ],
+            "method": "leave-one-train-identity-out"
+          },
+          "topology": {
+            "stations": 53,
+            "edges": 52,
+            "direction_steps": {
+              "0": -1,
+              "1": 1
+            }
+          },
+          "experimental": true
+        }
+      },
+      "eta_model_lines": [
+        "2호선",
+        "5호선",
+        "7호선"
+      ],
+      "max_input_token_bound": 16384,
+      "expected_pricing_supported": true,
+      "receipt_provenance_supported": true,
+      "writer_validation_supported": true,
+      "feedback_korean_compare_supported": true,
+      "feedback_probe_limits": {
+        "max_input_token_bound": 16384,
+        "max_output_tokens": 180,
+        "sentence_count": 3,
+        "sentence_cap": 40,
+        "budget_chars": 120,
+        "allowed_models": [
+          "nvidia/nemotron-3-super-120b-a12b",
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ]
+      },
+      "prompt_limits": {
+        "framing_tokens": 4096,
+        "tools_per_round": 3,
+        "total_distinct_tools": 3,
+        "scene_ops": 4,
+        "operation_reason_chars": 96,
+        "tool_arguments_bytes": 4096,
+        "tool_turn_content_bytes": 256,
+        "no_tool_content_bytes": 2048
+      },
+      "limits": {
+        "completion_cap": 2048,
+        "completion_calls_used": 0,
+        "completion_calls_remaining": 2048,
+        "reserved_usd": 0,
+        "reservation_budget_usd": 3,
+        "seoul_calls_used_today": 12,
+        "seoul_daily_cap": 950,
+        "search_calls_used": 0,
+        "search_lifetime_cap": 100
+      },
+      "receipt_schema": "last-sentence/receipt-v2",
+      "model": null,
+      "requested_model": null,
+      "provider_reported_model": null,
+      "identity_match": false,
+      "usage": null,
+      "cost_usd": 0,
+      "requested_rate_cost_estimate_usd": 0,
+      "latency_ms": 25
+    }
+  },
+  "status_after": {
+    "path": "/api/status",
+    "status": 200,
+    "json": {
+      "mode": "replay-only",
+      "inference_enabled": false,
+      "position_enabled": true,
+      "tavily_enabled": false,
+      "auth_required": true,
+      "eta_model_configured": true,
+      "eta_model": {
+        "valid": true,
+        "reason": null,
+        "line": "2호선",
+        "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+        "prepared_at": "2026-10-30T01:43:03.173358+00:00",
+        "recording_complete": true,
+        "evaluation": {
+          "n": 338,
+          "train_identities": 9,
+          "median_relative_error": 0.04955196136866458,
+          "station_horizons": [
+            3,
+            10
+          ],
+          "method": "leave-one-train-identity-out"
+        },
+        "topology": {
+          "stations": 43,
+          "edges": 43,
+          "direction_steps": {
+            "0": 1,
+            "1": -1
+          }
+        },
+        "experimental": true
+      },
+      "eta_models": {
+        "2호선": {
+          "valid": true,
+          "reason": null,
+          "line": "2호선",
+          "trace_sha256": "081db5eeb3a0273d0447869a693397b65e45e05f0fe60c528e772100891703e5",
+          "prepared_at": "2026-10-30T01:43:03.173358+00:00",
+          "recording_complete": true,
+          "evaluation": {
+            "n": 338,
+            "train_identities": 9,
+            "median_relative_error": 0.04955196136866458,
+            "station_horizons": [
+              3,
+              10
+            ],
+            "method": "leave-one-train-identity-out"
+          },
+          "topology": {
+            "stations": 43,
+            "edges": 43,
+            "direction_steps": {
+              "0": 1,
+              "1": -1
+            }
+          },
+          "experimental": true
+        },
+        "5호선": {
+          "valid": true,
+          "reason": null,
+          "line": "5호선",
+          "trace_sha256": "e3dab03721068af42f97bb065fafdcafc948dc9d8ae677f77fdfc529d4fac61d",
+          "prepared_at": "2026-10-30T02:30:04.163394+00:00",
+          "recording_complete": true,
+          "evaluation": {
+            "n": 556,
+            "train_identities": 5,
+            "median_relative_error": 0.01961533273928108,
+            "station_horizons": [
+              3,
+              10
+            ],
+            "method": "leave-one-train-identity-out"
+          },
+          "topology": {
+            "stations": 56,
+            "edges": 55,
+            "direction_steps": {
+              "0": -1,
+              "1": 1
+            }
+          },
+          "experimental": true
+        },
+        "7호선": {
+          "valid": true,
+          "reason": null,
+          "line": "7호선",
+          "trace_sha256": "4246a76974c33c3867e11c67fd68c4421c6f1946c68a0b7ea81afb60432505b4",
+          "prepared_at": "2026-10-30T02:30:04.263352+00:00",
+          "recording_complete": true,
+          "evaluation": {
+            "n": 279,
+            "train_identities": 9,
+            "median_relative_error": 0.047619047619047616,
+            "station_horizons": [
+              3,
+              10
+            ],
+            "method": "leave-one-train-identity-out"
+          },
+          "topology": {
+            "stations": 53,
+            "edges": 52,
+            "direction_steps": {
+              "0": -1,
+              "1": 1
+            }
+          },
+          "experimental": true
+        }
+      },
+      "eta_model_lines": [
+        "2호선",
+        "5호선",
+        "7호선"
+      ],
+      "max_input_token_bound": 16384,
+      "expected_pricing_supported": true,
+      "receipt_provenance_supported": true,
+      "writer_validation_supported": true,
+      "feedback_korean_compare_supported": true,
+      "feedback_probe_limits": {
+        "max_input_token_bound": 16384,
+        "max_output_tokens": 180,
+        "sentence_count": 3,
+        "sentence_cap": 40,
+        "budget_chars": 120,
+        "allowed_models": [
+          "nvidia/nemotron-3-super-120b-a12b",
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ]
+      },
+      "prompt_limits": {
+        "framing_tokens": 4096,
+        "tools_per_round": 3,
+        "total_distinct_tools": 3,
+        "scene_ops": 4,
+        "operation_reason_chars": 96,
+        "tool_arguments_bytes": 4096,
+        "tool_turn_content_bytes": 256,
+        "no_tool_content_bytes": 2048
+      },
+      "limits": {
+        "completion_cap": 2048,
+        "completion_calls_used": 0,
+        "completion_calls_remaining": 2048,
+        "reserved_usd": 0,
+        "reservation_budget_usd": 3,
+        "seoul_calls_used_today": 18,
+        "seoul_daily_cap": 950,
+        "search_calls_used": 0,
+        "search_lifetime_cap": 100
+      },
+      "receipt_schema": "last-sentence/receipt-v2",
+      "model": null,
+      "requested_model": null,
+      "provider_reported_model": null,
+      "identity_match": false,
+      "usage": null,
+      "cost_usd": 0,
+      "requested_rate_cost_estimate_usd": 0,
+      "latency_ms": 3
+    }
+  },
+  "outbound_position_attempt_count": 6,
+  "inference_completion_count_delta": 0,
+  "search_count_delta": 0,
+  "eligible_eta_success_count": 3,
+  "source_unchanged": true,
+  "runtime_guard_checks_passed": true,
+  "cleanup": {
+    "completed_at": "2026-10-30T02:57:44.935Z",
+    "local_server_stopped": true,
+    "owned_temporary_profile_removed": true,
+    "provider_keys_ever_loaded": false
+  }
+}

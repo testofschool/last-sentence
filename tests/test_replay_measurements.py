@@ -7,6 +7,7 @@ import pytest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from eta_model import timestamp
 from run_matrix import SUPER,measured_import
+from receipt_fixtures import model_identity,writer_validation
 
 
 def replay_data(tmp_path):
@@ -19,7 +20,8 @@ def replay_data(tmp_path):
     mapping={'kind':'historical-replay-1x','source':'recorded-observations','direction':'1','speed':1,
         'uninterrupted':True,'paused':False,'seeked':False,'recorded_origin_station':'강남',
         'recorded_origin_at':'2026-10-30T10:00:00+09:00','playback_origin_at':'2026-10-30T11:00:00+09:00'}
-    receipt={'model':SUPER,'usage':{'prompt_tokens':100,'completion_tokens':50},'cost_usd':.000075,'latency_ms':100,
+    receipt={**model_identity(SUPER),'usage':{'prompt_tokens':100,'completion_tokens':50},'cost_usd':.000075,'latency_ms':100,
+        'requested_rate_cost_estimate_usd':.000075,'writer_validation':writer_validation(['You arrive at 선릉'],ending=True,station='선릉'),
         'pricing':{'input_price_per_million_tokens':.3,'output_price_per_million_tokens':.9}}
     row={'id':'replay-1','trainNo':'42','line':'2호선','exit_station':'선릉','policy':'fixed_clip',
         'arrival_at':'2026-10-30T10:04:00+09:00','speech_end_at':'2026-10-30T11:04:08+09:00',

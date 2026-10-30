@@ -1,4 +1,5 @@
 import hashlib
+import copy
 import json
 from pathlib import Path
 import sys
@@ -8,6 +9,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from contracts import sentence_replay, validate_plan, validate_write
 from run_matrix import LIGHTNING, SUPER, ULTRA, cost_plan, measured_import, synthetic_matrix
+from receipt_fixtures import model_identity, writer_validation
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -92,7 +94,8 @@ def measurement_data(tmp_path):
     record = dict(ts="2026-10-30T10:00:01+09:00",recptnDt="2026-10-30T10:00:00+09:00",trainSttus="1",trainNo="42",statnNm="강남",line="2호선",source="seoul-sample")
     trace = tmp_path / "trace.jsonl"
     trace.write_text(json.dumps(record) + "\n")
-    receipt = {"model": SUPER, "usage": {"prompt_tokens": 100, "completion_tokens": 50}, "cost_usd": .000075, "latency_ms": 400,
+    receipt = {**model_identity(SUPER), "usage": {"prompt_tokens": 100, "completion_tokens": 50}, "cost_usd": .000075, "latency_ms": 400,
+               "requested_rate_cost_estimate_usd":.000075,"writer_validation":writer_validation(["Arrival", "강남"],ending=True),
                "pricing":{"input_price_per_million_tokens":.3,"output_price_per_million_tokens":.9}}
     row = {"id":"real-1", "trainNo":"42", "line":"2호선", "exit_station":"강남", "policy":"fixed_clip", "arrival_at":record["recptnDt"], "speech_end_at":"2026-10-30T10:00:08+09:00", "receipts":[receipt]}
     data = {"trace_sha256":hashlib.sha256(trace.read_bytes()).hexdigest(), "speech_clock":"browser-speech-end-event", "rows":[row]}
@@ -143,8 +146,78 @@ def test_measured_import_reports_fully_paired_coverage_only_with_all_policies(tm
 def test_nested_api_receipts_are_flattened_and_aggregate_cost_checked(tmp_path):
     data, trace = measurement_data(tmp_path)
     call = data["rows"][0]["receipts"][0]
-    data["rows"][0]["receipts"] = [{"cost_usd":call["cost_usd"], "calls":[call]}]
+    data["rows"][0]["receipts"] = [{**model_identity(SUPER),"cost_usd":call["cost_usd"], "calls":[call]}]
     assert measured_import(data, trace)["rows"][0]["writer_calls"] == 1
     data["rows"][0]["receipts"][0]["cost_usd"] = 0
     with pytest.raises(ValueError, match="aggregate cost"):
         measured_import(data, trace)
+
+
+@pytest.mark.parametrize('field,value', [('requested_model',None),('provider_reported_model',None),
+    ('provider_reported_model',ULTRA),('identity_match',False),('identity_match','true')])
+def test_measured_import_requires_independent_exact_model_provenance(tmp_path,field,value):
+    data,trace=measurement_data(tmp_path)
+    data['rows'][0]['receipts'][0][field]=value
+    with pytest.raises(ValueError,match='identity'):
+        measured_import(data,trace)
+
+
+def test_measured_import_refuses_older_receipt_provenance_schema(tmp_path):
+    data,trace=measurement_data(tmp_path)
+    data['rows'][0]['receipts'][0]['receipt_schema']='last-sentence/receipt-v1'
+    with pytest.raises(ValueError,match='receipt schema'):
+        measured_import(data,trace)
+
+
+def test_measured_import_retains_safe_model_summaries_and_rejected_revision_counts(tmp_path):
+    data,trace=measurement_data(tmp_path);receipt=data['rows'][0]['receipts'][0]
+    receipt['headers']={'Authorization':'private-input-header'}
+    receipt['writer_validation']['arbitrary_input']='private-extra-field'
+    rejected=copy.deepcopy(receipt)
+    rejected['writer_validation']=writer_validation(['X'*91,'강남'],ending=True)
+    data['rows'][0]['receipts'].append(rejected)
+    result=measured_import(data,trace);row=result['rows'][0]
+    assert row['writer_models_requested']==[SUPER] and row['writer_models_reported']==[SUPER]
+    assert row['model_identities_verified'] is True and row['writer_calls']==2
+    assert [item['status'] for item in row['writer_validations']]==['valid','rejected']
+    assert sum(item['sentence_count'] for item in row['writer_validations'])==4
+    assert sum(item['sentences_within_cap'] for item in row['writer_validations'])==3
+    assert 'private-' not in json.dumps(result)
+
+
+def paired_measurements(tmp_path):
+    data,trace=measurement_data(tmp_path)
+    english=copy.deepcopy(data['rows'][0]);english['lang']='en'
+    korean=copy.deepcopy(english);korean['lang']='ko'
+    receipt=korean['receipts'][0]
+    receipt.update(**model_identity(ULTRA),cost_usd=.00025,requested_rate_cost_estimate_usd=.00025,
+        pricing={'input_price_per_million_tokens':1,'output_price_per_million_tokens':3},
+        writer_validation=writer_validation(['도착은 강남'],'ko',ending=True))
+    data['language_pair']=[english,korean]
+    return data,trace
+
+
+def test_measured_language_pair_has_separate_coverage_full_cost_and_model_summaries(tmp_path):
+    data,trace=paired_measurements(tmp_path);result=measured_import(data,trace)
+    assert len(result['rows'])==1 and len(result['language_pair'])==2
+    assert result['language_pair_status']=='complete' and result['measured_inference_runs']==3
+    assert result['actual_api_cost_usd']==pytest.approx(.0004)
+    assert result['coverage']['journeys']==1 and result['coverage']['complete_paired_journeys']==0
+    assert [row['lang'] for row in result['language_pair']]==['en','ko']
+    assert [row['writer_models_reported'] for row in result['language_pair']]==[[SUPER],[ULTRA]]
+    with pytest.raises(ValueError,match='cost cap'):
+        measured_import(data,trace,cap=.0003)
+    data.pop('language_pair');assert measured_import(data,trace)['language_pair_status']=='UNRUN'
+
+
+@pytest.mark.parametrize('mutation',['policy','duplicate_language','writer_model'])
+def test_measured_language_pair_rejects_uncontrolled_or_mislabeled_comparisons(tmp_path,mutation):
+    data,trace=paired_measurements(tmp_path);korean=data['language_pair'][1]
+    if mutation=='policy':korean['policy']='single_fit'
+    elif mutation=='duplicate_language':korean['lang']='en'
+    else:
+        receipt=korean['receipts'][0]
+        receipt.update(**model_identity(SUPER),cost_usd=.000075,requested_rate_cost_estimate_usd=.000075,
+            pricing={'input_price_per_million_tokens':.3,'output_price_per_million_tokens':.9})
+    with pytest.raises(ValueError,match='pair'):
+        measured_import(data,trace)
