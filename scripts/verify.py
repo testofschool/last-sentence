@@ -39,7 +39,7 @@ def hashes():
         paths += [p for p in (ROOT/folder).rglob("*") if p.is_file() and "__pycache__" not in p.parts]
     paths += [p for p in (ROOT/"evidence").rglob("*") if p.is_file() and p.suffix in (".json", ".png") and p.name != "verification.json"]
     paths += [ROOT / name for name in ("README.md", "LICENSE", "REPORT.md", ".gitignore", "package.json",
-              "worker/package.json", "worker/package-lock.json", "worker/wrangler.jsonc", "worker/worker-configuration.d.ts",
+              "worker/package.json", "worker/package-lock.json", "worker/wrangler.jsonc",
               "worker/.gitignore", "worker/.dev.vars.example", "worker/.dev.vars.matrix.example")
               if (ROOT / name).is_file()]
     lines = [hashlib.sha256(p.read_bytes()).hexdigest() + "  " + str(p.relative_to(ROOT)) for p in sorted(paths)]

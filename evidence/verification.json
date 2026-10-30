@@ -59,7 +59,7 @@
     "matching_paths": [],
     "files_scanned": 185
   },
-  "hashed_files": 140,
+  "hashed_files": 139,
   "network_inference_calls": 0,
   "public_deployment": "UNRUN",
   "remote_clone": "UNRUN_NO_REMOTE",
@@ -92,10 +92,11 @@
   "release_status": "HOLD: real inference, observed audio timing and public release are unverified",
   "status": "PASS_LOCAL",
   "final_integrity": {
-    "checked_at": "2026-10-30T02:35:54.789066+00:00",
-    "files_checked": 140,
+    "checked_at": "2026-10-30T02:37:46.330040+00:00",
+    "files_checked": 139,
     "mismatches": [],
-    "manifest_sha256": "549a723d704cf9523738786beffc92b0a96dade15a56cd058a9929abe6f40f02"
+    "all_manifest_paths_versioned": true,
+    "manifest_sha256": "f1958cdc0bafe20045c193dc23f756bd8b82a050f922edc39f98948f73c88ec7"
   },
   "packaging": {
     "command": [
